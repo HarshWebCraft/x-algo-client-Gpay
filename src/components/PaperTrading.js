@@ -84,7 +84,7 @@ function PaperTrading() {
 
     //     const timerId = setTimeout(async () => {
 
-    //         const response2 = await axios.post('http://localhost:5000/getSymbol');
+    //         const response2 = await axios.post('https://x-algo-gpay.onrender.com/getSymbol');
     //         console.log(response2.data)
 
     //         setCeToken(response2.data.ceToken)
