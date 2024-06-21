@@ -1,0 +1,18 @@
+.center-div {
+    text-align: center;
+    margin: 30em auto;
+    width: 100%; 
+  }
+
+/* dark   */
+
+.sxdcgfvhbj{
+  background-color: #161A1D;
+  color: white;
+    border-radius: 0.5em;
+    box-shadow: 
+    1px 1px 10px rgba(200, 200, 200, 0.1),
+    1px 1px 10px rgba(70, 70, 70, 0.1),
+    1px 1px 10px rgba(200, 200, 200, 0.1),
+    1px 1px 10px rgba(70, 70, 70, 0.1)
+}

@@ -1,0 +1,67 @@
+
+.list-no-style
+{
+    list-style-type: none;
+}
+.qwe{
+    display: flex;
+    align-content: flex-end;
+}
+
+.jahgs{
+    margin-top: 3em;
+    border-radius: 1em;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.OrderPlace{
+    margin-top: 3em;
+    border-radius: 1em;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    padding: 1em;
+}
+
+.nays{
+    padding: 0.9em;
+    margin-left: 0em;
+    margin-top: 2em;
+    border-radius: 1em;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.agvs{
+    border-radius: 1em;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.green{
+    color: lime;
+}
+
+.red{
+    color: red;
+}
+
+.sc-beySPh{
+    margin-left: 78px;
+}
+
+.qscv{
+    margin-left: -10pxpx !important;
+}
+
+/* dark */
+
+.cdaacceecaec{
+    margin-top: 3em;
+    border-radius: 1em;
+    background-color: 	#161A1D;
+    box-shadow: 
+    1px 1px 1px rgba(200, 200, 200, 0.1),
+    1px 1px 1px rgba(70, 70, 70, 0.1)
+}
+
+.vgjsdbhcd{
+    background-color: #161A1D;
+    border-radius: 1em;
+}

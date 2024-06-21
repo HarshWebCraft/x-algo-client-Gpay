@@ -1,0 +1,181 @@
+import React, { useState } from 'react'
+import './dashboard.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import axios from 'axios';
+import '../loader.css'
+import { allClientData, addItem, brokerLogin, removeItem, userSchemaRedux } from '../../actions/actions';
+import { Audio, FallingLines, Triangle } from 'react-loader-spinner'
+
+import OrderPlace from '../OrderPlace';
+function Dashboard(props) {
+
+    
+
+    let a = 0;
+
+    const Email = useSelector(state => state.email.email)
+    const clientdata = useSelector(state => state.account.allClientData)
+    const id = useSelector(state => state.account.angelId);
+    const pass = useSelector(state => state.account.angelPass);
+    const brokerLogin1 = useSelector(state => state.account.brokerLogin)
+    const auth = useSelector(state => state.account.auth)
+    const items = useSelector(state => state.account.items)
+    const userSchema = useSelector(state => state.account.userSchemaRedux)
+    const brokerCount = userSchema ? userSchema.BrokerCount : 0
+    console.log("brokerlogin value in redux" + brokerLogin1)
+    console.log(id)
+    console.log(pass)
+    console.log(clientdata)
+    const [broker, isBroker] = useState()
+    const [loading, setLoading] = useState(false);
+    const [capital, setCapital] = useState([])
+    const [allcap, setallcap] = useState('')
+    const [ert,seta]=useState(true)
+    const dispatch = useDispatch();
+    const [b,setb]=useState(false);
+    let sum = 0
+    
+
+    useEffect(() => {
+
+        // setLoading(true)
+        // document.body.style.overflow = 'hidden';    
+        console.log('dask')
+
+        const fetchData = async () => {
+
+            try {
+
+                const profileData = await axios.post('http://localhost:5000/userinfo', { Email })
+                console.log(profileData)
+                dispatch(allClientData(profileData.data))
+                setb(true)
+
+                const storedTheme = localStorage.getItem('theme');
+                console.log("jcnnjaskcnasncnaskcnkascnkasnjk"+storedTheme)
+                
+
+                const dbschema = await axios.post('http://localhost:5000/dbSchema', { Email })
+                console.log(dbschema.data.BrokerData)
+                console.log(userSchema)
+
+                console.log(auth)
+                // dispatch(addItem(profileData.data.data))
+                console.log(items)
+                if (userSchema.BrokerCount) { dispatch(brokerLogin(true)) }
+                else { dispatch(brokerLogin(false)) }
+
+                console.log(brokerLogin1)
+                console.log("after " + brokerLogin1)
+
+
+
+                if (brokerLogin1) {
+
+                    const response = await axios.post('http://localhost:5000/addbroker', { First: false, Email, userSchema });
+                    console.log(response.data)
+                    response.data.map((cap, index) => {
+                        console.log(cap.userData.data.net)
+                        // setCapital(...capital, cap.userData.data.net)
+                    })
+                    console.log(capital)
+
+
+
+
+                    console.log(sum)
+                    setallcap(sum)
+                    console.log(capital)
+
+                    const a = response.data
+                    const newCapital = a.map((user) => user.userData.data);
+                    setCapital(newCapital);
+
+                    setLoading(false);
+                    seta(false)
+                    // document.body.style.overflow = 'unset';
+                    dispatch(userSchemaRedux(dbschema.data))
+
+                }
+                else {
+                    setLoading(false)
+
+                }
+
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+
+        };
+
+        fetchData();
+    },[]);
+
+
+    return (
+        <div className='deskbord'>
+            {loading &&
+                <div className='loader2 uytr'>
+                    <div className="loader liop">
+
+                        <div className="loader__bar"></div>
+                        <div className="loader__bar"></div>
+                        <div className="loader__bar"></div>
+                        <div className="loader__bar"></div>
+                        <div className="loader__bar"></div>
+                        <div className="loader__ball"></div>
+                    </div>
+                </div>
+                // <div className='uytr'>
+                // <div className='liop'>
+                // <Triangle
+                //     visible={true}
+                //     height="100"
+                //     width="100"
+                //     color="blue"
+                //     ariaLabel="triangle-loading"
+                //     wrapperStyle={{}}
+                //     wrapperClass=""
+                // />
+                // </div>
+                // </div>
+
+            }
+            <div className={`row ${localStorage.getItem('theme') == "light-theme" ? "jahgs":"cdaacceecaec"}`}>
+                <div className='col py-2 d-flex justify-content-end'>
+                    <ul className='d-flex list-no-style '>
+
+                        <li className='me-5'>p&l<br />₹</li>
+                        <li className='me-5'>Capital<br />
+                            {capital.forEach(item => {
+                                console.log(item.net)
+                                sum += parseFloat(item.net);
+                            })}
+
+                            <div className={sum < 0 ? "red" : "green"}>₹{sum.toFixed(2)}</div>
+                            {/* {capital.map((item, index) => ( */}
+                            {/* // <div key={index}>{item.net}</div> */}
+                            {/* // ))} */}
+                            
+                            <br />
+
+                            {/* {capital.map((cap,index1)=>{
+                    
+                            a=a+cap;
+
+                    })} */}
+                        </li>
+                        <li className='me-5'><br />₹{ }</li>
+                    </ul>
+                </div>
+            </div>
+
+            {b?(<OrderPlace load={ert} broker={broker} capital={capital} />):""}
+            
+        </div >
+    )
+}
+
+export default Dashboard

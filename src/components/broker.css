@@ -1,0 +1,125 @@
+.broker-list{
+    margin-left: 15em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 1em;
+}
+
+.list-title{
+    font-size: 1.6em;
+}
+
+.addbroker{
+    margin-left: 15em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 1em;
+}
+
+.addbrokertitle{
+    text-align: center;
+    font-size: 1.6em;
+}
+
+.abcdefg{
+    height: 40em;
+}
+
+.amxjy{
+    border-bottom: 1px solid #eaeaea;
+}
+.selectbroker{
+    margin-top: 2em;
+    margin-left: 2em;
+}
+
+.drop{
+    margin-left: 2em;
+}
+
+.alert {
+    position: relative;
+    width: 80em;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .alert.show {
+    opacity: 1;
+  }
+
+.help{
+    color: white;
+    text-decoration: none;
+}
+
+.help:hover{
+    color: white;
+    text-decoration: none;
+}
+
+
+
+
+.bubble {
+    position: relative;
+    width: 13em;
+    height: 5em;
+    top: -6.8em;
+    left: 44em;
+    background: #0d6efd;
+    border-radius: 10px;
+    text-align: start;
+    padding: 1em;
+    text-align: center
+    
+  }
+
+.bubble1 {
+    @extend .bubble;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      left: 45em;
+    top: 16em;
+      width: 0;
+      height: 0;
+      border: 13px solid transparent;
+      border-right-color: #0d6efd;
+      border-left: 0;
+      margin-top: -13px;
+      margin-left: -13px;
+    }
+  }
+
+/* dark */
+
+.jkcdsbhchasd{
+    color: white;
+    background-color: #101214;
+}
+
+.edsedseddesefergerg{
+    color: white;
+    background-color: #161A1D;
+    margin-left: 15em;
+    /* box-shadow: rgba(255, 255, 255, 0.25) 0px 13px 27px -5px, rgba(255, 255, 255, 0.3) 0px 8px 16px -8px; */
+    border-radius: 1em;
+}
+
+.hvbhbjhvsvsdvd{
+    color: white !important;
+    background-color: #161A1D !important
+}
+
+.agjvdfdcusacfbd{
+    color: white !important;
+    background-color: #161A1D;
+}
+
+.agjvdfdcusacfbd::placeholder{
+    color: white;
+}
+
+.agjvdfdcusacfbd:focus{
+    background-color: #161A1D;
+}

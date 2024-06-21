@@ -1,0 +1,49 @@
+.Home{
+    background-color: #ffffff;
+}
+
+.driver-popover .driver-popover{
+    width: 500px;
+}
+
+.driver-popover.driverjs-theme {
+    background-color: rgb(255, 255, 255);
+    color: #000;
+}
+
+.driver-popover.driverjs-theme .driver-popover-title {
+    font-size: 20px;
+}
+
+.driver-popover.driverjs-theme .driver-popover-title,
+.driver-popover.driverjs-theme .driver-popover-description,
+.driver-popover.driverjs-theme .driver-popover-progress-text {
+    color: black;
+}
+
+.driver-popover.driverjs-theme button {
+    flex: 1;
+    text-align: center;
+    background-color: #000;
+    color: #ffffff;
+    text-shadow: none;
+    font-size: 14px;
+    padding: 2px 3px;
+    border-radius: 6px;
+}
+
+.driver-popover.driverjs-theme button:hover {
+    background-color: #000;
+    color: #ffffff;
+}
+
+.driver-popover.driverjs-theme .driver-popover-navigation-btns {
+    justify-content: space-between;
+    gap: 3px;
+}
+
+/* dark */
+
+.uihuhuihui{
+    background-color: #1D2125;
+}
