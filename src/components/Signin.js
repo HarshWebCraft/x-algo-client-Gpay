@@ -30,7 +30,7 @@ function Signin() {
 
         try {
 
-            const a = await axios.post('https://x-algo-gpay.onrender.com/signin', { email, pass });
+            const a = await axios.post('http://localhost:5000/signin', { email, pass });
 
             console.log(a.data.verification)
             console.log(a.data.email)
@@ -44,7 +44,7 @@ function Signin() {
                         if (a.data.password) {
                             const Email = email;
 
-                            const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                            const profileData = await axios.post('http://localhost:5000/userinfo', { Email })
                             console.log(profileData)
                             dispatch(allClientData(profileData.data))
                             

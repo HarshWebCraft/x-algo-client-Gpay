@@ -26,7 +26,7 @@ function Navbar() {
     useEffect(()=>{
         const data = async () => {
             try {
-                const responce = await axios.post("https://x-algo-gpay.onrender.com/navbar", { userEmail })
+                const responce = await axios.post("http://localhost:5000/navbar", { userEmail })
                 setnewImg(responce.data.img)
             }
             catch (e) {

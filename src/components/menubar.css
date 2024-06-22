@@ -2,11 +2,11 @@
     position: fixed;
     display: flex;
     list-style-type: none;
-    margin-left: 60em;
+    margin-left: 75em;
     margin-top: 2em;
     font-size: 17px;
     z-index: 2;
-   
+   width: 15em;
 }
 
 .link{
