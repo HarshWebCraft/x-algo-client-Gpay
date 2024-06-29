@@ -23,7 +23,7 @@ function Home() {
                 if (modalBackdrop) {
                     modalBackdrop.classList.remove('modal-backdrop');
                 }
-                const response = await axios.post('http://localhost:5000/tour', { userEmail })
+                const response = await axios.post('https://x-algo-gpay.onrender.com/tour', { userEmail })
                 if (response.data.tour) {
                     setTourShown(response.data);
                     driverObj.drive();
@@ -34,7 +34,7 @@ function Home() {
             }
 
             try{
-                const mobileNoResponse = await axios.post('http://localhost:5000/mobileno', { userEmail })
+                const mobileNoResponse = await axios.post('https://x-algo-gpay.onrender.com/mobileno', { userEmail })
                 console.log("[][][][][[[][][][][]=====>"+mobileNoResponse)
                 if(mobileNoResponse.data.mobileNumber){
                     alert("enter mobile number")

@@ -60,7 +60,7 @@ function Strategies() {
 
     // const timerId = setTimeout(async () => {
 
-    //   const response2 = await axios.post('http://localhost:5000/getSymbol');
+    //   const response2 = await axios.post('https://x-algo-gpay.onrender.com/getSymbol');
 
     //   const ceSymbol = response2.data.ceToken
     //   const peToken = response2.data.peToken
@@ -71,7 +71,7 @@ function Strategies() {
     //   setCeEntry(response2.data.cehigh);
     //   setPeEntry(response2.data.pehigh);
 
-    //   // const response = await axios.post('http://localhost:5000/wbSocket', { ceSymbol, peSymbol });
+    //   // const response = await axios.post('https://x-algo-gpay.onrender.com/wbSocket', { ceSymbol, peSymbol });
     //   // console.log(response)
     //   const ws = new WebSocket('ws://localhost:3001');
 

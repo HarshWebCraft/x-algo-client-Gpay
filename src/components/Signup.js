@@ -40,7 +40,7 @@ function Signup() {
         // else {
             try {
                 console.log('try')
-                const a = await axios.post('http://localhost:5000/signup', { email, verified });
+                const a = await axios.post('https://x-algo-gpay.onrender.com/signup', { email, verified });
 
                 console.log("after try")
 

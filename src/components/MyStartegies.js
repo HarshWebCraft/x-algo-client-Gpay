@@ -39,13 +39,13 @@ function MyStartegies() {
     };
 
     const removeMyStrategies=async(index)=>{
-        const response=await axios.post('http://localhost:5000/removeMyStra',{Email,index})
+        const response=await axios.post('https://x-algo-gpay.onrender.com/removeMyStra',{Email,index})
         console.log(response.data)
         dispatch(userSchemaRedux(response.data))
     }
 
     const addDeployed=async(id)=>{
-        const response=await axios.post('http://localhost:5000/addDeployed',{Email , id , Quaninty , Index , Account});
+        const response=await axios.post('https://x-algo-gpay.onrender.com/addDeployed',{Email , id , Quaninty , Index , Account});
         console.log("this is upadted"+response.data)
         dispatch(userSchemaRedux(response.data))
     }

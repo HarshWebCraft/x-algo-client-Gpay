@@ -23,7 +23,7 @@ function Deployed() {
     },[])
 
     const removeDeployed=async(id)=>{
-        const response=await axios.post('http://localhost:5000/removeDeployed',{Email,id})
+        const response=await axios.post('https://x-algo-gpay.onrender.com/removeDeployed',{Email,id})
         dispatch(userSchemaRedux(response.data))
     }
 
