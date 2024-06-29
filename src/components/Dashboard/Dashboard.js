@@ -11,6 +11,7 @@ import OrderPlace from '../OrderPlace';
 function Dashboard(props) {
 
     
+    
 
     let a = 0;
 
@@ -41,6 +42,15 @@ function Dashboard(props) {
 
         // setLoading(true)
         // document.body.style.overflow = 'hidden';    
+        if(process.env.NODE_ENV == "production")
+            {
+                console.log("production")
+            }
+            else
+            {
+                console.log("production")
+
+            }
         console.log('dask')
 
         const fetchData = async () => {
