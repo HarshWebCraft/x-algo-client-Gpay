@@ -28,6 +28,8 @@ import TermsCondistion from './components/TermsCondistion';
 import Refund from './components/Refund'
 import PrivacyPolicy from './components/Privacypolicy'
 
+// lkmkjkn
+
 function App() {
   const isAuth = useSelector(state => state.account.auth);
   const isLoggedIn = localStorage.getItem('isLoggedIn')
