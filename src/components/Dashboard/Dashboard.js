@@ -48,7 +48,7 @@ function Dashboard(props) {
             }
             else
             {
-                console.log("production")
+                console.log("development")
 
             }
         console.log('dask')
