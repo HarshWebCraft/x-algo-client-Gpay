@@ -145,7 +145,7 @@ function Navbar() {
                         <div className={`${localStorage.getItem('theme') == "light-theme" ? '' : 'bhvbfhvjbv'}`}>
                             <NavDropdown.Item as={Link} to="/profile" className={`${location.pathname === '/profile' ? 'active ' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Profile</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to='/home/broker' className={`${location.pathname === '/home/broker' ? 'active ' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Broker</NavDropdown.Item>
-                            <NavDropdown.Item className={`${location.pathname === '/' ? 'active' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Something else here</NavDropdown.Item>
+                            <NavDropdown.Item className={`${location.pathname === '/' ? 'active' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>My wallet</NavDropdown.Item>
                             <NavDropdown.Item className={`btn ${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`} onClick={() => setModalShow(true)}>Setting</NavDropdown.Item>
                             <NavDropdown.Item onClick={Logout} className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Logout</NavDropdown.Item>
                         </div>
