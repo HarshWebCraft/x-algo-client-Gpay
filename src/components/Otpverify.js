@@ -60,7 +60,7 @@ function Otpverify() {
         <div className="height-100 d-flex justify-content-center align-items-center">
             <img src={skjdasbjksd} className='bg_img'/>
             <div className="position-absolute">
-                <div className="card p-2 text-center">
+                <div className="cardOtp p-2 text-center">
                     <h6>Please enter the one time password to verify your account</h6>
                     <div> <span>A code has been sent to</span> <small>{number}</small> </div>
                     <Form id="otp" onSubmit={handleSubmit} className="inputs d-flex flex-row justify-content-center mt-2">

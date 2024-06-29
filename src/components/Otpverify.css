@@ -2,7 +2,7 @@
     height: 100vh
 }
 
-.card {
+.cardOtp{
     width: 400px;
     border: none;
     height: 300px;
@@ -13,7 +13,7 @@
     align-items: center
 }
 
-.card h6 {
+.cardOtph6 {
     color: blue;
     font-size: 20px
 }

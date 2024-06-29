@@ -7,14 +7,14 @@ const TermsAndConditions = () => {
                 <div className='akhsbaghbchjsbcghbsdghb'>
                 <h2 className='text-center'>Terms & Condition</h2>
                     <p id="isak" className="ftparagraph">
-                        Please read these Terms and Conditions (“Terms”, “Terms and Conditions”) carefully before using
-                        <span className="ftbg-282"><span className="ftbg-849">mission1success.com</span></span> website (the “Service”) operated by
-                        <span className="ftbg-778"> Mission1Success</span><span className="ftbg-656"></span> (“us”, “we”, or “our”).
+                        Please read these Terms and Conditions (“Terms”, “Terms and Conditions”) carefully before using 
+                        <span className="ftbg-282"><span className="ftbg-849"> x-algo.com</span></span> website (the “Service”) operated by
+                        <span className="ftbg-778"> x-algo</span><span className="ftbg-656"></span> (“us”, “we”, or “our”).
                     </p>
                     <p>Your access to and use of the Service is conditioned upon your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who wish to access or use the Service.</p>
                     <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you do not have permission to access the Service.</p>
                     <p>We use your Personal Information for providing and improving the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible at
-                        <span className="ftbg-531"><span className="ftbg-646">mission1success.com</span></span>
+                        <span className="ftbg-531"><span className="ftbg-646">x-algo.com</span></span>
                     </p>
                     <p>Communications</p>
                     <p>By creating an Account on our service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or instructions provided in any email we send.</p>
@@ -32,19 +32,19 @@ const TermsAndConditions = () => {
                     <p>Subscriptions</p>
                     <p>Some parts of the Service are billed on a subscription basis (“Subscription(s)”). You will be billed in advance on a recurring and periodic basis (“Billing Cycle”). Billing cycles are set either on a monthly or annual basis, depending on the type of subscription plan you select when purchasing a Subscription.</p>
                     <p>At the end of each Billing Cycle, your Subscription will automatically renew under the exact same conditions unless you cancel it or
-                        <span className="ftbg-593"> mission1success.com</span><span draggable="false" className="ftbg-650"></span> cancels it. You may cancel your Subscription renewal either through your online account management page or by contacting
-                        <span className="ftbg-966"></span><span className="ftbg-286">Mission1Success </span>customer support team.
+                        <span className="ftbg-593"> x-algo.com</span><span draggable="false" className="ftbg-650"></span> cancels it. You may cancel your Subscription renewal either through your online account management page or by contacting
+                        <span className="ftbg-966"></span><span className="ftbg-286">x-algo </span>customer support team.
                     </p>
                     <p>A valid payment method, including credit card or PayPal, is required to process the payment for your Subscription. You shall provide
-                        <span className="ftbg-727"><span className="ftbg-948">Mission1Success</span></span> with accurate and complete billing information including full name, address, state, zip code, telephone number, and a valid payment method information. By submitting such payment information, you automatically authorize
-                        <span className="ftbg-235"> Mission1Success</span><span className="ftbg-489"><span className="ftbg-420"></span></span> to charge all Subscription fees incurred through your account to any such payment instruments.
+                        <span className="ftbg-727"><span className="ftbg-948">x-algo</span></span> with accurate and complete billing information including full name, address, state, zip code, telephone number, and a valid payment method information. By submitting such payment information, you automatically authorize
+                        <span className="ftbg-235"> x-algo</span><span className="ftbg-489"><span className="ftbg-420"></span></span> to charge all Subscription fees incurred through your account to any such payment instruments.
                     </p>
                     <p>Should automatic billing fail to occur for any reason,
-                        <span className="ftbg-874"><span className="ftbg-288">Mission1Success</span></span> will issue an electronic invoice indicating that you must proceed manually, within a certain deadline date, with the full payment corresponding to the billing period as indicated on the invoice.
+                        <span className="ftbg-874"><span className="ftbg-288">x-algo</span></span> will issue an electronic invoice indicating that you must proceed manually, within a certain deadline date, with the full payment corresponding to the billing period as indicated on the invoice.
                     </p>
                     <p>Fee Changes</p>
-                    <p><span className="ftbg-863"><span className="ftbg-659">Mission1Success</span></span> in its sole discretion and at any time, may modify the Subscription fees for the Subscriptions. Any Subscription fee change will become effective at the end of the then-current Billing Cycle.</p>
-                    <p><span className="ftbg-523"><span className="ftbg-399">Mission1Success</span></span> will provide you with a reasonable prior notice of any change in Subscription fees to give you an opportunity to terminate your Subscription before such change becomes effective.</p>
+                    <p><span className="ftbg-863"><span className="ftbg-659">x-algo</span></span> in its sole discretion and at any time, may modify the Subscription fees for the Subscriptions. Any Subscription fee change will become effective at the end of the then-current Billing Cycle.</p>
+                    <p><span className="ftbg-523"><span className="ftbg-399">x-algo</span></span> will provide you with a reasonable prior notice of any change in Subscription fees to give you an opportunity to terminate your Subscription before such change becomes effective.</p>
                     <p>Your continued use of the Service after the Subscription fee change comes into effect constitutes your agreement to pay the modified Subscription fee amount.</p>
                     <p>Refunds</p>
                     <p>Except when required by law, paid Subscription fees are non-refundable.</p>
@@ -54,7 +54,7 @@ const TermsAndConditions = () => {
                     </p>
                     <p>You retain any and all of your rights to any Content you submit, post or display on or through the Service and you are responsible for protecting those rights. We take no responsibility and assume no liability for Content you or any third party posts on or through the Service. However, by posting Content using the Service you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through the Service. You agree that this license includes the right for us to make your Content available to other users of the Service, who may also use your Content subject to these Terms.
                     </p>
-                    <p><span className="ftbg-359"><span className="ftbg-216">Mission1Success</span></span> has the right but not the obligation to monitor and edit all Content provided by users.
+                    <p><span className="ftbg-359"><span className="ftbg-216">x-algo</span></span> has the right but not the obligation to monitor and edit all Content provided by users.
                     </p>
                     <p>In addition, Content found on or through this Service is the property of
                         <span className="ftbg-168"></span><span className="ftbg-823">Company Name </span>or used with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.
@@ -79,20 +79,20 @@ const TermsAndConditions = () => {
                     <p>You can contact our Copyright Agent via email at support@dreambig.freshdesk.com</p>
                     <p>Intellectual Property</p>
                     <p>The Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of
-                        <span className="ftbg-788"><span className="ftbg-681">Mission1Success</span></span> and its licensors. The Service is protected by copyright, trademark, and other laws of both the United States and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of
-                        <span className="ftbg-81"><span className="ftbg-199">Mission1Success</span></span>
+                        <span className="ftbg-788"><span className="ftbg-681">x-algo</span></span> and its licensors. The Service is protected by copyright, trademark, and other laws of both the United States and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of
+                        <span className="ftbg-81"><span className="ftbg-199">x-algo</span></span>
                     </p>
                     <p>Acceptable Use Policy</p>
                     <p>We do not allow image uploads, video linking or files linking or the use of
-                        <span className="ftbg-97"><span className="ftbg-693">Mission1Success</span><span className="ftbg-18"></span></span> pages, resources or assets on websites that are of the following nature: Pornographic, racist, hate, defamatory/libelous, extreme violence or the promotion of violence/terrorism, self harm, narcotics, controlled substances or other products/services that present a risk to consumer safety, deceptive, misleading, fraudulent or otherwise illegal activities.</p>
+                        <span className="ftbg-97"><span className="ftbg-693">x-algo</span><span className="ftbg-18"></span></span> pages, resources or assets on websites that are of the following nature: Pornographic, racist, hate, defamatory/libelous, extreme violence or the promotion of violence/terrorism, self harm, narcotics, controlled substances or other products/services that present a risk to consumer safety, deceptive, misleading, fraudulent or otherwise illegal activities.</p>
                     <p>PLEASE NOTE THAT YOUR ACCOUNT WILL BE TERMINATED IMMEDIATELY AND WITHOUT NEGOTIATION IF YOU BREAK THIS AUP AGREEMENT</p>
                     <p>Links To Other Web Sites</p>
                     <p>Our Service may contain links to third party web sites or services that are not owned or controlled by
-                        <span className="ftbg-791"><span className="ftbg-505">Mission1Success</span></span>.
+                        <span className="ftbg-791"><span className="ftbg-505">x-algo</span></span>.
                     </p>
-                    <p><span className="ftbg-193"><span className="ftbg-224">Mission1Success</span></span> has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.</p>
+                    <p><span className="ftbg-193"><span className="ftbg-224">x-algo</span></span> has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.</p>
                     <p>You acknowledge and agree that
-                        <span className="ftbg-491">Mission1Success</span>&nbsp;shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such third party web sites or services.
+                        <span className="ftbg-491">x-algo</span>&nbsp;shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such third party web sites or services.
                     </p>
                     <p>We strongly advise you to read the terms and conditions and privacy policies of any third party web sites or services that you visit.</p>
                     <p>Termination</p>
@@ -101,15 +101,15 @@ const TermsAndConditions = () => {
                     <p>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.</p>
                     <p>Indemnification</p>
                     <p>You agree to defend, indemnify and hold harmless
-                        <span draggable="false" className="ftbg-474"><span className="ftbg-965">Mission1Success</span></span> and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney’s fees), resulting from or arising out of a) your use and access of the Service, by you or any person using your account and password; b) a breach of these Terms, or c) Content posted on the Service.
+                        <span draggable="false" className="ftbg-474"><span className="ftbg-965">x-algo</span></span> and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney’s fees), resulting from or arising out of a) your use and access of the Service, by you or any person using your account and password; b) a breach of these Terms, or c) Content posted on the Service.
                     </p>
                     <p>Limitation Of Liability</p>
                     <p>In no event shall
-                        <span className="ftbg-344"><span className="ftbg-616">Mission1Success</span></span>, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.
+                        <span className="ftbg-344"><span className="ftbg-616">x-algo</span></span>, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.
                     </p>
                     <p>Disclaimer</p>
                     <p>Your use of the Service is at your sole risk. The Service is provided on an “AS IS” and “AS AVAILABLE” basis. The Service is provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement or course of performance.</p>
-                    <p><span className="ftbg-902"><span className="ftbg-215">Mission1Success</span></span> its subsidiaries, affiliates, and its licensors do not warrant that a) the Service will function uninterrupted, secure or available at any particular time or location; b) any errors or defects will be corrected; c) the Service is free of viruses or other harmful components; or d) the results of using the Service will meet your requirements.
+                    <p><span className="ftbg-902"><span className="ftbg-215">x-algo</span></span> its subsidiaries, affiliates, and its licensors do not warrant that a) the Service will function uninterrupted, secure or available at any particular time or location; b) any errors or defects will be corrected; c) the Service is free of viruses or other harmful components; or d) the results of using the Service will meet your requirements.
                     </p>
                     <p>Exclusions</p>
                     <p>Some jurisdictions do not allow the exclusion of certain warranties or the exclusion or limitation of liability for consequential or incidental damages, so the limitations above may not apply to you.</p>

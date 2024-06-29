@@ -9,10 +9,10 @@ const PrivacyPolicy = () => {
                 <h2 className='text-center'>Privacy Policy</h2>
                 <p id="isak" className="ftparagraph">
                     <span draggable="true" className="ftbg-60">
-                        <span className="ftbg-31">Mission1Success</span>
+                        <span className="ftbg-31">x-algo</span>
                     </span>{" "}
                     (“us”, “we”, or “our”) operates the{" "}
-                    <span draggable="false">mission1success.com</span>&nbsp;website (the
+                    <span draggable="false">x-algo.com</span>&nbsp;website (the
                     “Service”).
                     <br />
                     <br />
@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
                     in this Privacy Policy, terms used in this Privacy Policy have the
                     same meanings as in our Terms and Conditions, accessible at{" "}
                     <span className="ftbg-531">
-                        <span className="ftbg-613">mission1success.com</span>
+                        <span className="ftbg-613">x-algo.com</span>
                     </span>
                     <br />
                     <br />
@@ -100,7 +100,7 @@ const PrivacyPolicy = () => {
                     <br />
                     <br />
                     <span className="ftbg-855">
-                        <span className="ftbg-823">Mission1Success</span>
+                        <span className="ftbg-823">x-algo</span>
                     </span>{" "}
                     uses remarketing services to advertise on third party web sites to you
                     after you visited our Service. We, and our third party vendors, use
@@ -169,7 +169,7 @@ const PrivacyPolicy = () => {
                     <br />
                     If{" "}
                     <span className="ftbg-551">
-                        <span className="ftbg-449">Mission1Success</span>
+                        <span className="ftbg-449">x-algo</span>
                     </span>{" "}
                     is involved in a merger, acquisition or asset sale, your Personal
                     Information may be transferred as a business asset. In such cases, we
