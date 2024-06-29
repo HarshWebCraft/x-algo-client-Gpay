@@ -38,7 +38,7 @@ function Profile() {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.post("https://x-algo-gpay.onrender.com/profile", { email });
+                const response = await axios.post("http://localhost:5000/profile", { email });
                 if (response.data) {
                     setName(response.data.name);
                     setNumber(response.data.number);
@@ -82,7 +82,7 @@ function Profile() {
     const handleSave = async () => {
         setFile(newImg)
         try {
-            const response = await axios.post("https://x-algo-gpay.onrender.com/updateprofile", { email, number, name, file });
+            const response = await axios.post("http://localhost:5000/updateprofile", { email, number, name, file });
             if (response.data) {
                 console.log(response.data)
                 setnewImg(response.data.profile_img)

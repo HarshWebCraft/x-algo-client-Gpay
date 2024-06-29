@@ -18,7 +18,7 @@ function MarketPlace() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('https://x-algo-gpay.onrender.com/mystartegies', { Email });
+                const response = await axios.post('http://localhost:5000/mystartegies', { Email });
 
                 const myStartegies = response.data.mystartegies;
                 const notMyStartegies = marketplacedata || [];
@@ -36,7 +36,7 @@ function MarketPlace() {
 
     const addMyStrategies = async (index) => {
         try {
-            const response = await axios.post('https://x-algo-gpay.onrender.com/addmystra', { Email, index, amount: 500, currency: "INR" }); // assuming amount is 500 for example
+            const response = await axios.post('http://localhost:5000/addmystra', { Email, index, amount: 500, currency: "INR" }); // assuming amount is 500 for example
             console.log(response.data.order);
             const options = {
                 key: "rzp_test_KZMNFXrpzK70CD",
@@ -47,7 +47,7 @@ function MarketPlace() {
                 order_id: response.data.order.id,
                 handler: async (response) => {
                     try {
-                        const verification = await axios.post('https://x-algo-gpay.onrender.com/verify-payment', {
+                        const verification = await axios.post('http://localhost:5000/verify-payment', {
                             Email,
                             index,
                             razorpay_order_id: response.razorpay_order_id,
@@ -112,64 +112,3 @@ function MarketPlace() {
 }
 
 export default MarketPlace;
-
-
-
-
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const response = await axios.post('https://x-algo-gpay.onrender.com/mystartegies', { Email });
-//                 console.log(response.data.mystartegies);
-
-//                 const myStartegies = response.data.mystartegies;
-//                 const notMyStartegies = marketplacedata || [];
-
-//                 const filteredStrategies = notMyStartegies.filter(item => !myStartegies.includes(item.id));
-//                 console.log(filteredStrategies);
-
-//                 setFilteredStrategies(filteredStrategies);
-//             } catch (error) {
-//                 console.error('Error fetching data:', error);
-//             }
-//         };
-
-//         fetchData();
-//     },[]);
-
-//     const addMyStrategies = async (index) => {
-//         try {
-//             const response = await axios.post('https://x-algo-gpay.onrender.com/addmystra', { Email, index, amount: 500 }); // assuming amount is 500 for example
-//             console.log(response.data.order);
-
-//             const options = {
-//                 key: process.env.REACT_APP_RAZORPAY_KEY_ID, // your Razorpay key id
-//                 amount: response.data.order.amount,
-//                 currency: response.data.order.currency,
-//                 name: "X-Algo",
-//                 description: "Test Transaction",
-//                 order_id: response.data.order.id,
-//                 handler: async (response) => {
-//                     console.log(response);
-//                 },
-//                 prefill: {
-//                     name: `${response.data.Name}`,
-//                     email: `${response.data.Email}`,
-//                     contact: `${response.data.MobileNo}`
-//                 },
-//                 notes: {
-//                     address: "Razorpay Corporate Office"
-//                 },
-//                 theme: {
-//                     color: "#0000FF"
-//                 }
-//             };
-
-//             const paymentObject = new window.Razorpay(options);
-//             paymentObject.open();
-
-//         } catch (error) {
-//             console.error('Error during payment:', error);
-//         }
-//     };

@@ -47,7 +47,7 @@ function Dashboard(props) {
 
             try {
 
-                const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                const profileData = await axios.post('http://localhost:5000/userinfo', { Email })
                 console.log(profileData)
                 dispatch(allClientData(profileData.data))
                 setb(true)
@@ -56,7 +56,7 @@ function Dashboard(props) {
                 console.log("jcnnjaskcnasncnaskcnkascnkasnjk"+storedTheme)
                 
 
-                const dbschema = await axios.post('https://x-algo-gpay.onrender.com/dbSchema', { Email })
+                const dbschema = await axios.post('http://localhost:5000/dbSchema', { Email })
                 console.log(dbschema.data.BrokerData)
                 console.log(userSchema)
 
@@ -73,7 +73,7 @@ function Dashboard(props) {
 
                 if (brokerLogin1) {
 
-                    const response = await axios.post('https://x-algo-gpay.onrender.com/addbroker', { First: false, Email, userSchema });
+                    const response = await axios.post('http://localhost:5000/addbroker', { First: false, Email, userSchema });
                     console.log(response.data)
                     response.data.map((cap, index) => {
                         console.log(cap.userData.data.net)

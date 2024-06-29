@@ -24,6 +24,9 @@ import MyStartegies from './components/MyStartegies';
 import Deployed from './components/Deployed';
 import MarketPlace from './components/MarketPlace';
 import Otpverify from './components/Otpverify';
+import TermsCondistion from './components/TermsCondistion';
+import Refund from './components/Refund'
+import PrivacyPolicy from './components/Privacypolicy'
 
 function App() {
   const isAuth = useSelector(state => state.account.auth);
@@ -35,7 +38,6 @@ function App() {
   }, [])
   return (
 
-    // jhdjbdh
 
     <div className={localStorage.getItem('theme')=="light-theme" ? 'App' : 'hfhvhjdbhjdbhdhbd'}>
 
@@ -45,6 +47,9 @@ function App() {
 
         <Route path='/contactus' exact element={<ContactUs />} />
         <Route path='/about' exact element={<AboutUs />} />
+        <Route path='/termcondistion' exact element={<TermsCondistion/>} />
+        <Route path='/refund' exact element={<Refund/>} />
+        <Route path='/privacypolicy' exact element={<PrivacyPolicy/>} />
 
         <Route exact path='/' element={
           <PrivateRoute2>

@@ -48,7 +48,7 @@ function Verifyemail() {
 
         if (password === confirmPassword) {
             try {
-                await axios.post('https://x-algo-gpay.onrender.com/verifyemail', { urlEmail, iv ,password, mobileNumber, name });
+                await axios.post('http://localhost:5000/verifyemail', { urlEmail, iv ,password, mobileNumber, name });
                 setLoading(false);
                 handleShow();
             } catch (err) {

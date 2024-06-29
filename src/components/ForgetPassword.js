@@ -13,7 +13,7 @@ function ForgetPassword() {
         e.preventDefault();
         setLoading(true); // Start loading
         try {
-            const response = await axios.post('https://x-algo-gpay.onrender.com/forgetPassword', { email });
+            const response = await axios.post('http://localhost:5000/forgetPassword', { email });
             if(response.data){
                 Swal.fire({
                     icon: "success",

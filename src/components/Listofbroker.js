@@ -45,7 +45,7 @@ function Listofbroker() {
 
             console.log(userSchema)
             console.log(clientdata)
-            // const response = await axios.post('https://x-algo-gpay.onrender.com/checkBroker', { Email: email });
+            // const response = await axios.post('http://localhost:5000/checkBroker', { Email: email });
             // setisLoggedIn(response.data.success)
 
         }
@@ -96,7 +96,7 @@ function Listofbroker() {
             console.log("broker add")
             try {
 
-                const response = await axios.post('https://x-algo-gpay.onrender.com/addbroker', { First: true, id: id, pass: pass, email: email, secretKey: secretKey, userSchema: userSchema ,ApiKey:apikey});
+                const response = await axios.post('http://localhost:5000/addbroker', { First: true, id: id, pass: pass, email: email, secretKey: secretKey, userSchema: userSchema ,ApiKey:apikey});
 
                 console.log("when user enter angelid and pass" + response.data)
                 if (!response.data) {
@@ -113,8 +113,8 @@ function Listofbroker() {
 
                     // dispatch(addItem(id))
                     console.log(response.data.userSchema)
-                    const dbschema = await axios.post('https://x-algo-gpay.onrender.com/dbSchema', { Email })
-                    const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                    const dbschema = await axios.post('http://localhost:5000/dbSchema', { Email })
+                    const profileData = await axios.post('http://localhost:5000/userinfo', { Email })
                     dispatch(allClientData(profileData.data))
                     showAlertWithTimeout2('Successfully added', 3000);
                     Swal.fire({
@@ -161,10 +161,10 @@ function Listofbroker() {
 
         if (confirmation.isConfirmed) {
             try {
-                const response = await axios.post('https://x-algo-gpay.onrender.com/removeClient', { Email, index });
-                const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                const response = await axios.post('http://localhost:5000/removeClient', { Email, index });
+                const profileData = await axios.post('http://localhost:5000/userinfo', { Email })
                 dispatch(allClientData(profileData.data))
-                const dbschema = await axios.post('https://x-algo-gpay.onrender.com/dbSchema', { Email })
+                const dbschema = await axios.post('http://localhost:5000/dbSchema', { Email })
                 dispatch(userSchemaRedux(dbschema.data))
                 console.log(response.data)
                 Swal.fire({

@@ -12,7 +12,7 @@ function ResetPassword() {
     const [expired, setexpired] = useState(false)
     useEffect(() => {
         const a = async () => {
-            const response = await axios.post('https://x-algo-gpay.onrender.com/checkLink', { encodedData });
+            const response = await axios.post('http://localhost:5000/checkLink', { encodedData });
             setexpired(response.data.reset)
         }
         a()
@@ -22,7 +22,7 @@ function ResetPassword() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('hello')
-        const response = await axios.post('https://x-algo-gpay.onrender.com/resetPassword', { encodedData, pass });
+        const response = await axios.post('http://localhost:5000/resetPassword', { encodedData, pass });
         if (response.data.reset) {
             alert("password changed")
             window.close();
