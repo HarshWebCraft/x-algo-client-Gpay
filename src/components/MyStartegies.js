@@ -19,6 +19,10 @@ function MyStartegies() {
     const ids = userSchema.MyStartegies;
     const Email = useSelector(state => state.email.email)
     const dispatch = useDispatch();
+
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
     useEffect(() => {
         
         
@@ -39,13 +43,13 @@ function MyStartegies() {
     };
 
     const removeMyStrategies=async(index)=>{
-        const response=await axios.post('https://x-algo-gpay.onrender.com/removeMyStra',{Email,index})
+        const response=await axios.post(`${url}/removeMyStra`,{Email,index})
         console.log(response.data)
         dispatch(userSchemaRedux(response.data))
     }
 
     const addDeployed=async(id)=>{
-        const response=await axios.post('https://x-algo-gpay.onrender.com/addDeployed',{Email , id , Quaninty , Index , Account});
+        const response=await axios.post(`${url}/addDeployed`,{Email , id , Quaninty , Index , Account});
         console.log("this is upadted"+response.data)
         dispatch(userSchemaRedux(response.data))
     }

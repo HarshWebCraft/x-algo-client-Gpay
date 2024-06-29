@@ -39,13 +39,17 @@ function Listofbroker() {
     const [addedId, insertaddedId] = useState('');
     const [apikey, insertApiKey] = useState('');
 
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+
     useEffect(() => {
 
         const fetchData = async () => {
 
             console.log(userSchema)
             console.log(clientdata)
-            // const response = await axios.post('https://x-algo-gpay.onrender.com/checkBroker', { Email: email });
+            // const response = await axios.post('${url}/checkBroker', { Email: email });
             // setisLoggedIn(response.data.success)
 
         }
@@ -96,7 +100,7 @@ function Listofbroker() {
             console.log("broker add")
             try {
 
-                const response = await axios.post('https://x-algo-gpay.onrender.com/addbroker', { First: true, id: id, pass: pass, email: email, secretKey: secretKey, userSchema: userSchema ,ApiKey:apikey});
+                const response = await axios.post(`${url}/addbroker`, { First: true, id: id, pass: pass, email: email, secretKey: secretKey, userSchema: userSchema ,ApiKey:apikey});
 
                 console.log("when user enter angelid and pass" + response.data)
                 if (!response.data) {
@@ -113,8 +117,8 @@ function Listofbroker() {
 
                     // dispatch(addItem(id))
                     console.log(response.data.userSchema)
-                    const dbschema = await axios.post('https://x-algo-gpay.onrender.com/dbSchema', { Email })
-                    const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                    const dbschema = await axios.post(`${url}/dbSchema`, { Email })
+                    const profileData = await axios.post(`${url}/userinfo`, { Email })
                     dispatch(allClientData(profileData.data))
                     showAlertWithTimeout2('Successfully added', 3000);
                     Swal.fire({
@@ -161,10 +165,10 @@ function Listofbroker() {
 
         if (confirmation.isConfirmed) {
             try {
-                const response = await axios.post('https://x-algo-gpay.onrender.com/removeClient', { Email, index });
-                const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                const response = await axios.post(`${url}/removeClient`, { Email, index });
+                const profileData = await axios.post(`${url}/userinfo`, { Email })
                 dispatch(allClientData(profileData.data))
-                const dbschema = await axios.post('https://x-algo-gpay.onrender.com/dbSchema', { Email })
+                const dbschema = await axios.post(`${url}/dbSchema`, { Email })
                 dispatch(userSchemaRedux(dbschema.data))
                 console.log(response.data)
                 Swal.fire({
@@ -337,10 +341,10 @@ function Listofbroker() {
                                     required
                                 />
                                 {/* <div className='fdhn'>
-                                <a href='http://localhost:3000/helpToAdd' target='__blank' className='help'>Don't know Totp Key <br/>Click here</a>
+                                <a href='https://x-algo-gpay.onrender.com/helpToAdd' target='__blank' className='help'>Don't know Totp Key <br/>Click here</a>
                                 </div> */}
                                 <div className='bubble'>
-                                    <Link to={'http://localhost:3000/helpToAdd'} target='__blank' className='help'>
+                                    <Link to={`${url}/helpToAdd`} target='__blank' className='help'>
                                         Don't know Totp Key <br />Click here
                                     </Link>
                                 </div>

@@ -14,7 +14,11 @@ function Navbar() {
     const navigate = useNavigate();
     const [modalShow, setModalShow] = useState(false);
     const [newImg,setnewImg] = useState("") 
-    
+
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+
     const Logout = () => {
         dispatch(logout());
         localStorage.removeItem('isLoggedIn');
@@ -26,7 +30,7 @@ function Navbar() {
     useEffect(()=>{
         const data = async () => {
             try {
-                const responce = await axios.post("https://x-algo-gpay.onrender.com/navbar", { userEmail })
+                const responce = await axios.post(`${url}/navbar`, { userEmail })
                 setnewImg(responce.data.img)
             }
             catch (e) {

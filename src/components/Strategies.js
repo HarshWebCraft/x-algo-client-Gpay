@@ -28,6 +28,9 @@ function Strategies() {
   const [ceToken, setCeToken] = useState(0);
   const [Exit_price_ce, setExit_price_ce] = useState(0);
   const [Exit_price_pe, setExit_price_pe] = useState(0);
+  const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
 
   const lotsize = 15;
   let capital = 100000;
@@ -60,7 +63,7 @@ function Strategies() {
 
     // const timerId = setTimeout(async () => {
 
-    //   const response2 = await axios.post('https://x-algo-gpay.onrender.com/getSymbol');
+    //   const response2 = await axios.post(`${url}/getSymbol');
 
     //   const ceSymbol = response2.data.ceToken
     //   const peToken = response2.data.peToken
@@ -71,7 +74,7 @@ function Strategies() {
     //   setCeEntry(response2.data.cehigh);
     //   setPeEntry(response2.data.pehigh);
 
-    //   // const response = await axios.post('https://x-algo-gpay.onrender.com/wbSocket', { ceSymbol, peSymbol });
+    //   // const response = await axios.post(`${url}/wbSocket', { ceSymbol, peSymbol });
     //   // console.log(response)
     //   const ws = new WebSocket('ws://localhost:3001');
 

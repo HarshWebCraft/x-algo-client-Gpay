@@ -37,6 +37,10 @@ function PaperTrading() {
 
     const [trades, setTrades] = useState([]);
 
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -84,7 +88,7 @@ function PaperTrading() {
 
     //     const timerId = setTimeout(async () => {
 
-    //         const response2 = await axios.post('https://x-algo-gpay.onrender.com/getSymbol');
+    //         const response2 = await axios.post(`${url}/getSymbol');
     //         console.log(response2.data)
 
     //         setCeToken(response2.data.ceToken)

@@ -26,11 +26,14 @@ function Signin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
+        const url = process.env.NODE_ENV === "production" 
+        ? "https://x-algo-gpay.onrender.com" 
+        : "http://localhost:5000";
 
 
         try {
 
-            const a = await axios.post('https://x-algo-gpay.onrender.com/signin', { email, pass });
+            const a = await axios.post(`${url}/signin`, { email, pass });
 
             console.log(a.data.verification)
             console.log(a.data.email)
@@ -44,7 +47,7 @@ function Signin() {
                         if (a.data.password) {
                             const Email = email;
 
-                            const profileData = await axios.post('https://x-algo-gpay.onrender.com/userinfo', { Email })
+                            const profileData = await axios.post(`${url}/userinfo`, { Email })
                             console.log(profileData)
                             dispatch(allClientData(profileData.data))
                             

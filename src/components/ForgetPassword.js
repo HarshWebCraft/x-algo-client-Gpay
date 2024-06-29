@@ -9,11 +9,15 @@ function ForgetPassword() {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true); // Start loading
         try {
-            const response = await axios.post('https://x-algo-gpay.onrender.com/forgetPassword', { email });
+            const response = await axios.post(`${url}/forgetPassword`, { email });
             if(response.data){
                 Swal.fire({
                     icon: "success",

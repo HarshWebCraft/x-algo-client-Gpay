@@ -21,7 +21,9 @@ function Profile() {
     const clientdata = useSelector(state => state.account.allClientData)
 
     console.log(clientdata)
-
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
     const [name, setName] = useState("");
     const [number, setNumber] = useState("");
     const [newImg, setnewImg] = useState("")
@@ -38,7 +40,7 @@ function Profile() {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.post("https://x-algo-gpay.onrender.com/profile", { email });
+                const response = await axios.post(`${url}/profile`, { email });
                 if (response.data) {
                     setName(response.data.name);
                     setNumber(response.data.number);
@@ -82,7 +84,7 @@ function Profile() {
     const handleSave = async () => {
         setFile(newImg)
         try {
-            const response = await axios.post("https://x-algo-gpay.onrender.com/updateprofile", { email, number, name, file });
+            const response = await axios.post(`${url}/updateprofile`, { email, number, name, file });
             if (response.data) {
                 console.log(response.data)
                 setnewImg(response.data.profile_img)

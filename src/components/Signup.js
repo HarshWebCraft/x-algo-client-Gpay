@@ -17,6 +17,9 @@ function Signup() {
     const verified = false
     // const [pass2, pass2Input] = useState('');
     const dispatch = useDispatch()
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
 
     const f1 = () => {
         Swal.fire({
@@ -40,7 +43,7 @@ function Signup() {
         // else {
             try {
                 console.log('try')
-                const a = await axios.post('https://x-algo-gpay.onrender.com/signup', { email, verified });
+                const a = await axios.post(`${url}/signup`, { email, verified });
 
                 console.log("after try")
 

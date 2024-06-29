@@ -13,6 +13,10 @@ function Home() {
     const userEmail = location.state?.userEmail || '';
     const [tourShown, setTourShown] = useState(false);
 
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+
     // const theme = localStorage.setItem('theme',"light-theme")
     
     useEffect(() => {
@@ -23,7 +27,7 @@ function Home() {
                 if (modalBackdrop) {
                     modalBackdrop.classList.remove('modal-backdrop');
                 }
-                const response = await axios.post('https://x-algo-gpay.onrender.com/tour', { userEmail })
+                const response = await axios.post(`${url}/tour`, { userEmail })
                 if (response.data.tour) {
                     setTourShown(response.data);
                     driverObj.drive();
@@ -34,7 +38,7 @@ function Home() {
             }
 
             try{
-                const mobileNoResponse = await axios.post('https://x-algo-gpay.onrender.com/mobileno', { userEmail })
+                const mobileNoResponse = await axios.post(`${url}/mobileno`, { userEmail })
                 console.log("[][][][][[[][][][][]=====>"+mobileNoResponse)
                 if(mobileNoResponse.data.mobileNumber){
                     alert("enter mobile number")

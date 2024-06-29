@@ -16,14 +16,16 @@ function Deployed() {
     const userSchema = useSelector(state => state.account.userSchemaRedux);
     const Email = useSelector(state => state.email.email)
     const dispatch = useDispatch();
-
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
     const Deployed=userSchema.DeployedData;
     useEffect(()=>{
         console.log(Deployed)
     },[])
 
     const removeDeployed=async(id)=>{
-        const response=await axios.post('https://x-algo-gpay.onrender.com/removeDeployed',{Email,id})
+        const response=await axios.post(`${url}/removeDeployed`,{Email,id})
         dispatch(userSchemaRedux(response.data))
     }
 

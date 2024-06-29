@@ -32,7 +32,10 @@ function Verifyemail() {
     console.log("??????????????????????????")
     console.log(">>>>>>>>>>>>>>>>>"+urlEmail)
     console.log(">>>>>>>>>>>>>>>>>"+iv)
-    
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -48,7 +51,7 @@ function Verifyemail() {
 
         if (password === confirmPassword) {
             try {
-                await axios.post('https://x-algo-gpay.onrender.com/verifyemail', { urlEmail, iv ,password, mobileNumber, name });
+                await axios.post(`${url}/verifyemail`, { urlEmail, iv ,password, mobileNumber, name });
                 setLoading(false);
                 handleShow();
             } catch (err) {

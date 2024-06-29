@@ -13,12 +13,17 @@ function MarketPlace() {
     const dispatch = useDispatch();
     const location = useLocation()
     const [filteredStrategies, setFilteredStrategies] = useState([]);
+
+    const url = process.env.NODE_ENV === "production" 
+    ? "https://x-algo-gpay.onrender.com" 
+    : "http://localhost:5000";
+
     // const [amount,setamount] = useState(500000000)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('https://x-algo-gpay.onrender.com/mystartegies', { Email });
+                const response = await axios.post(`${url}/mystartegies`, { Email });
 
                 const myStartegies = response.data.mystartegies;
                 const notMyStartegies = marketplacedata || [];
@@ -36,7 +41,7 @@ function MarketPlace() {
 
     const addMyStrategies = async (index) => {
         try {
-            const response = await axios.post('https://x-algo-gpay.onrender.com/addmystra', { Email, index, amount: 500, currency: "INR" }); // assuming amount is 500 for example
+            const response = await axios.post(`${url}/addmystra`, { Email, index, amount: 500, currency: "INR" }); // assuming amount is 500 for example
             console.log(response.data.order);
             const options = {
                 key: "rzp_test_KZMNFXrpzK70CD",
@@ -47,7 +52,7 @@ function MarketPlace() {
                 order_id: response.data.order.id,
                 handler: async (response) => {
                     try {
-                        const verification = await axios.post('https://x-algo-gpay.onrender.com/verify-payment', {
+                        const verification = await axios.post(`${url}/verify-payment`, {
                             Email,
                             index,
                             razorpay_order_id: response.razorpay_order_id,
