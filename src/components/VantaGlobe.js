@@ -15,11 +15,12 @@ const VantaGlobe = () => {
                     <div className="col-md-5 mx-5 mt-5">
                         <div className="detail-box">
                             <h1>
-                                Crypto <br />
-                                Currency
+                                Best <br />
+                                E-commerce
                             </h1>
                             <p>
-                                Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
+                            Discover Your Style, Shop with a Smile <br/>
+                            Exclusive Deals Await - Start Your Journey Today!
                             </p>
                             <div className="btn-box">
                                 <a href="#" className="btn1">
