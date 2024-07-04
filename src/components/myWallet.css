@@ -1,0 +1,52 @@
+.rgvba{
+    position: relative;
+    height: 30em;
+    background-color: #161A1D;
+    width: 60em;
+    margin-left: 21em;
+    margin-top: 2em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(44, 44, 44, 0.3) 0px 8px 16px -8px;
+    border-radius: 0.5em;
+}
+
+.thaksn{
+    position: relative;
+    height: 30em;
+    background-color: white;
+    width: 60em;
+    margin-left: 21em;
+    margin-top: 2em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(44, 44, 44, 0.3) 0px 8px 16px -8px;
+    border-radius: 0.5em;
+}
+
+.oquen{
+    position: absolute;
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
+.with-dipo-button{
+    position: absolute;
+    margin-top: 15em;
+    margin-left: 2em;
+}
+
+.addFund{
+    padding-left: 5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 5em;
+    border-radius: 1.5em;
+    background-color: #22E274;
+    color: white;
+    border: none;
+    font-weight: bold;
+
+}
+
+.fund{
+    position: absolute;
+    margin-top: 2.5em;
+    margin-left: 1.2em;
+}

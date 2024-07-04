@@ -27,6 +27,7 @@ import Otpverify from './components/Otpverify';
 import TermsCondistion from './components/TermsCondistion';
 import Refund from './components/Refund'
 import PrivacyPolicy from './components/Privacypolicy'
+import MyWallet from './components/MyWallet';
 
 // lkmkjkn
 
@@ -66,6 +67,11 @@ function App() {
         <Route path='/home/broker' exact element={
           <PrivateRoute>
             <Broker />
+          </PrivateRoute>
+        } />
+        <Route path='/home/myWallet' exact element={
+          <PrivateRoute>
+            <MyWallet/>
           </PrivateRoute>
         } />
         <Route path='/Papertrading' exact element={
@@ -128,6 +134,7 @@ function App() {
             <MarketPlace />
           </PrivateRoute>
         } />
+      
       </Routes>
 
 
