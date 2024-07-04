@@ -137,14 +137,14 @@ function Navbar() {
                 <Nav.Item className='pe-3 dd my-3 mx-2'>
                     <Nav.Link as={Link} to='/services' className={location.pathname === '/services' ? 'active' : ''}>Services</Nav.Link>
                 </Nav.Item>
-                <Nav.Item className='pe-3 dd my-3 mx-2'>
+                <Nav.Item className='pe-3 ee my-3 mx-2'>
                     { newImg ? 
                     <img src={newImg} className='shgdjasgdjbkachkdbcd'/> 
                     : 
                     (<UserIcon userName={userEmail} />)
                     }
                 </Nav.Item>
-                <Nav.Item className={`pe-3 dd my-3 mx-2`}>
+                <Nav.Item className={`pe-3 ff my-3 mx-2`}>
                     <NavDropdown title="User Details" id="nav-dropdown" className={`aaaaaaaa ${localStorage.getItem('theme') == "light-theme" ? '' : 'bhvbfhvjbv'}`}>
                         <div className={`${localStorage.getItem('theme') == "light-theme" ? '' : 'bhvbfhvjbv'}`}>
                             <NavDropdown.Item as={Link} to="/profile" className={`${location.pathname === '/profile' ? 'active ' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Profile</NavDropdown.Item>

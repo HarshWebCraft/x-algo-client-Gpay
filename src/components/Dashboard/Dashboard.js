@@ -172,7 +172,6 @@ function Dashboard(props) {
 
                     })} */}
                         </li>
-                        <li className='me-5'><br />₹{ }</li>
                     </ul>
                 </div>
             </div>
