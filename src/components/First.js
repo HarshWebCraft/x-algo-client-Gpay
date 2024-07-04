@@ -19,15 +19,7 @@ function First() {
         <div>
             <Menubar />
             <VantaGlobe />
-            <div class="container-xxl dfhvbdfhunvjdnvjk py-5">
-                
-            </div>
-            
-            <div class="container-xxl py-5">
-                
-            </div>
-            
-            <div class="container-fluid bg-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container-fluid bg-light footer pt-5 wowhgcghchg fadeIn" data-wow-delay="0.1s">
                 <div class="container py-5">
                     <div class="row g-5">
                         

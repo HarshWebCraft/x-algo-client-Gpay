@@ -38,3 +38,48 @@
     border: none;
     background-color: rgba(0,0,0,0);
 }
+
+.ashsbhjcbdackjdscb {
+    margin: 1vw;
+}
+
+.navbar {
+    position: absolute;
+}
+
+.navbar {
+    width: 20vw;
+    height: 5vw;
+    margin-top: 1vw;
+    margin-left: 76vw;
+    z-index: 5;
+}
+
+.nav-item {
+    font-size: 5vw;
+    margin: 1vw;
+    height: 10vw;
+    width: 8vw;
+}
+
+.jchjsdbchsdvvbsdv{
+    margin: auto;
+}
+
+.custom-navbar {
+    background-color: transparent !important;
+    border: none;
+  }
+
+@media (max-width: 990px) {
+    .nav-item {
+        margin: 1vw;
+        width: 20vw;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav-item {
+        width: 25vw;
+    }
+}
