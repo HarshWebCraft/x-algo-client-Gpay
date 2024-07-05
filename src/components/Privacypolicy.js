@@ -277,7 +277,7 @@ const PrivacyPolicy = () => {
                 
                 <h3 className='text-center'>Shipping Policy</h3>
                 <p id="shipping-policy" className="ftparagraph">
-                    We strive to process and ship orders as quickly as possible. The minimum shipping time is [minimum timeline], and the maximum shipping time is [maximum timeline]. Please note that these timelines may vary depending on your location and other factors.
+                    We strive to process and ship orders as quickly as possible. The minimum shipping time is 2 days, and the maximum shipping time is 7 days. Please note that these timelines may vary depending on your location and other factors.
                 </p>
             </div>
         </div>
