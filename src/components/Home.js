@@ -60,13 +60,13 @@ function Home() {
         showProgress: true,
         popoverClass: 'driverjs-theme',
         steps: [
-            { element: '.a', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
-            { element: '.aa', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
-            { element: '.bb', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
-            { element: '.cc', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
-            { element: '.dd', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
-            { element: '.ee', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
-            { element: '.ff', popover: { title: 'Animated Tour Example', description: 'Here is the code example showing animated tour. Let\'s walk you through it.', side: "left", align: 'start' } },
+            { element: '.a', popover: { title: "Welcome", description: "--", side: "left", align: 'start' } },
+            { element: '.aa', popover: { title: "Dashbord", description: "--", side: "left", align: 'start' } },
+            { element: '.bb', popover: { title: "Strategies", description: "--", side: "left", align: 'start' } },
+            { element: '.cc', popover: { title: "Paper Trading", description: "--", side: "left", align: 'start' } },
+            { element: '.dd', popover: { title: "Services", description: "--", side: "left", align: 'start' } },
+            { element: '.ee', popover: { title: "Profile Image", description: "--", side: "left", align: 'start' } },
+            { element: '.ff', popover: { title: "Setting", description: "--", side: "left", align: 'start' } },
         ]
     });
 
