@@ -268,10 +268,20 @@ const PrivacyPolicy = () => {
                     If you have any questions about this Privacy Policy, please contact
                     us.
                 </p>
+
+                {/* New Sections */}
+                <h3 className='text-center'>Products/Services</h3>
+                <p id="products-services" className="ftparagraph">
+                    We offer a range of products and services, including [list specific products/services]. For more detailed information about each product or service, please visit the relevant section on our website or contact our support team.
+                </p>
+                
+                <h3 className='text-center'>Shipping Policy</h3>
+                <p id="shipping-policy" className="ftparagraph">
+                    We strive to process and ship orders as quickly as possible. The minimum shipping time is [minimum timeline], and the maximum shipping time is [maximum timeline]. Please note that these timelines may vary depending on your location and other factors.
+                </p>
             </div>
         </div>
     );
 };
 
 export default PrivacyPolicy;
- 
