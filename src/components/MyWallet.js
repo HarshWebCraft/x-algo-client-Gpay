@@ -4,6 +4,11 @@ import './myWallet.css'
 import './button.scss'
 
 const MyWallet = () => {
+
+  React.useEffect(() => {
+    document.body.className = `${localStorage.getItem('theme')}`;
+}, [])
+
   return (
     <>
         <div className='container'>
