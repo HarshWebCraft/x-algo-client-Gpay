@@ -1,5 +1,3 @@
-// PrivacyPolicy.js
-
 import React from 'react';
 
 const PrivacyPolicy = () => {
@@ -80,7 +78,7 @@ const PrivacyPolicy = () => {
                     You can instruct your browser to refuse all cookies or to indicate
                     when a cookie is being sent. The Help feature on most browsers
                     provide information on how to accept cookies, disable cookies or to
-                    notify you when receiving a new cookie.&lt;br/&gt;If you do not accept
+                    notify you when receiving a new cookie. If you do not accept
                     cookies, you may not be able to use some features of our Service and
                     we recommend that you leave them turned on.
                     <br />
@@ -91,7 +89,7 @@ const PrivacyPolicy = () => {
                     Google, as a third party vendor, uses cookies to serve ads on our
                     Service. Google’s use of the DoubleClick cookie enables it and its
                     partners to serve ads to our users based on their visit to our
-                    Service or other web sites on the Internet.&lt;br/&gt;You may opt out
+                    Service or other web sites on the Internet. You may opt out
                     of the use of the DoubleClick Cookie for interest-based advertising by
                     visiting the Google Ads Settings web page.
                     <br />
@@ -108,13 +106,13 @@ const PrivacyPolicy = () => {
                     our Service.
                     <br />
                     <br />
-                    Google AdWords remarketing service is provided by Google Inc.You can
+                    Google AdWords remarketing service is provided by Google Inc. You can
                     opt-out of Google Analytics for Display Advertising and customize the
                     Google Display Network ads by visiting the Google Ads Settings
-                    page.Google also recommends installing the Google Analytics Opt-out
+                    page. Google also recommends installing the Google Analytics Opt-out
                     Browser Add-on for your web browser. Google Analytics Opt-out Browser
                     Add-on provides visitors with the ability to prevent their data from
-                    being collected and used by Google Analytics.For more information on
+                    being collected and used by Google Analytics. For more information on
                     the privacy practices of Google, please visit the Google Privacy &amp;
                     Terms web page.
                     <br />
@@ -272,7 +270,14 @@ const PrivacyPolicy = () => {
                 {/* New Sections */}
                 <h3 className='text-center'>Products/Services</h3>
                 <p id="products-services" className="ftparagraph">
-                    We offer a range of products and services, including [list specific products/services]. For more detailed information about each product or service, please visit the relevant section on our website or contact our support team.
+                    We offer a range of products and services, including:
+                    <ul>
+                        <li>Product Jewellery: $100</li>
+                        <li>Product Mens: $200</li>
+                        <li>Service premium: $150</li>
+                        <li>Service without premium $250</li>
+                    </ul>
+                    For more detailed information about each product or service, please visit the relevant section on our website or contact our support team.
                 </p>
                 
                 <h3 className='text-center'>Shipping Policy</h3>

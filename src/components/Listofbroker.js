@@ -254,7 +254,7 @@ function Listofbroker() {
                             <div className="table-responsive">
                                 <table className="table">
                                     <thead>
-                                        <tr>
+                                        <tr style={{textAlign:"center"}}>
                                             <th className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'hvbhbjhvsvsdvd'}`}>Client Id</th>
                                             <th className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'hvbhbjhvsvsdvd'}`} >Name</th>
                                             <th className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'hvbhbjhvsvsdvd'}`} >BrokerName</th>
@@ -262,7 +262,7 @@ function Listofbroker() {
                                             <th className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'hvbhbjhvsvsdvd'}`} >Delete</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody style={{textAlign:"center"}}>
                                         {clientdata.map((item, index) => (
                                             <tr key={index}>
                                                 <td className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'hvbhbjhvsvsdvd'}`} >{item.userData.data.clientcode}</td>
@@ -291,20 +291,11 @@ function Listofbroker() {
                 <div className='row'>
                     <span className='col-12 d-flex p-2 ps-4 amxjy addbrokertitle'>Add broker</span>
                     <div className='col-12'>
-                        <Form onSubmit={f1}>
-
-
-
-
+                        <Form onSubmit={f1} className='App'>
                             <select name="" id="" className='p-2 bg-primary  outline-none rounded-3 mt-4 d-flex ms-3 text-white'>
                                 {/* <option value="">Select Broker </option> */}
                                 <option value="AngleOne">Angel One</option>
-
-
                             </select>
-
-
-
                             <Form.Group>
                                 <Form.Label className='selectbroker'></Form.Label>
                                 <Form.Control className={`d-flex passField m-auto mt-3 ${localStorage.getItem
@@ -350,7 +341,7 @@ function Listofbroker() {
                                 </div>
                                 <div className='bubble1'></div>
                             </Form.Group>
-                            <Button variant="primary mt-3" type="submit">
+                            <Button variant="primary mt-3"  type="submit">
                                 Add
                             </Button>
 
