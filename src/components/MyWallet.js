@@ -7,6 +7,9 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaBell, FaSearch, FaLongArrowAltDown, FaLongArrowAltUp, FaBriefcase, FaBed, FaExchangeAlt, FaCcMastercard, FaCcVisa } from 'react-icons/fa';
+import { FaCutlery } from 'react-icons/fa';
 
 const MyWallet = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +18,7 @@ const MyWallet = () => {
   const [amount, setAmount] = useState('');
   const Email = useSelector((state) => state.email.email);
   const [balance, setbalance] = useState('')
+  const [transaction, settransaction] = useState([])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -28,11 +32,11 @@ const MyWallet = () => {
     const newAmount = async () => {
       const response = await axios.post(`${url}/newamount`, { Email })
       setbalance(response.data.balance)
+      settransaction(response.data.Transaction)
     }
     newAmount()
     setLoading2(false)
   }, [])
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -108,10 +112,10 @@ const MyWallet = () => {
             </div>
           </div>
         ) : (
-          <div>
+          <div className='aiydgcjkdmcsd container'>
             <h2 className='oquen'>My balance</h2>
             <div className='fund'><h2 className='aksbandjkanskcmjkdc'>₹</h2>{
-                loading2 ?
+              loading2 ?
                 <div class="loader4"></div>
                 :
                 <h2 className='ahsbhsdfgsgvfsgh'>{balance}</h2>
@@ -122,6 +126,49 @@ const MyWallet = () => {
             </div>
           </div>
         )}
+
+        <div className='container'>
+          <div>
+            <div className="wrapper rounded">
+
+              <div className="table-responsive mt-3 masbdavghsvdghcvsghd">
+                <table className="table table-dark masbdavghsvdghcvsghd">
+                  <thead>
+                    <tr>
+                      <th scope="col">Type</th>
+                      <th scope="col">razorpay_payment_id</th>
+                      <th scope="col">razorpay_order_id</th>
+                      <th scope="col">Date</th>
+                      <th scope="col" className="text-right">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transaction.map((transaction, index) => (
+                      <tr key={index}>
+                        <td className="text-right">{
+                          transaction.payment_type=="Deposit"?
+                          <p style={{color:"green"}}>{transaction.payment_type}</p>:
+                          <p style={{color:"red"}}>{transaction.payment_type}</p>
+                          }
+                        </td>
+                        <td>{transaction.razorpay_payment_id}</td>
+                        <td>{transaction.razorpay_order_id}</td>
+                        <td>{transaction.date}</td>
+                        <td className="text-right">{
+                          transaction.payment_type=="Deposit"?
+                          <p style={{color:"green"}}>{transaction.amount}</p>:
+                          <p style={{color:"red"}}>{transaction.amount}</p>
+                          }
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>

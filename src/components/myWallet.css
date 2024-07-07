@@ -1,6 +1,5 @@
 .rgvba {
     position: relative;
-    height: 30em;
     background-color: #161A1D;
     width: 60em;
     margin-left: 21em;
@@ -21,9 +20,14 @@
 }
 
 .oquen {
-    position: absolute;
+    position: relative;
     margin-left: 1em;
     margin-top: 0.5em;
+    padding-top: 2vw;
+}
+
+.aiydgcjkdmcsd{
+    position: relative;
 }
 
 .aksbandjkanskcmjkdc{
@@ -32,9 +36,13 @@
 }
 
 .with-dipo-button {
-    position: absolute;
-    margin-top: 15em;
+    position: relative;
+    margin-top: 5em;
     margin-left: 2em;
+}
+
+.masbdavghsvdghcvsghd{
+    border-radius: 10px;
 }
 
 .addFund {
@@ -51,19 +59,19 @@
 }
 
 .fund {
-    position: absolute;
-    margin-top: 2.5em;
+    position: relative;
+    margin-top: -1.5em;
     margin-left: 1.2em;
 }
 
 .ahsbhsdfgsgvfsgh{
-    position: absolute;
+    position: relative;
     margin-top: -3vw;
     margin-left: 3vw;
 }
 
 .loader4 {
-    position: absolute;
+    position: relative;
     width: 2vw;
     height: 2vw;
     aspect-ratio: 1;
