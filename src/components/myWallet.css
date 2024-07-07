@@ -1,4 +1,4 @@
-.rgvba{
+.rgvba {
     position: relative;
     height: 30em;
     background-color: #161A1D;
@@ -9,7 +9,7 @@
     border-radius: 0.5em;
 }
 
-.thaksn{
+.thaksn {
     position: relative;
     height: 30em;
     background-color: white;
@@ -20,19 +20,24 @@
     border-radius: 0.5em;
 }
 
-.oquen{
+.oquen {
     position: absolute;
     margin-left: 1em;
     margin-top: 0.5em;
 }
 
-.with-dipo-button{
+.aksbandjkanskcmjkdc{
+    margin-top: 2vw;
+    margin-left: 1vw;
+}
+
+.with-dipo-button {
     position: absolute;
     margin-top: 15em;
     margin-left: 2em;
 }
 
-.addFund{
+.addFund {
     padding-left: 5em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -45,8 +50,34 @@
 
 }
 
-.fund{
+.fund {
     position: absolute;
     margin-top: 2.5em;
     margin-left: 1.2em;
+}
+
+.ahsbhsdfgsgvfsgh{
+    position: absolute;
+    margin-top: -3vw;
+    margin-left: 3vw;
+}
+
+.loader4 {
+    position: absolute;
+    width: 2vw;
+    height: 2vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 0.3vw solid;
+    border-color: #0026ff #22E274;
+    animation: l1 1s infinite;
+    margin-top: -2.7vw;
+    margin-left: 3vw;
+
+}
+
+@keyframes l1 {
+    to {
+        transform: rotate(.5turn)
+    }
 }

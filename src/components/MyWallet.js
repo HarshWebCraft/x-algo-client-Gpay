@@ -1,29 +1,152 @@
-import React from 'react'
-import Navbar from './Navbar'
-import './myWallet.css'
-import './button.scss'
+import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
+import './myWallet.css';
+import './button.scss';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Form } from 'react-bootstrap';
 
 const MyWallet = () => {
+  const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [show, setShow] = useState(false);
+  const [amount, setAmount] = useState('');
+  const Email = useSelector((state) => state.email.email);
+  const [balance, setbalance] = useState('')
 
-  React.useEffect(() => {
-    document.body.className = `${localStorage.getItem('theme')}`;
-}, [])
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const url = process.env.NODE_ENV === "production"
+    ? "https://x-algo-gpay.onrender.com"
+    : "http://localhost:5000";
+
+  useEffect(() => {
+    setLoading2(true)
+    const newAmount = async () => {
+      const response = await axios.post(`${url}/newamount`, { Email })
+      setbalance(response.data.balance)
+    }
+    newAmount()
+    setLoading2(false)
+  }, [])
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const response = await axios.post(`${url}/addtowallet`, { Email, amount });
+      console.log(response.data.order);
+      const options = {
+        key: "rzp_test_KZMNFXrpzK70CD",
+        amount: response.data.order.amount,
+        currency: response.data.order.currency,
+        name: "X-Algo",
+        description: "Test Transaction",
+        order_id: response.data.order.id,
+        handler: async (response) => {
+          try {
+            const verification = await axios.post(`${url}/verify-payment`, {
+              Email,
+              amount,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+            if (verification.data) {
+              window.location.reload();
+            } else {
+              alert("Payment failed");
+              window.location.reload();
+            }
+          } catch (error) {
+            console.error('Error verifying payment:', error);
+          }
+        },
+        prefill: {
+          name: response.data.Name,
+          email: response.data.Email,
+          contact: response.data.MobileNo,
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#0000FF",
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.error('Error during payment:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    document.body.className = localStorage.getItem('theme');
+  }, []);
 
   return (
-    <>
-        <div className='container'>
-            <Navbar/>
-            <div className={`${localStorage.getItem('theme') === "light-theme" ? 'thaksn' : 'rgvba'}`}>
-                <h2 className='oquen'>My balance</h2>
-                <h2 className='fund'>$0.0000</h2>
-                <div className='with-dipo-button'>
-                    <a href="#" class="qscavn">Deposit</a>
-                    <a href="#" class="qscavn2">Withdraw</a>
-                </div>
+    <div className='container'>
+      <Navbar />
+      <div className={localStorage.getItem('theme') === "light-theme" ? 'thaksn' : 'rgvba'}>
+        {loading ? (
+          <div className='loader2 uytr'>
+            <div className="loader liop">
+              <div className="loader__bar"></div>
+              <div className="loader__bar"></div>
+              <div className="loader__bar"></div>
+              <div className="loader__bar"></div>
+              <div className="loader__bar"></div>
+              <div className="loader__ball"></div>
             </div>
-         </div>
-    </>
-  )
-}
+          </div>
+        ) : (
+          <div>
+            <h2 className='oquen'>My balance</h2>
+            <div className='fund'><h2 className='aksbandjkanskcmjkdc'>₹</h2>{
+                loading2 ?
+                <div class="loader4"></div>
+                :
+                <h2 className='ahsbhsdfgsgvfsgh'>{balance}</h2>
+            }</div>
+            <div className='with-dipo-button'>
+              <Button className="qscavn" onClick={handleShow}>Deposit</Button>
+              <Button className="qscavn2">Withdraw</Button>
+            </div>
+          </div>
+        )}
 
-export default MyWallet
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title className='text-primary'>Add To Wallet</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label className='text-primary'>Amount</Form.Label>
+                <Form.Control
+                  type='number'
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Button variant="primary" type='submit' className="mt-3" disabled={loading}>
+                {loading ? 'Processing...' : 'Deposit'}
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      </div>
+    </div>
+  );
+};
+
+export default MyWallet;

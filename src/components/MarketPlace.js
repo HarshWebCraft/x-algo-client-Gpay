@@ -5,7 +5,6 @@ import './marketplace.css';
 import marketplacedata from './marketPlace.json';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { userSchemaRedux } from "../actions/actions";
 import { useLocation } from 'react-router-dom';
 
 function MarketPlace() {
@@ -43,61 +42,7 @@ function MarketPlace() {
         fetchData();
     }, []);
 
-    const addMyStrategies = async (index) => {
-        setLoading(true)
-        try {
-            const response = await axios.post(`${url}/addmystra`, { Email, index, amount: 500, currency: "INR" }); // assuming amount is 500 for example
-            console.log(response.data.order);
-            const options = {
-                key: "rzp_test_KZMNFXrpzK70CD",
-                amount: response.data.order.amount,
-                currency: response.data.order.currency,
-                name: "X-Algo",
-                description: "Test Transaction",
-                order_id: response.data.order.id,
-                handler: async (response) => {
-                    try {
-                        const verification = await axios.post(`${url}/verify-payment`, {
-                            Email,
-                            index,
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_signature: response.razorpay_signature,
-                        });
-                        if (verification.data) {
-                            window.location.reload();
-                        } else {
-                            alert("Payment failed");
-                            window.location.reload();
-                        }
-                    } catch (error) {
-                        console.error('Error verifying payment:', error);
-                    }
-                },
-                prefill: {
-                    name: `${response.data.Name}`,
-                    email: `${response.data.Email}`,
-                    contact: `${response.data.MobileNo}`
-                },
-                notes: {
-                    address: "Razorpay Corporate Office"
-                },
-                theme: {
-                    color: "#0000FF"
-                }
-            };
-
-            const paymentObject = new window.Razorpay(options);
-            paymentObject.open();
-
-        } catch (error) {
-            console.error('Error during payment:', error);
-        }
-        finally {
-            setLoading(false)
-        }
-    };
-
+    
     React.useEffect(() => {
         document.body.className = `${localStorage.getItem('theme')}`;
     }, [])
@@ -139,7 +84,7 @@ function MarketPlace() {
                                 <div className='row'>
                                     <div className='col-3 nays'>{strategy.name}</div>
                                     <div className='col-7'></div>
-                                    <div className='btn col-2 btn-primary nays' id="ajsgdhagsdhabsnamaafarefse" onClick={() => addMyStrategies(strategy.id)}>Subscribe</div>
+                                    <div className='btn col-2 btn-primary nays' id="ajsgdhagsdhabsnamaafarefse">Subscribe</div>
                                 </div>
                                 <div className='row nays'>
                                     <div className='col-12'>
