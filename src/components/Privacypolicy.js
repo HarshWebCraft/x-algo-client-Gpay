@@ -272,10 +272,10 @@ const PrivacyPolicy = () => {
                 <p id="products-services" className="ftparagraph">
                     We offer a range of products and services, including:
                     <ul>
-                        <li>Product Jewellery: 1000</li>
-                        <li>Product Mens: 2000</li>
-                        <li>Service premium: 250</li>
-                        <li>Service without premium 750</li>
+                        <li>Product Jewellery: ₹1000</li>
+                        <li>Product Mens: ₹2000</li>
+                        <li>Service premium: ₹250</li>
+                        <li>Service without premium : ₹750</li>
                     </ul>
                     For more detailed information about each product or service, please visit the relevant section on our website or contact our support team.
                 </p>
