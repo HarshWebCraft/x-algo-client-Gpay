@@ -113,12 +113,12 @@ const MyWallet = () => {
           </div>
         ) : (
           <div className='aiydgcjkdmcsd container'>
-            <h2 className='oquen'>My balance</h2>
-            <div className='fund'><h2 className='aksbandjkanskcmjkdc'>₹</h2>{
+            <h2 className='oquen'>My Balance</h2>
+            <div className='fund'><h2 className='aksbandjkanskcmjkdc'></h2>{
               loading2 ?
                 <div class="loader4"></div>
                 :
-                <h2 className='ahsbhsdfgsgvfsgh'>{balance}</h2>
+                <h2 className='ahsbhsdfgsgvfsgh'>₹{balance}</h2>
             }</div>
             <div className='with-dipo-button'>
               <Button className="qscavn" onClick={handleShow}>Deposit</Button>
@@ -127,34 +127,34 @@ const MyWallet = () => {
           </div>
         )}
 
-        <div className='container'>
+        <div >
           <div>
             <div className="wrapper rounded">
 
-              <div className="table-responsive mt-3 masbdavghsvdghcvsghd">
-                <table className="table table-dark masbdavghsvdghcvsghd">
+              <div className='mt-3 p-4 '>
+                <table className={`table masbdavghsvdghcvsghd ${localStorage.getItem('theme')=="light-theme"?"table-light":"table-dark"}`}>
                   <thead>
                     <tr>
-                      <th scope="col">Type</th>
-                      <th scope="col">razorpay_payment_id</th>
-                      <th scope="col">razorpay_order_id</th>
-                      <th scope="col">Date</th>
-                      <th scope="col" className="text-right">Amount</th>
+                      <th scope="col" className='text-center text-primary'>Type</th>
+                      <th scope="col" className='text-center text-primary'>razorpay_payment_id</th>
+                      <th scope="col" className='text-center text-primary'>razorpay_order_id</th>
+                      <th scope="col" className='text-center text-primary'>Date</th>
+                      <th scope="col"  className="text-center text-primary">Amount</th>
                     </tr>
                   </thead>
                   <tbody>
                     {transaction.map((transaction, index) => (
                       <tr key={index}>
-                        <td className="text-right">{
+                        <td className="text-right text-center">{
                           transaction.payment_type=="Deposit"?
                           <p style={{color:"green"}}>{transaction.payment_type}</p>:
                           <p style={{color:"red"}}>{transaction.payment_type}</p>
                           }
                         </td>
-                        <td>{transaction.razorpay_payment_id}</td>
-                        <td>{transaction.razorpay_order_id}</td>
-                        <td>{transaction.date}</td>
-                        <td className="text-right">{
+                        <td className='text-center'>{transaction.razorpay_payment_id}</td>
+                        <td className='text-center'>{transaction.razorpay_order_id}</td>
+                        <td className='text-center'>{transaction.date}</td>
+                        <td className="text-right text-center">{
                           transaction.payment_type=="Deposit"?
                           <p style={{color:"green"}}>{transaction.amount}</p>:
                           <p style={{color:"red"}}>{transaction.amount}</p>

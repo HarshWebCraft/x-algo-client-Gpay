@@ -26,14 +26,14 @@
     padding-top: 2vw;
 }
 
-.aiydgcjkdmcsd{
-    position: relative;
+.qscavn{
+    border: none;
 }
 
-.aksbandjkanskcmjkdc{
-    margin-top: 2vw;
-    margin-left: 1vw;
+.qscavn2{
+    border: none;
 }
+
 
 .with-dipo-button {
     position: relative;
@@ -58,17 +58,6 @@
 
 }
 
-.fund {
-    position: relative;
-    margin-top: -1.5em;
-    margin-left: 1.2em;
-}
-
-.ahsbhsdfgsgvfsgh{
-    position: relative;
-    margin-top: -3vw;
-    margin-left: 3vw;
-}
 
 .loader4 {
     position: relative;
@@ -88,4 +77,14 @@
     to {
         transform: rotate(.5turn)
     }
+}
+
+.bchgdsbchgsdbhcgds{
+    background-color: white;
+    color: black;
+}
+
+.avcgfavhasbxcjasc{
+    background-color: #161A1D;
+    color: white;
 }

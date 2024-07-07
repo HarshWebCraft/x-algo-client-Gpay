@@ -14,11 +14,11 @@ const VantaGlobe = () => {
                 <div className="row">
                     <div className="col-lg-5 col-md-6 col-sm-12 mx-auto mt-5">
                         <div className="detail-box">
-                            <h1 className='asadascascasc'>
+                            <h1 className='asadascascasc text-center'>
                                 Best <br />
                                 E-commerce
                             </h1>
-                            <p>
+                            <p className='text-center'>
                                 Discover Your Style, Shop with a Smile <br />
                                 Exclusive Deals Await - Start Your Journey Today!
                             </p>

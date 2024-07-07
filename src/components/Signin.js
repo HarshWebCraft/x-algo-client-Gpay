@@ -26,9 +26,9 @@ function Signin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)
-        const url = process.env.NODE_ENV === "production" 
-        ? "https://x-algo-gpay.onrender.com" 
-        : "http://localhost:5000";
+        const url = process.env.NODE_ENV === "production"
+            ? "https://x-algo-gpay.onrender.com"
+            : "http://localhost:5000";
 
 
         try {
@@ -50,7 +50,7 @@ function Signin() {
                             const profileData = await axios.post(`${url}/userinfo`, { Email })
                             console.log(profileData)
                             dispatch(allClientData(profileData.data))
-                            
+
                             localStorage.setItem('isLoggedIn', true)
                             dispatch(setEmail(email));
                             dispatch(auth(true))
@@ -138,7 +138,7 @@ function Signin() {
                         <div className="modal-body">
                             <div className='container'>
                                 <Form onSubmit={handleSubmit}>
-                                    <Form.Group controlId="formBasicEmail">
+                                    <Form.Group className=' text-center' controlId="formBasicEmail">
                                         <Form.Label className='mt-4'>Email address</Form.Label>
 
                                         <Form.Control className='emailField m-auto mt-3'
@@ -151,7 +151,7 @@ function Signin() {
 
                                     </Form.Group>
 
-                                    <Form.Group controlId="formBasicPassword">
+                                    <Form.Group className=' text-center' controlId="formBasicPassword">
                                         <Form.Label className='mt-4'>Password</Form.Label>
                                         <Form.Control className='passField m-auto mt-3'
                                             type="password"
@@ -162,15 +162,19 @@ function Signin() {
                                         />
                                     </Form.Group>
 
+                                    <Form.Group className='text-center'>
+                                        <Button variant="primary mt-3" type="submit">
+                                            Sign In
+                                        </Button>
+                                    </Form.Group>
 
-                                    <Button variant="primary mt-3" type="submit">
-                                        Sign In
-                                    </Button>
                                     <br></br>
                                     <br></br>
-                                    <Link className='jsdnchusdbncjsdkcmscd' data-toggle="modal" data-target="#resetPassword" data-dismiss="modal" aria-label="Close">Forget password?</Link>
+                                    <div className='text-center'>
+                                        <Link className='jsdnchusdbncjsdkcmscd' data-toggle="modal" data-target="#resetPassword" data-dismiss="modal" aria-label="Close">Forget password?</Link>
+                                    </div>
                                     <div className='row'>
-                                        <button type="button" className='rdbutton' data-toggle="modal" data-target="#signup" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" className='rdbutton text-primary' data-toggle="modal" data-target="#signup" data-dismiss="modal" aria-label="Close">
                                             Don't have account ? Sign up
                                         </button>
                                     </div>

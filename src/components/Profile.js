@@ -36,6 +36,7 @@ function Profile() {
         window.location.reload();
     };
     const handleShow = () => setShow(true);
+    const haandleclose = () => setShow(false)
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -123,6 +124,10 @@ function Profile() {
         }
     };
 
+    const CloseButton = () =>{
+        setShow(false)
+    }
+
     React.useEffect(() => {
         document.body.className = `${localStorage.getItem('theme')}`;
     }, [])
@@ -183,8 +188,9 @@ function Profile() {
                         keyboard={false}
                         className={"hsdbhbhbsbhfbhfbvhajvnjka"}
                     >
-                        <Modal.Header closeButton className={localStorage.getItem('theme')=="light-theme" ? "" : "kbdsfgvbfnhavfyydcdfnm"}>
+                        <Modal.Header className={localStorage.getItem('theme')=="light-theme" ? "" : "kbdsfgvbfnhavfyydcdfnm"}>
                             <Modal.Title>Update Profile</Modal.Title>
+                            <Button type="submit" onClick={haandleclose} className="btn-close" aria-label="Close"></Button>
                         </Modal.Header>
                         <Modal.Body className={localStorage.getItem('theme')=="light-theme" ? "" : "kbdsfgvbfnhavfyydcdfnm"}>
                             <Form>

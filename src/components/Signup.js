@@ -17,9 +17,9 @@ function Signup() {
     const verified = false
     // const [pass2, pass2Input] = useState('');
     const dispatch = useDispatch()
-    const url = process.env.NODE_ENV === "production" 
-    ? "https://x-algo-gpay.onrender.com" 
-    : "http://localhost:5000";
+    const url = process.env.NODE_ENV === "production"
+        ? "https://x-algo-gpay.onrender.com"
+        : "http://localhost:5000";
 
     const f1 = () => {
         Swal.fire({
@@ -41,36 +41,36 @@ function Signup() {
 
         // }
         // else {
-            try {
-                console.log('try')
-                const a = await axios.post(`${url}/signup`, { email, verified });
+        try {
+            console.log('try')
+            const a = await axios.post(`${url}/signup`, { email, verified });
 
-                console.log("after try")
+            console.log("after try")
 
-                if (a.data.signup) {
-                    console.log(a.data.userSchema)
-                    dispatch(userSchemaRedux(a.data.userSchema))
-                    dispatch(setEmail(email))
-                    Swal.fire({
-                        title: "Email is sent",
-                        text: 'Please check\n\n' + `${email}` + '\n\nand click on the link to verify',
-                        icon: "success"
-                    });
-                }
-                else {
-                    Swal.fire({
-                        title: "",
-                        text: "Email already exist",
-                        icon: "error"
-                    });
-                    console.log('error')
-                }
-                setLoading(false)
+            if (a.data.signup) {
+                console.log(a.data.userSchema)
+                dispatch(userSchemaRedux(a.data.userSchema))
+                dispatch(setEmail(email))
+                Swal.fire({
+                    title: "Email is sent",
+                    text: 'Please check\n\n' + `${email}` + '\n\nand click on the link to verify',
+                    icon: "success"
+                });
             }
-            catch (e) {
-                console.log('error ' + e);
-                setLoading(false)
+            else {
+                Swal.fire({
+                    title: "",
+                    text: "Email already exist",
+                    icon: "error"
+                });
+                console.log('error')
             }
+            setLoading(false)
+        }
+        catch (e) {
+            console.log('error ' + e);
+            setLoading(false)
+        }
         // }
 
     }
@@ -86,7 +86,7 @@ function Signup() {
                         <div className="modal-body">
                             <div className='container'>
                                 <Form onSubmit={handleSubmit}>
-                                    <Form.Group controlId="formBasicEmail2">
+                                    <Form.Group controlId="formBasicEmail2" className='text-center'>
                                         <Form.Label className='mt-4'>Email address</Form.Label>
 
                                         <Form.Control className='emailField m-auto mt-3'
@@ -99,11 +99,13 @@ function Signup() {
 
                                     </Form.Group>
 
-                                    <Button variant="primary mt-3" type="submit" disabled={loading}>
-                                    {loading ? 'Sending...' : 'Sign up'}
-                                    </Button>
+                                    <Form.Group className='text-center'>
+                                        <Button variant="primary mt-3" type="submit" disabled={loading}>
+                                            {loading ? 'Sending...' : 'Sign up'}
+                                        </Button>
+                                    </Form.Group>
                                     <div className='row'>
-                                        <button type="button" className='rdbutton' data-toggle="modal" data-target="#signin" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" className='rdbutton text-primary' data-toggle="modal" data-target="#signin" data-dismiss="modal" aria-label="Close">
                                             Already have account ? Sign in
                                         </button>
                                     </div>
@@ -114,7 +116,7 @@ function Signup() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

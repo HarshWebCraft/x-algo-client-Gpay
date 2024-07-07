@@ -16,6 +16,7 @@ table.table-bordered > tbody > tr > td {
 /*dark */
 
 .dark-theme{
+  text-align: center;
   background-color: #101214; /* Dark background color */
   color: #FFFFFF; /* Light text color */
 }
