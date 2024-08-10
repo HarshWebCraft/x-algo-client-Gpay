@@ -1,0 +1,90 @@
+.rgvba {
+    position: relative;
+    background-color: #161A1D;
+    width: 60em;
+    margin-left: 21em;
+    margin-top: 2em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(44, 44, 44, 0.3) 0px 8px 16px -8px;
+    border-radius: 0.5em;
+}
+
+.thaksn {
+    position: relative;
+    height: 30em;
+    background-color: white;
+    width: 60em;
+    margin-left: 21em;
+    margin-top: 2em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(44, 44, 44, 0.3) 0px 8px 16px -8px;
+    border-radius: 0.5em;
+}
+
+.oquen {
+    position: relative;
+    margin-left: 1em;
+    margin-top: 0.5em;
+    padding-top: 2vw;
+}
+
+.qscavn{
+    border: none;
+}
+
+.qscavn2{
+    border: none;
+}
+
+
+.with-dipo-button {
+    position: relative;
+    margin-top: 5em;
+    margin-left: 2em;
+}
+
+.masbdavghsvdghcvsghd{
+    border-radius: 10px;
+}
+
+.addFund {
+    padding-left: 5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-right: 5em;
+    border-radius: 1.5em;
+    background-color: #22E274;
+    color: white;
+    border: none;
+    font-weight: bold;
+
+}
+
+
+.loader4 {
+    position: relative;
+    width: 2vw;
+    height: 2vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 0.3vw solid;
+    border-color: #0026ff #22E274;
+    animation: l1 1s infinite;
+    margin-top: -2.7vw;
+    margin-left: 3vw;
+
+}
+
+@keyframes l1 {
+    to {
+        transform: rotate(.5turn)
+    }
+}
+
+.bchgdsbchgsdbhcgds{
+    background-color: white;
+    color: black;
+}
+
+.avcgfavhasbxcjasc{
+    background-color: #161A1D;
+    color: white;
+}

@@ -1,0 +1,40 @@
+.menu{
+    position: fixed;
+    display: flex;
+    list-style-type: none;
+    margin-left: 75em;
+    margin-top: 2em;
+    font-size: 17px;
+    z-index: 2;
+   width: 15em;
+}
+
+.link{
+    
+    
+    margin-right: 1.6em;
+    border-radius: 1em;
+}
+
+.modal{
+    margin-top: 10em;
+    height: 50em;
+}
+
+.modal2{
+    margin-top: 7em;
+}
+
+.emailg{
+    text-align: center;
+}
+.emailField ,.passField{
+    width: 20em;
+}
+
+.rdbutton{
+    position: relative;
+    top: 0.5em;
+    border: none;
+    background-color: rgba(0,0,0,0);
+}

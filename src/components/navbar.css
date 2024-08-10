@@ -1,0 +1,68 @@
+
+.nav2{
+    margin-top: 3em;
+    margin-left: 27em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 0.5em;
+}
+
+.remove-link-style {
+    text-decoration: none;
+    color: inherit;
+  }
+
+.custom-close-btn{
+    color: red;
+    background-color: red;
+}
+
+.shgdjasgdjbkachkdbcd{
+    border-radius: 50%;
+    height: 3em;
+    width: 3em;
+}
+
+/*dark mode*/
+
+.ffddfavfvf{
+    background-color: #161A1D;
+    margin-top: 3em;
+    margin-left: 26em;
+    border-radius: 0.5em;
+    box-shadow: 
+    1px 1px 10px rgba(200, 200, 200, 0.1),
+    1px 1px 10px rgba(70, 70, 70, 0.1),
+    1px 1px 10px rgba(200, 200, 200, 0.1),
+    1px 1px 10px rgba(70, 70, 70, 0.1)
+}
+
+.bhvbfhvjbv{
+    background-color: #161A1D;
+}
+
+.bcebcgyofbcgf{
+    color: rgb(255, 255, 255);
+    background-color: black;
+}
+.bcebcgyofbcgf2{
+    color: black;
+    background-color: white;
+}
+
+.jhsbdvhjsbdsdb{
+    color: white;
+
+}
+
+.jhsbdvhjsbdsdb:focus,.jhsbdvhjsbdsdb:hover{
+    color: blue;
+    background-color: #161A1D;
+}
+
+.jhsbdvhjsbdsdb>a:focus{
+    background-color: red;
+}
+
+.active{
+    background-color: blue !important
+}

@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "name": "Strategy 1",
+        "content": "Paragraphs are the bui."
+    },
+    {
+        "id": 2,
+        "name": "Strategy 2",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 3,
+        "name": "Strategy 3",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 4,
+        "name": "Strategy 4",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 5,
+        "name": "Strategy 5",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 6,
+        "name": "Strategy 6",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 7,
+        "name": "Strategy 7",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 8,
+        "name": "Strategy 8",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 9,
+        "name": "Strategy 9",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 10,
+        "name": "Strategy 10",
+        "content": "Another strategy content..."
+    },
+    {
+        "id": 11,
+        "name": "Strategy 11",
+        "content": "Another strategy content..."
+    }
+]
