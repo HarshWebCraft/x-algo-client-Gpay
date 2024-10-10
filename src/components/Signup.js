@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { setEmail } from '../actions/email_action';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import Loader from './loader'
+
 
 function Signup() {
     const navigate = useNavigate();
@@ -101,7 +103,11 @@ function Signup() {
 
                                     <Form.Group className='text-center'>
                                         <Button variant="primary mt-3" type="submit" disabled={loading}>
-                                            {loading ? 'Sending...' : 'Sign up'}
+                                        {loading ? (
+                                                <div style={{marginLeft:10, marginRight:10}}>
+                                                    <Loader/>
+                                                </div>
+                                            ) : "Sign Up"}
                                         </Button>
                                     </Form.Group>
                                     <div className='row'>
