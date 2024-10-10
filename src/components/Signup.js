@@ -34,7 +34,7 @@ function Signup() {
 
 
     const handleSubmit = async (e) => {
-        console.log('hello')
+        console.log('hello harsh')
         setLoading(true)
         e.preventDefault();
         // if (pass !== pass2) {
