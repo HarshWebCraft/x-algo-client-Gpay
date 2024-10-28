@@ -18,7 +18,7 @@ function First() {
         <div>
             <Menubar />
             {/* <Navbar userEmail={userEmail}  darkMode={darkMode} toggleDarkMode={toggleDarkMode}/> */}
-            <VantaGlobe />
+            {/* <VantaGlobe /> */}
             <div className="container-fluid bg-light footer pt-5 wowhgcghchg fadeIn" data-wow-delay="0.1s">
                 <div className="container py-5">
                     <div className="row g-5">
