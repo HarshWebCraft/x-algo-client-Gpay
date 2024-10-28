@@ -1,8 +1,17 @@
 .broker-list{
-    margin-left: 15em;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    /* margin-left: 15em; */
+    box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
     border-radius: 1em;
 }
+
+.table{
+    color: var(--text-color) !important;
+    background-color: var(--bg-color) !important;
+}
+
+.input-focus-yellow:focus {
+    border:1px solid black!important; /* Change the border color to yellow */
+  }
 
 .list-title{
     font-size: 1.6em;
@@ -10,9 +19,11 @@
 
 .addbroker{
     margin-left: 15em;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
     border-radius: 1em;
 }
+
+
 
 .addbrokertitle{
     text-align: center;

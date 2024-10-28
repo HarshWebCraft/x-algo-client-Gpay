@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaBell, FaSearch, FaLongArrowAltDown, FaLongArrowAltUp, FaBriefcase, FaBed, FaExchangeAlt, FaCcMastercard, FaCcVisa } from 'react-icons/fa';
 import { FaCutlery } from 'react-icons/fa';
 
-const MyWallet = () => {
+const MyWallet = ({ darkMode, toggleDarkMode }) => {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [show, setShow] = useState(false);
@@ -45,7 +45,7 @@ const MyWallet = () => {
       const response = await axios.post(`${url}/addtowallet`, { Email, amount });
       console.log(response.data.order);
       const options = {
-        key: "rzp_test_KZMNFXrpzK70CD",
+        key: "x",
         amount: response.data.order.amount,
         currency: response.data.order.currency,
         name: "X-Algo",
@@ -97,8 +97,8 @@ const MyWallet = () => {
   }, []);
 
   return (
-    <div className='container'>
-      <Navbar />
+    <div className=''>
+      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
       <div className={localStorage.getItem('theme') === "light-theme" ? 'thaksn' : 'rgvba'}>
         {loading ? (
           <div className='loader2 uytr'>

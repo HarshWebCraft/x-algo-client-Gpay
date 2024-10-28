@@ -7,8 +7,9 @@ import './Home.css'
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import axios from 'axios';
+import ResponsiveNavbar from './ResponsiveNavbar';
 
-function Home() {
+function Home({ darkMode, toggleDarkMode }) {
     const location = useLocation()
     const userEmail = location.state?.userEmail || '';
     const [tourShown, setTourShown] = useState(false);
@@ -72,11 +73,12 @@ function Home() {
 
     return (
         <div className={localStorage.getItem("theme")=="light-theme" ? 'Home' : 'hfhvhjdbhjdbhdhbd'}>
-            <div className='container'>
+            <div >
 
 
-                <Navbar userEmail={userEmail} />
-                <Dashboard userEmail={userEmail} />
+                <Navbar userEmail={userEmail}  darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
+                {/* <ResponsiveNavbar/> */}
+                <Dashboard userEmail={userEmail} darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
 
 
             </div>

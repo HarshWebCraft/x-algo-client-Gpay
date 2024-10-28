@@ -9,6 +9,14 @@ import ForgetPassword from './ForgetPassword';
 
 function Menubar() {
 
+    const redirect = useNavigate();
+
+    const gotoSignin = () =>{
+        redirect('/login')
+    }
+    const gotoSignup = () =>{
+        redirect('/signup')
+    }
     
 
     return (
@@ -16,12 +24,16 @@ function Menubar() {
 
             <div className='menubar'>
                 <ul className='menu text-align-center' >
-                    <li className='link'><button type="button" className="btn btn-primary " data-toggle="modal" data-target="#signin">
+                    <li className='link'>
+                    <button type="button"  className="btn btn-primary " onClick={gotoSignin}>
                         Sign in
-                    </button></li>
-                    <li><button type="button" className="btn btn-primary" data-toggle="modal" data-target="#signup">
+                    </button>
+                    </li>
+                    <li>
+                        <button type="button"  className="btn btn-primary "onClick={gotoSignup}>
                         Sign up
-                    </button></li>
+                    </button>
+                    </li>
                 </ul>
             </div>
             <Signin />

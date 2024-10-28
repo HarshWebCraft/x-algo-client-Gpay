@@ -40,7 +40,7 @@
   bottom: 0;
   width: 10px;
   height: 50%;
-  background: blue;
+  background: rgb(251, 213, 53) ;
   transform-origin: center bottom;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
@@ -80,7 +80,7 @@
   left: 0;
   width: 10px;
   height: 10px;
-  background: blue;
+  background: rgb(251, 213, 53);
   border-radius: 50%;
   -webkit-animation: ball 4s infinite;
           animation: ball 4s infinite;

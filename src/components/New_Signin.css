@@ -1,0 +1,166 @@
+/* Base styles */
+.signin-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a;
+}
+
+.signin-login-box {
+    width: 28em;
+    padding: 1.75em;
+    box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
+
+    background-color: #1a1a1a;
+    border-radius: 0.5em;
+    text-align: start;
+    color: #ffffff;
+    margin: auto 5% auto auto; /* Center align for smaller screens */
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+.ranpq {
+    margin-bottom: 3.5em;
+    color: #b0b3c7;
+    font-size: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input fields */
+label {
+    font-size: 0.9em;
+    color: #b0b3c7;
+    margin-bottom: 0.3em;
+}
+
+.signin-input {
+    width: 100%;
+    max-width: 100%; /* Keep it from resizing in responsive layouts */
+    padding: 0.8em;
+    border-radius: 0.45em;
+    border: 0.08em solid #3b3e57;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 0.85em;
+    margin-bottom: 1.8em;
+}
+
+/* Other elements */
+.signin-password-container {
+    position: relative;
+}
+
+.show-password {
+    position: absolute;
+    right: 0.9em;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #b0b3c7;
+    font-size: 0.85em;
+    cursor: pointer;
+}
+
+.signin-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: #b0b3c7;
+}
+
+.signin-options a {
+    color: #6c5dd3;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+.signin-login-button {
+    line-height: 0.6em;
+    margin: 0.4em 0;
+    background-color: #6c5dd3;
+    color: #ffffff;
+    border: none;
+    padding: 0.8em;
+    border-radius: 0.45em;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 800;
+}
+
+.signin-signup {
+    color: #b0b3c7;
+    font-size: 0.85em;
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.signin-google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    border: 1px solid #d1d1d1;
+    padding: 0.4em;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-size: 1em;
+    color: #5f6368;
+    font-weight: 600;
+    background-color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.signin-google-button img {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.signin-google-button:hover {
+    background-color: #f7f7f7;
+}
+
+.signin-divider {
+    display: flex;
+    align-items: center;
+    margin: 1.2em 0;
+    color: #b0b3c7;
+}
+
+.signin-divider span {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+.signin-lottie-animation {
+    margin: auto 0 auto auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 956px) {
+    .signin-container {
+        justify-content: center;
+        padding: 1em;
+    }
+
+    /* Hide Lottie animation on smaller screens */
+    .signin-lottie-animation {
+        display: none;
+    }
+
+    .signin-login-box {
+        width: 100%;
+        max-width: 28em;
+        padding: 1.5em;
+        margin: auto;
+    }
+}

@@ -88,16 +88,17 @@ h6,
 }
 
 .navbar .navbar-nav .nav-link {
-    margin-right: 1.875rem; /* 30px to rem */
+    margin-right: 1rem; /* 30px to rem */
+    margin-left: 1.075rem;
     padding: 1.5625rem 0; /* 25px to rem */
-    color: var(--dark);
-    font-weight: 500;
+    color: white;
+    font-weight: bold;
     outline: none;
 }
 
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active {
-    color: var(--primary);
+    color: white;
 }
 
 .navbar .dropdown-toggle::after {

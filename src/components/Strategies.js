@@ -193,7 +193,7 @@ function Strategies() {
 
 
   return (
-    <div className='container'>
+    <div className=''>
 
       <div className='s-nav'>
         <Navbar />

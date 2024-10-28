@@ -7,7 +7,8 @@ import '../loader.css'
 import { allClientData, addItem, brokerLogin, removeItem, userSchemaRedux } from '../../actions/actions';
 import { Audio, FallingLines, Triangle } from 'react-loader-spinner'
 import OrderPlace from '../OrderPlace';
-function Dashboard(props) {
+import BotCard from '../BotCard';
+function Dashboard({ darkMode, toggleDarkMode }) {
 
     
     
@@ -43,10 +44,8 @@ function Dashboard(props) {
 
     useEffect(() => {
 
-        // setLoading(true)
-        // document.body.style.overflow = 'hidden';    
+
         
-        console.log('dask')
 
         const fetchData = async () => {
 
@@ -120,7 +119,7 @@ function Dashboard(props) {
 
 
     return (
-        <div className='deskbord'>
+        <div className={`container deskbord ${darkMode ? 'dark' : 'light'}`}>
             {loading &&
                 <div className='loader2 uytr'>
                     <div className="loader liop">
@@ -133,23 +132,9 @@ function Dashboard(props) {
                         <div className="loader__ball"></div>
                     </div>
                 </div>
-                // <div className='uytr'>
-                // <div className='liop'>
-                // <Triangle
-                //     visible={true}
-                //     height="100"
-                //     width="100"
-                //     color="blue"
-                //     ariaLabel="triangle-loading"
-                //     wrapperStyle={{}}
-                //     wrapperClass=""
-                // />
-                // </div>
-                // </div>
-
             }
-            <div className={`row ${localStorage.getItem('theme') == "light-theme" ? "jahgs":"cdaacceecaec"}`}>
-                <div className='col py-2 d-flex justify-content-end'>
+            <div className={`row yqrgk`}>
+                <div className={`col py-2 d-flex justify-content-end ${darkMode ? 'dark' : 'light'}`}>
                     <ul className='d-flex list-no-style '>
 
                         <li className='me-5'>p&l<br />₹</li>
@@ -160,24 +145,15 @@ function Dashboard(props) {
                             })}
 
                             <div className={sum < 0 ? "red" : "green"}>₹{sum.toFixed(2)}</div>
-                            {/* {capital.map((item, index) => ( */}
-                            {/* // <div key={index}>{item.net}</div> */}
-                            {/* // ))} */}
-                            
+                               
                             <br />
-
-                            {/* {capital.map((cap,index1)=>{
-                    
-                            a=a+cap;
-
-                    })} */}
                         </li>
                     </ul>
                 </div>
             </div>
 
-            {b?(<OrderPlace load={ert} broker={broker} capital={capital} />):""}
-            
+            {/* {b?(<OrderPlace load={ert} broker={broker} capital={capital} />):""} */}
+            {b?(<BotCard load={ert} broker={broker} capital={capital} />):""}
         </div >
     )
 }

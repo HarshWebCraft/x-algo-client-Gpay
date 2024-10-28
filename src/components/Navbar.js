@@ -1,164 +1,165 @@
-import React, { useState } from 'react';
-import { Nav, NavDropdown, Form, Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../actions/logout';
 import './navbar.css';
-import UserIcon from './UserIcon';
-import { useEffect } from 'react';
-import axios from 'axios';
+import Logo_Dark from '../images/X-Algo-Dark.png';
+import Logo_Light from '../images/X-Algo-Light.png';
+import Wallet from '../images/wallet.png';
+import Logout from '../images/logout.png';
+import { Image } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
-function Navbar() {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [modalShow, setModalShow] = useState(false);
-    const [newImg,setnewImg] = useState("") 
+const Navbar = ({ darkMode, toggleDarkMode }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedStrategy, setSelectedStrategy] = useState('Strategies'); // New state for selected strategy
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const url = process.env.NODE_ENV === "production" 
-    ? "https://x-algo-gpay.onrender.com" 
-    : "http://localhost:5000";
-
-    const Logout = () => {
-        dispatch(logout());
-        localStorage.removeItem('isLoggedIn');
-        navigate('/');
-    };
-    
-    const userEmail = useSelector(state => state.email.email);
-
-    useEffect(()=>{
-        const data = async () => {
-            try {
-                const responce = await axios.post(`${url}/navbar`, { userEmail })
-                setnewImg(responce.data.img)
-            }
-            catch (e) {
-                console.log(e)
-            }
-        }
-        data()
-    },[])
-    
-    function MyModalWithGrid(props) {
-        const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('theme'));
-        
-        const handleThemeChange = (event) => {
-            
-            
-            window.location.reload();
-            setModalShow(false)
-            setIsDarkMode(event.target.value);
-
-            setTimeout(() => {
-                localStorage.setItem('theme', event.target.value);
-
-            }, 5);
-
-
-        };
-
-        useEffect(() => {
-            const applyStyles = () => {
-                const dropdownMenu = document.querySelector('.dropdown-menu');
-                if (dropdownMenu) {
-                    dropdownMenu.style.backgroundColor = "#16181b"; // Change this to the desired CSS property
-                }
-            };
-
-            if (localStorage.getItem("theme") === "dark-theme") {
-                applyStyles();
-
-                // Observe changes in the DOM to apply styles to dynamically added elements
-                const observer = new MutationObserver(applyStyles);
-                observer.observe(document.body, { childList: true, subtree: true });
-
-                // Clean up the observer on component unmount
-                return () => observer.disconnect();
-            }
-        }, []);
-
-        
-        return (
-            <Modal show={modalShow} {...props} aria-labelledby="contained-modal-title-vcenter">
-                <Modal.Body className={`grid-example1n ${localStorage.getItem('theme') === "light-theme" ? "cganriog" : "bcebcgyofbcgf"}`}>
-                    <Container>
-                        <Row className='col-12 p-0 m-2'>
-                            <div className='text-center col-10'>Setting</div>
-                            <button type="button" className="btn-close custom-close-btn" onClick={props.onHide} aria-label="Close"></button>
-                        </Row>
-                        <Row>
-                            <Col xs={6} md={4}>
-                                General
-                            </Col>
-                            <Col xs={12} md={8}>
-                                Theme
-                                <Form className='pe-4 dd m-2'>
-                                    <Form.Check
-                                        type="radio"
-                                        label="Light Mode"
-                                        value="light-theme"
-                                        checked={isDarkMode === 'light-theme'}
-                                        onChange={handleThemeChange}
-                                    />
-                                    <Form.Check
-                                        type="radio"
-                                        label="Dark Mode"
-                                        value="dark-theme"
-                                        checked={isDarkMode === 'dark-theme'}
-                                        onChange={handleThemeChange}
-                                    />
-                                </Form>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={12} md={8}>
-                                etc
-                            </Col>
-                        </Row>
-                    </Container>
-                </Modal.Body>
-            </Modal>
-        );
+  const getActiveLink = () => {
+    if (location.pathname.startsWith('/Strategies')) {
+      return 'Strategies';
     }
+    switch (location.pathname) {
+      case '/home':
+        return 'Dashboard';
+      case '/PaperTrading':
+        return 'Paper trading';
+      case '/Services':
+        return 'Services';
+      case '/home/broker':
+        return 'Broker';
+      default:
+        return 'Dashboard';
+    }
+  };
 
-    return (
-        <div className={`${localStorage.getItem('theme') === "light-theme" ? 'nav2' : 'ffddfavfvf'}`}>
-            <Nav variant="pills">
-                <Nav.Item className='pe-3 aa my-3 mx-2'>
-                    <Nav.Link as={Link} to="/home" className={location.pathname === '/home' ? 'active' : ''}>Dashboard</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className='pe-3 bb my-3 mx-2'>
-                    <Nav.Link as={Link} to="/Strategies" className={location.pathname === '/Strategies' || location.pathname === '/strategies/mystartegies' || location.pathname === '/strategies/deployed' || location.pathname === '/strategies/marketplace' ? 'active' : ''}>Strategies</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className='pe-3 cc my-3 mx-2'>
-                    <Nav.Link as={Link} to="/Papertrading" className={location.pathname === '/Papertrading' ? 'active' : ''}>Paper Trading</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className='pe-3 dd my-3 mx-2'>
-                    <Nav.Link as={Link} to='/services' className={location.pathname === '/services' ? 'active' : ''}>Services</Nav.Link>
-                </Nav.Item>
-                <Nav.Item className='pe-3 ee my-3 mx-2'>
-                    { newImg ? 
-                    <img src={newImg} className='shgdjasgdjbkachkdbcd'/> 
-                    : 
-                    (<UserIcon userName={userEmail} />)
-                    }
-                </Nav.Item>
-                <Nav.Item className={`pe-3 ff my-3 mx-2`}>
-                    <NavDropdown title="User Details" id="nav-dropdown" className={`aaaaaaaa ${localStorage.getItem('theme') == "light-theme" ? '' : 'bhvbfhvjbv'}`}>
-                        <div className={`${localStorage.getItem('theme') == "light-theme" ? '' : 'bhvbfhvjbv'}`}>
-                            <NavDropdown.Item as={Link} to="/profile" className={`${location.pathname === '/profile' ? 'active ' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Profile</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to='/home/broker' className={`${location.pathname === '/home/broker' ? 'active ' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Broker</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to='/home/myWallet' className={`${location.pathname === '/' ? 'active' : ''}` + `${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>My wallet</NavDropdown.Item>
-                            <NavDropdown.Item className={`btn ${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`} onClick={() => setModalShow(true)}>Setting</NavDropdown.Item>
-                            <NavDropdown.Item onClick={Logout} className={`${localStorage.getItem('theme') === "light-theme" ? '' : 'jhsbdvhjsbdsdb'}`}>Logout</NavDropdown.Item>
-                        </div>
-                    </NavDropdown>
-                </Nav.Item>
-            </Nav>
-            <MyModalWithGrid show={modalShow} onHide={() => setModalShow(false)} />
+  const [activeLink, setActiveLink] = useState(getActiveLink());
+
+  useEffect(() => {
+    setActiveLink(getActiveLink());
+  }, [location]);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleStrategySelect = (strategy) => {
+    setSelectedStrategy(strategy); // Update selected strategy
+    setDropdownOpen(false); // Close dropdown
+    setMenuOpen(false); // Close menu
+    navigate(`/Strategies/${strategy.replace(' ', '')}`); // Navigate to selected strategy
+  };
+
+  const logout = () => {
+    localStorage.removeItem('isLoggedIn');
+    navigate('/');
+  };
+
+  return (
+    <nav className={`navbar ${darkMode ? 'dark' : 'light'}`}>
+      <div className="navbar-logo">
+        <img src={`${darkMode ? Logo_Dark : Logo_Light}`} alt="X-Algos" />
+      </div>
+      <div className={`navbar-links ${menuOpen ? 'active' : ''}`}>
+        <li>
+          <Link
+            to="/home"
+            className={activeLink === 'Dashboard' ? 'active' : ''}
+            onClick={() => setMenuOpen(false)}
+          >
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/Active"
+            className={activeLink === 'Active' ? 'active' : ''}
+            onClick={() => setMenuOpen(false)}
+          >
+            Active
+          </Link>
+        </li>
+        <li className="dropdown">
+          <div
+            className={`dropdown-toggle ${activeLink === 'Strategies' ? 'active' : ''}`}
+            onClick={toggleDropdown}
+          >
+            {selectedStrategy} {/* Display the selected strategy */}
+          </div>
+          {dropdownOpen && (
+            <ul className="dropdown-menu">
+              <li>
+                <div
+                  className={location.pathname === '/Strategies/MyStrategies' ? 'active' : ''}
+                  onClick={() => handleStrategySelect('My Strategies')}
+                >
+                  My Strategies
+                </div>
+              </li>
+              <li>
+                <div
+                  className={location.pathname === '/Strategies/Deployed' ? 'active' : ''}
+                  onClick={() => handleStrategySelect('Deployed')}
+                >
+                  Deployed
+                </div>
+              </li>
+              <li>
+                <div
+                  className={location.pathname === '/Strategies/Active' ? 'active' : ''}
+                  onClick={() => handleStrategySelect('Active')}
+                >
+                  Active
+                </div>
+              </li>
+              <li>
+                <div
+                  className={location.pathname === '/Strategies/Marketplace' ? 'active' : ''}
+                  onClick={() => handleStrategySelect('Marketplace')}
+                >
+                  Marketplace
+                </div>
+              </li>
+            </ul>
+          )}
+        </li>
+        <li>
+          <Link
+            to="/PaperTrading"
+            className={activeLink === 'Paper trading' ? 'active' : ''}
+            onClick={() => setMenuOpen(false)}
+          >
+            Paper trading
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/home/broker"
+            className={activeLink === 'Broker' ? 'active' : ''}
+            onClick={() => setMenuOpen(false)}
+          >
+            Add Broker
+          </Link>
+        </li>
+      </div>
+      <div className="navbar-icons">
+        <div className="icon-container" title="Logout">
+          <Image src={Logout} height={23} className="logout-icon" onClick={logout} />
         </div>
-    );
-}
+        <button onClick={toggleDarkMode}>
+          {darkMode ? '🌙' : '☀️'}
+        </button>
+        <div className="hamburger" onClick={toggleMenu}>
+          ☰
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

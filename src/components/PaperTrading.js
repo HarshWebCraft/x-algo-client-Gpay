@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import * as XLSX from 'xlsx';
 import React from 'react'
 
-function PaperTrading() {
+function PaperTrading({ darkMode, toggleDarkMode }) {
 
 
 
@@ -175,7 +175,7 @@ function PaperTrading() {
 
 
         <div className="container">
-            <Navbar />
+            <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
             <div className={`${localStorage.getItem('theme')=="light-theme"?"row jahgs":"jhsbdchjbdcbs"}`}>
                 <div className={`${localStorage.getItem('theme')=="light-theme"?"col-12 hdfhj":"jhcbhjdbdcjbsdjcbjhs"}`}>Active Trade</div>
                 <div className='col-12'>

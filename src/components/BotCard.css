@@ -1,0 +1,164 @@
+/* General styling for stats card */
+.stats-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Ensures even spacing between columns */
+  padding: 1.25em; /* 20px becomes approximately 1.25em */
+  background-color: var(--bg-color);
+  border-radius: 0.5em; /* 8px becomes approximately 0.5em */
+  box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.3); /* 2px becomes 0.125em and 10px becomes 0.625em */
+}
+
+/* Individual stat item */
+.stat-item {
+  width: 22%; /* Stat items arranged in 4 columns by default */
+  margin-bottom: 1.25em; /* 20px becomes approximately 1.25em */
+  min-width: 7.5em; /* 120px becomes approximately 7.5em */
+  text-align: left;
+}
+
+/* Label and value styling for stats */
+.label {
+  font-weight: bold;
+  font-size: 1em; /* Default font size */
+  color: #777;
+  margin-bottom: 0.3125em; /* 5px becomes approximately 0.3125em */
+}
+
+.value {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+/* Green and red text for values */
+.green {
+  color: #4caf50;
+}
+
+.red {
+  color: #f44336;
+}
+
+/* .active {
+  color: #4caf50;
+} */
+
+/* Container styling */
+.stats-container {
+  background-color: var(--bg-color);
+  padding: 1.25em;
+  border-radius: 0.5em;
+  box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
+  margin-top: 0.625em; /* 10px becomes approximately 0.625em */
+}
+
+/* Account information styling */
+.account-info {
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.5em; /* 8px becomes approximately 0.5em */
+}
+
+.account-item .label {
+  font-size: 1em;
+  color: #777;
+  margin-right: 0.5em; /* 8px becomes approximately 0.5em */
+}
+
+.account-item .value {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* Styling for the toggle switch container */
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  width: 3.75em; /* 60px becomes approximately 3.75em */
+  height: 1.875em; /* 30px becomes approximately 1.875em */
+  background-color: #ddd;
+  border-radius: 3.125em; /* 50px becomes approximately 3.125em */
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch.on {
+  background-color: #4caf50;
+}
+
+.toggle-switch.off {
+  background-color: #f44336;
+}
+
+/* Circle inside the toggle switch */
+.toggle-circle {
+  width: 1.75em; /* 28px becomes approximately 1.75em */
+  height: 1.75em;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.0625em; /* 1px becomes approximately 0.0625em */
+  left: 0.0625em;
+  transition: left 0.3s ease;
+}
+
+.toggle-switch.on .toggle-circle {
+  left: 1.9375em; /* 31px becomes approximately 1.9375em */
+}
+
+/* Toggle label, optional */
+.toggle-label {
+  margin-left: 2.5em; /* 40px becomes approximately 2.5em */
+  font-size: 0.875em; /* 14px becomes approximately 0.875em */
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 48em) { /* 768px becomes 48em */
+  .stat-item {
+    width: 48%; /* Two columns on medium screens */
+  }
+
+  .toggle-switch {
+    width: 3.125em; /* 50px becomes approximately 3.125em */
+    height: 1.5625em; /* 25px becomes approximately 1.5625em */
+  }
+
+  .toggle-circle {
+    width: 1.5em; /* 24px becomes approximately 1.5em */
+    height: 1.5em;
+  }
+
+  .toggle-switch.on .toggle-circle {
+    left: 1.5625em; /* 25px becomes approximately 1.5625em */
+  }
+}
+
+@media (max-width: 30em) { /* 480px becomes 30em */
+  .stat-item {
+    width: 100%; /* Full width on small screens */
+  }
+
+  .toggle-switch {
+    width: 2.5em; /* 40px becomes approximately 2.5em */
+    height: 1.25em; /* 20px becomes approximately 1.25em */
+  }
+
+  .toggle-circle {
+    width: 1.125em; /* 18px becomes approximately 1.125em */
+    height: 1.125em;
+  }
+
+  .toggle-switch.on .toggle-circle {
+    left: 1.25em; /* 20px becomes approximately 1.25em */
+  }
+
+  .toggle-label {
+    font-size: 0.75em; /* 12px becomes approximately 0.75em */
+    margin-left: 1.875em; /* 30px becomes approximately 1.875em */
+  }
+}

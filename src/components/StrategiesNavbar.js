@@ -6,7 +6,7 @@ import './strategiesnavbar.css';
 function StrategiesNavbar(){
     const location = useLocation();
     return(
-        <div>
+        <div className='container wsdcik'>
             <Nav className= {`col-7 center-div2 ${localStorage.getItem('theme') === "light-theme" ? '' : 'sxdcgfvhbj'}`}>
                 <Nav.Item className='col-3 my-3 mx-2 center-div2'>
                     <Nav.Link as={Link} to="/strategies/mystartegies" className={location.pathname === '/strategies/mystartegies' ? 'active' : ''}>My Strategies</Nav.Link>
@@ -18,6 +18,7 @@ function StrategiesNavbar(){
                     <Nav.Link as={Link} to="/strategies/marketplace" className={location.pathname === '/strategies/marketplace' ? 'active' : ''}>Market Place</Nav.Link>
                 </Nav.Item>
             </Nav>
+            
         </div>
     )
 }

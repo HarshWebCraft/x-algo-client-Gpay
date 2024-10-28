@@ -21,13 +21,11 @@ function OrderPlace(props) {
 
   
 
-  const brokerCount = userSchema.BrokerCount
 
   return (
     <div className={`${localStorage.getItem('theme')=="light-theme"?"":"vgjsdbhcd col-12"}`}>
 
 
-      {/* {brokerCount ? ( */}
       {clientdata.map((item, index) => (
 
         <div key={index} className='row OrderPlace'>
@@ -57,7 +55,8 @@ function OrderPlace(props) {
               </div>
               <div className='row mt-1'>
                 <div className='col-6'>₹</div>
-                <div className='col-6'>{props.load ? (
+                <div className='col-6'>
+                  {props.load ? (
                 <Oval
                   visible={true}
                   height="25"
@@ -76,14 +75,8 @@ function OrderPlace(props) {
                       </div>
                     );
                   }
-
-
-
-
-
-
-
-                }))}</div>
+                }))}
+                </div>
               </div>
             </div>
           </div>
@@ -95,11 +88,7 @@ function OrderPlace(props) {
         </div>
       ))
       }
-      {/* ) 
-      : (
-        <p></p>
-      )} */}
-
+      
 
 
     </div>

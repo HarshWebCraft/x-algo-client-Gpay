@@ -8,6 +8,13 @@
     align-content: flex-end;
 }
 
+.yqrgk{
+    background-color: var(--bg-color);
+    border-radius: 0.5em; 
+    box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
+    margin-top: 2em;
+}
+
 .jahgs{
     margin-top: 3em;
     border-radius: 1em;

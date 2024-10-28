@@ -6,8 +6,9 @@ import marketplacedata from './marketPlace.json';
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from 'react-router-dom';
+import StrategyCard from './StrategyCard';
 
-function MarketPlace() {
+function MarketPlace({ darkMode, toggleDarkMode }) {
     const Email = useSelector(state => state.email.email);
     const dispatch = useDispatch();
     const location = useLocation()
@@ -23,7 +24,7 @@ function MarketPlace() {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const response = await axios.post(`${url}/mystartegies`, { Email });
+                const response = await axios.post(`${url}/myStrategies`, { Email });
 
                 const myStartegies = response.data.mystartegies;
                 const notMyStartegies = marketplacedata || [];
@@ -43,15 +44,25 @@ function MarketPlace() {
     }, []);
 
     
+    const subscribe = async(id) =>{
+        try {
+
+            
+            
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
     React.useEffect(() => {
         document.body.className = `${localStorage.getItem('theme')}`;
     }, [])
 
     return (
-        <div className="container">
-            <Navbar />
-            <StrategiesNavbar />
-            {loading ?
+        <div className="">
+            <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+            {/* {loading ?
                 <div className='loader2 uytr'>
                     <div className="loader liop">
 
@@ -84,7 +95,7 @@ function MarketPlace() {
                                 <div className='row'>
                                     <div className='col-3 nays'>{strategy.name}</div>
                                     <div className='col-7'></div>
-                                    <div className='btn col-2 btn-primary nays' id="ajsgdhagsdhabsnamaafarefse">Subscribe</div>
+                                    <div className='btn col-2 btn-primary nays' onClick={subscribe(strategy.id)} id="ajsgdhagsdhabsnamaafarefse">Subscribe</div>
                                 </div>
                                 <div className='row nays'>
                                     <div className='col-12'>
@@ -96,7 +107,8 @@ function MarketPlace() {
                     </div>
                 )))
 
-            }
+            } */}
+            <StrategyCard/>
         </div>
     );
 }

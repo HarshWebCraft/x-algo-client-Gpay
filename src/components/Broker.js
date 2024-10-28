@@ -1,11 +1,11 @@
 import React from 'react'
 import Navbar from './Navbar'
 import Listofbroker from './Listofbroker'
-function Broker() {
+function Broker({ darkMode, toggleDarkMode }) {
   return (
     <div>
-        <div className='container'>
-         <Navbar />
+        <div className=''>
+         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
          <Listofbroker/>
          </div>
     </div>

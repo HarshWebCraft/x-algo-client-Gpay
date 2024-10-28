@@ -49,7 +49,7 @@ function ForgetPassword() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content klkjio">
                         <div className="modal-header">
-                            <h5 className="modal-title m-auto" id="exampleModalLabel">Reset Password</h5>
+                            <h5 className="modal-title m-auto oiojkb" id="exampleModalLabel">Reset Password</h5>
                         </div>
                         <div className="modal-body">
                             <div className='container'>

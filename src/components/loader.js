@@ -10,6 +10,7 @@ const LoaderComp = () => {
             wrapperStyle={{}}
             wrapperClass=""
             visible={true}
+            
         />
     );
 };  

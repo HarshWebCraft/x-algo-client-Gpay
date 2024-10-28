@@ -24,3 +24,30 @@ table.table-bordered > tbody > tr > td {
 .aaa{
   background-color: blue;
 }
+
+
+.App {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  
+}
+
+.app {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.dark {
+  --bg-color: #1a1a1a !important;
+  --text-color: white !important; 
+  --opo-bg-color: white !important;
+  --opo-text-color: black !important;
+}
+
+.light {
+  --bg-color: white;
+  --opo-bg-color: #1a1a1a !important;
+  --opo-text-color: white !important;
+  --text-color: black;
+}

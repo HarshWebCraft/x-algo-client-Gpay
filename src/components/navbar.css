@@ -1,9 +1,11 @@
-
+/* 
 .nav2{
     margin-top: 3em;
     margin-left: 27em;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     border-radius: 0.5em;
+    background-color:  white !important;
+
 }
 
 .remove-link-style {
@@ -20,25 +22,45 @@
     border-radius: 50%;
     height: 3em;
     width: 3em;
+} */
+
+/* nav {
+    background-color: #101214 !important;
+} */
+/* 
+
+.navbar-expand-lg .navbar-collapse{
+    justify-content: end !important;
+}
+.navbar .navbar-nav .nav-link {
+    padding: 0.4em !important;
 }
 
-/*dark mode*/
+nav{
+    background-color: #101214 !important;
+}
 
-.ffddfavfvf{
-    background-color: #161A1D;
-    margin-top: 3em;
-    margin-left: 26em;
+.qdnzp{
     border-radius: 0.5em;
     box-shadow: 
-    1px 1px 10px rgba(200, 200, 200, 0.1),
-    1px 1px 10px rgba(70, 70, 70, 0.1),
-    1px 1px 10px rgba(200, 200, 200, 0.1),
-    1px 1px 10px rgba(70, 70, 70, 0.1)
+        1px 1px 10px rgba(200, 200, 200, 0.1),
+        1px 1px 10px rgba(70, 70, 70, 0.1),
+        1px 1px 10px rgba(200, 200, 200, 0.1),
+        1px 1px 10px rgba(70, 70, 70, 0.1);
+    
+} */
+
+/*dark mode*/
+/* 
+.ffddfavfvf {
+
+    margin-top: 3em;
+    display: flex;
+    justify-content: flex-end; 
+    padding-right: 1em; 
 }
 
-.bhvbfhvjbv{
-    background-color: #161A1D;
-}
+
 
 .bcebcgyofbcgf{
     color: rgb(255, 255, 255);
@@ -66,3 +88,308 @@
 .active{
     background-color: blue !important
 }
+
+
+@media (max-width: 768px) {
+
+    .nav2, .ffddfavfvf {
+        margin: 0; 
+      }
+      .qdnzp {
+        flex-direction: column;
+      }
+      .shgdjasgdjbkachkdbcd {
+        margin: auto;
+      }
+
+    .nav2 {
+        margin-left: 0; 
+        margin-top: 1em; 
+        width: 100%; 
+        box-shadow: none; 
+    }
+
+    .ffddfavfvf {
+        justify-content: center;
+        padding-right: 0; 
+    }
+
+    .nav2 .nav-item {
+        display: block;
+        text-align: center;
+        padding: 0.5em 0;
+        margin: 0; 
+    }
+    .shgdjasgdjbkachkdbcd {
+        height: 2.5em;
+        width: 2.5em;
+    }
+    .bhvbfhvjbv {
+        padding: 0.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav2 {
+        margin-top: 0.5em;
+    }
+
+    .nav2 .nav-item {
+        padding: 0.3em 0;
+    }
+
+    .nav2 .nav-link {
+        font-size: 0.9em;
+    }
+
+    .shgdjasgdjbkachkdbcd {
+        height: 2em;
+        width: 2em;
+    }
+}
+
+.remove-link-style {
+    text-decoration: none;
+    color: inherit;
+}
+
+.custom-close-btn {
+    color: red;
+    background-color: red;
+}
+
+.bcebcgyofbcgf {
+    color: rgb(255, 255, 255);
+    background-color: black;
+}
+
+.bcebcgyofbcgf2 {
+    color: black;
+    background-color: white;
+}
+
+.jhsbdvhjsbdsdb {
+    color: white;
+}
+
+.jhsbdvhjsbdsdb:focus, .jhsbdvhjsbdsdb:hover {
+    color: blue;
+    background-color: #161A1D;
+}
+
+.jhsbdvhjsbdsdb > a:focus {
+    background-color: red;
+}
+
+.active {
+    background-color: blue !important;
+} */
+/* --- Default navbar styles for larger screens (laptop) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
+  .icon-container {
+    position: relative; /* Required for positioning the tooltip */
+    display: inline-block; /* Allows the tooltip to position correctly */
+    margin-right: 10px; /* Space between icons */
+  }
+  
+  .tooltip {
+    visibility: hidden; /* Hidden by default */
+    width: 70px; /* Adjust width as needed */
+    background-color: black; /* Background color of the tooltip */
+    color: #fff; /* Text color */
+    text-align: center; /* Center the text */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Padding around text */
+    position: absolute; /* Positioning */
+    z-index: 1; /* Ensure the tooltip appears above other elements */
+    bottom: 100%; /* Position the tooltip above the icon */
+    left: 50%; /* Center the tooltip */
+    margin-left: -35px; /* Offset for center alignment */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s; /* Fade-in effect */
+  }
+  
+  .icon-container:hover .tooltip {
+    visibility: visible; /* Show the tooltip on hover */
+    opacity: 1; /* Fade in */
+  }
+  
+
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .hamburger{
+    display: none;
+  }
+  .navbar-logo img {
+    width: 4.25em;
+    height: 3.5em;
+  }
+  
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 2em;
+    margin-bottom: 0;
+    z-index: 2;
+
+  }
+
+  
+  .navbar-links li a {
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+    transition: color 0.3s ease-in-out; /* Add color transition */
+  }
+  
+  /* Hover effect */
+  .navbar-links li a:hover {
+    color: #f0b90b;
+  }
+  
+  /* Active link with ::after pseudo-element for the underline effect */
+  .navbar-links li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Position the underline slightly below the text */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%; /* Adjust width for a shorter underline */
+    height: 3px;
+    background-color: #f0b90b; /* Color for the active link underline */
+    transition: width 0.3s ease-in-out; /* Smooth transition when becoming active */
+  }
+  
+  /* Adds smooth animation when changing the width of the underline */
+  .navbar-links li a.active:hover::after {
+    width: 100%; /* Full width on hover */
+  }
+  
+  .navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+  
+  .icon {
+    font-size: 1.25em;
+    cursor: pointer;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    font-size: 1.25em;
+    cursor: pointer;
+  }
+  
+  .dark {
+    --bg-color: #1a1a1a;
+    --text-color: white;
+  }
+  
+  .light {
+    --bg-color: white;
+    --text-color: black;
+  }
+  
+  /* --- Mobile Responsiveness --- */
+  @media (max-width: 768px) {
+    .navbar-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: var(--bg-color);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0; /* Initially hidden */
+      overflow: hidden;
+      display: flex;
+      transition: max-height 0.3s ease-in-out; /* Transition for smooth open/close */
+    }
+  
+    /* When active, set a larger max-height to accommodate all items */
+    .navbar-links.active {
+      max-height: 500px; /* Adjust this value depending on your menu's height */
+    }
+  
+    .navbar-links li {
+      text-align: center;
+      padding: 1em 0;
+      border-bottom: 1px solid #ccc;
+    }
+  
+    .navbar-links li:last-child {
+      border-bottom: none;
+    }
+  
+    .navbar-icons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    /* Shows the hamburger only on smaller screens */
+    .hamburger {
+      display: block;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar-logo img {
+      width: 3.5em;
+      height: 3em;
+    }
+  }
+
+
+  /* Styles for the dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: var(--bg-color);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: var(--text-color);
+
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f0f0f0;
+}
+
+  
