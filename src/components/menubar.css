@@ -9,6 +9,11 @@
    width: 15em;
 }
 
+.menubar{
+    display: flex;
+    justify-content: end;
+}
+
 .link{
     
     
