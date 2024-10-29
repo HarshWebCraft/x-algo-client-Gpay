@@ -1,10 +1,8 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import First from "./components/First";
-import VantaGlobe from "./components/VantaGlobe";
 import Home from "./components/Home";
 import Broker from "./components/Broker";
 import { useSelector } from "react-redux";
@@ -36,19 +34,29 @@ import AddMarketPlaceData from "./components/AddMarketPlaceData";
 function App() {
   const isAuth = useSelector((state) => state.account.auth);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  React.useEffect(() => {
-    if (localStorage.getItem("theme") == null) {
-      localStorage.setItem("theme", "light-theme");
+
+  // Retrieve the initial theme from localStorage
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  const toggleDarkMode = () => {
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("theme", newMode ? "dark" : "light"); // Save new theme in localStorage
+      return newMode;
+    });
+  };
+
+  useEffect(() => {
+    // Set initial theme based on localStorage
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setDarkMode(storedTheme === "dark");
     }
   }, []);
 
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
   return (
-    // <div className={localStorage.getItem('theme')=="light-theme" ? 'App' : 'hfhvhjdbhjdbhdhbd'}>
     <div className={`App app ${darkMode ? "dark" : "light"}`}>
       <Routes>
         <Route path="/contactus" exact element={<ContactUs />} />

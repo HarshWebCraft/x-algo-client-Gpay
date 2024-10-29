@@ -218,44 +218,28 @@ function Listofbroker() {
   return (
     <div
       className={`container ${
-        localStorage.getItem("theme") == "light-theme" ? "" : "jkcdsbhchasd"
+        localStorage.getItem("theme") === "light-theme" ? "" : "jkcdsbhchasd"
       }`}
     >
-      <div className={`${showAlert ? " alert alert-danger show mt-4" : ""}`}>
+      <div className={`${showAlert ? "alert alert-danger show mt-4" : ""}`}>
         {alertMessage}
       </div>
-      <div className={`${showAlert2 ? " alert alert-success show mt-4" : ""}`}>
+      <div className={`${showAlert2 ? "alert alert-success show mt-4" : ""}`}>
         {alertMessage2}
       </div>
 
-      {
-        loading && (
-          <div className="loader2 uytr">
-            <div className="loader liop">
-              <div className="loader__bar"></div>
-              <div className="loader__bar"></div>
-              <div className="loader__bar"></div>
-              <div className="loader__bar"></div>
-              <div className="loader__bar"></div>
-              <div className="loader__ball"></div>
-            </div>
+      {loading && (
+        <div className="loader2 uytr">
+          <div className="loader liop">
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__ball"></div>
           </div>
-        )
-
-        // <div className='uytr'>
-        //     <div className='liop'>
-        //         <Triangle
-        //             visible={true}
-        //             height="100"
-        //             width="100"
-        //             color="blue"
-        //             ariaLabel="triangle-loading"
-        //             wrapperStyle={{}}
-        //             wrapperClass=""
-        //         />
-        //     </div>
-        // </div>
-      }
+        </div>
+      )}
 
       <div
         className={`broker-list mt-5 p-2 ${
@@ -265,280 +249,168 @@ function Listofbroker() {
         }`}
       >
         <div className="row">
-        <span className="list-title mt-3 ms-3 " style={{ fontSize: 30  , textAlign:"left" , fontWeight :"600"}}>
-      Add Broker
-    </span>
-  <div className="col-12 p-3  d-flex align-items-start flex-column">
-    {/* Input fields and button row */}
-    <div className="d-flex  justify-content-between align-items-center w-100 mt-3">
-      {/* Input field 1 */}
-      <input
-        type="text"
-        className="form-control me-2 input-focus-yellow"
-        placeholder="Client ID"
-        value={id}
-                  onChange={(e) => {
-                    insertid(e.target.value);
-                  }}
-                  required
-        style={{ width: "20%" }}
-      />
-
-      {/* Input field 2 */}
-      <input
-        type="text"
-        className="form-control me-2 input-focus-yellow"
-        placeholder="PIN"
-        value={pass}
-                  onChange={(e) => {
-                    insertpass(e.target.value);
-                  }}
-                  required
-        style={{ width: "20%" }}
-      />
-
-      {/* Input field 3 */}
-      <input
-        type="text"
-        className="form-control me-2 input-focus-yellow"
-        placeholder="Totp Key"
-        value={secretKey}
-                  onChange={(e) => {
-                    insertSecretKey(e.target.value);
-                  }}
-                  required
-        style={{ width: "20%" }}
-      />
-
-      {/* Input field 4 */}
-      <input
-        type="text"
-        className="form-control me-2 input-focus-yellow"
-        placeholder="Api key"
-        value={apikey}
-                  onChange={(e) => {
-                    insertApiKey(e.target.value);
-                  }}
-                  required
-        style={{ width: "20%" }}
-      />
-
-      {/* Button */}
-
-      <select className="form-select me-2 input-focus-yellow" aria-label="Broker selection" style={{ width: "20%" , boxShadow:"none"}}>
-        <option value="">Select Broker</option>
-        <option value="1">AngelOne</option>
-        <option value="2">Zerodha</option>
-        <option value="3">Upstox</option>
-      </select>
-
-          
-    </div>
-    <button className="btn  mt-3" style={{ width: "100%" , backgroundColor:"#FBD535"}} onClick={f1}>
-        Add Broker
-      </button>
-    {/* Page Title */}
-    {/* <span className="list-title mt-3 ms-2" style={{ fontSize: 35 }}>
-      List of Brokers
-    </span> */}
-    <br />
-
-    {/* Table and content */}
-    <div className="container evlyd mt-3">
-      <div className="table-responsive evlyd">
-        {/* Table structure */}
-        <table className="table">
-          <thead>
-            <tr style={{ textAlign: "center" }}>
-              {/* Set fixed width for each column */}
-              <th
-                style={{ width: "15%" }}
-                className={`${
-                  localStorage.getItem("theme") === "light-theme" ? "" : "dark-theme-class"
-                }`}
-              >
-                Client ID
-              </th>
-              <th
-                style={{ width: "30%" }}
-                className={`${
-                  localStorage.getItem("theme") === "light-theme" ? "" : "dark-theme-class"
-                }`}
-              >
-                Name
-              </th>
-              <th
-                style={{ width: "10%", textAlign: "center" }}
-                className={`${
-                  localStorage.getItem("theme") === "light-theme" ? "" : "dark-theme-class"
-                }`}
-              >
-                Date
-              </th>
-              <th
-                style={{ width: "15%", textAlign: "center" }}
-                className={`${
-                  localStorage.getItem("theme") === "light-theme" ? "" : "dark-theme-class"
-                }`}
-              >
-                Broker Name
-              </th>
-              <th
-                style={{ width: "10%", textAlign: "center" }}
-                className={`${
-                  localStorage.getItem("theme") === "light-theme" ? "" : "dark-theme-class"
-                }`}
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody style={{ textAlign: "center" }}>
-            {/* Rendering client data dynamically */}
-            {clientdata.map((item, index) => (
-              <tr key={index}>
-                {/* Client ID */}
-                <td>{item.userData.data.clientcode}</td>
-
-                {/* Name */}
-                <td
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {item.userData.data.name.toUpperCase()}
-                </td>
-
-                <td style={{ textAlign: "center" }}>12/5/2004</td>
-
-                {/* Broker Name */}
-                <td style={{ textAlign: "center" }}>AngelOne</td>
-
-                {/* Delete Action */}
-                <td style={{ textAlign: "center" }}>
-                  <img
-                    src={delete_broker}
-                    height={20}
-                    className="delete-icon"
-                    alt="Delete Broker"
-                    title="Click to delete this broker"
-                    onClick={() => {
-                      delete_broker_fun(index);
-                    }}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div className="col-12"></div>
-</div>
-
-      </div>
-
-      {/* <div
-        className={`mb-5 mt-5 p-2 ${
-          localStorage.getItem("theme") == "light-theme"
-            ? "addbroker"
-            : "edsedseddesefergerg"
-        }`}
-      >
-        <div className="row">
-          <span className="col-12 d-flex p-2 ps-4 amxjy addbrokertitle">
-            Add broker
+          <span
+            className="list-title mt-3 ms-3"
+            style={{ fontSize: "1.8rem", textAlign: "left", fontWeight: "600" }}
+          >
+            Add Broker
           </span>
-          <div className="col-12">
-            <Form onSubmit={f1} className="App">
+          <div className="col-12 p-3 d-flex flex-wrap align-items-start">
+            {/* Input fields and button row */}
+            <div className="d-flex flex-column flex-md-row justify-content-between w-100 mt-3 gap-3 qsxpog">
+              {/* Input fields */}
+              <input
+                type="text"
+                className="form-control mb-2 mb-md-0 input-focus-yellow"
+                placeholder="Client ID"
+                value={id}
+                onChange={(e) => insertid(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+              <input
+                type="text"
+                className="form-control mb-2 mb-md-0 input-focus-yellow"
+                placeholder="PIN"
+                value={pass}
+                onChange={(e) => insertpass(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+              <input
+                type="text"
+                className="form-control mb-2 mb-md-0 input-focus-yellow"
+                placeholder="Totp Key"
+                value={secretKey}
+                onChange={(e) => insertSecretKey(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+              <input
+                type="text"
+                className="form-control mb-2 mb-md-0 input-focus-yellow"
+                placeholder="Api Key"
+                value={apikey}
+                onChange={(e) => insertApiKey(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+
+              {/* Broker selection dropdown */}
               <select
-                name=""
-                id=""
-                className="p-2 bg-primary  outline-none rounded-3 mt-4 d-flex ms-3 text-white"
+                className="form-select mb-2 mb-md-0 input-focus-yellow"
+                aria-label="Broker selection"
+                style={{
+                  width: "100%",
+                  maxWidth: "200px",
+                  boxShadow: "none",
+                  color: "gray",
+                }}
               >
-                <option value="AngleOne">Angel One</option>
+                <option value="1">AngelOne</option>
+                <option value="2">Zerodha</option>
+                <option value="3">Upstox</option>
               </select>
-              <Form.Group>
-                <Form.Label className="selectbroker"></Form.Label>
-                <Form.Control
-                  className={`d-flex passField m-auto mt-3 ${
-                    localStorage.getItem("theme") == "light-theme"
-                      ? ""
-                      : "agjvdfdcusacfbd"
-                  }`}
-                  type="text"
-                  placeholder="Id"
-                  value={id}
-                  onChange={(e) => {
-                    insertid(e.target.value);
-                  }}
-                  required
-                />
-                <Form.Control
-                  className={`d-flex passField m-auto mt-3 ${
-                    localStorage.getItem("theme") == "light-theme"
-                      ? ""
-                      : "agjvdfdcusacfbd"
-                  }`}
-                  type="text"
-                  placeholder="PIN"
-                  value={pass}
-                  onChange={(e) => {
-                    insertpass(e.target.value);
-                  }}
-                  required
-                />
-                <Form.Control
-                  className={`d-flex passField m-auto mt-3 ${
-                    localStorage.getItem("theme") == "light-theme"
-                      ? ""
-                      : "agjvdfdcusacfbd"
-                  }`}
-                  type="text"
-                  placeholder="Totp key"
-                  value={secretKey}
-                  onChange={(e) => {
-                    insertSecretKey(e.target.value);
-                  }}
-                  required
-                />
-                <Form.Control
-                  className={`d-flex passField m-auto mt-3 ${
-                    localStorage.getItem("theme") == "light-theme"
-                      ? ""
-                      : "agjvdfdcusacfbd"
-                  }`}
-                  type="text"
-                  placeholder="Api Key"
-                  value={apikey}
-                  onChange={(e) => {
-                    insertApiKey(e.target.value);
-                  }}
-                  required
-                />
-                
-                <div className="bubble">
-                  <Link
-                    to={`${url}/helpToAdd`}
-                    target="__blank"
-                    className="help"
-                  >
-                    Don't know Totp Key <br />
-                    Click here
-                  </Link>
-                </div>
-                <div className="bubble1"></div>
-              </Form.Group>
-              <Button variant="primary mt-3" type="submit">
-                Add
-              </Button>
-            </Form>
+            </div>
+            <button
+              className="btn mt-3 w-100"
+              style={{ backgroundColor: "#FBD535" }}
+              onClick={f1}
+            >
+              Add Broker
+            </button>
+          </div>
+
+          {/* Broker Table */}
+          <div className="container evlyd mt-3">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr style={{ textAlign: "center" }}>
+                    <th
+                      style={{ width: "15%" }}
+                      className={
+                        localStorage.getItem("theme") === "light-theme"
+                          ? ""
+                          : "dark-theme-class"
+                      }
+                    >
+                      Client ID
+                    </th>
+                    <th
+                      style={{ width: "30%" }}
+                      className={
+                        localStorage.getItem("theme") === "light-theme"
+                          ? ""
+                          : "dark-theme-class"
+                      }
+                    >
+                      Name
+                    </th>
+                    <th
+                      style={{ width: "10%", textAlign: "center" }}
+                      className={
+                        localStorage.getItem("theme") === "light-theme"
+                          ? ""
+                          : "dark-theme-class"
+                      }
+                    >
+                      Date
+                    </th>
+                    <th
+                      style={{ width: "15%", textAlign: "center" }}
+                      className={
+                        localStorage.getItem("theme") === "light-theme"
+                          ? ""
+                          : "dark-theme-class"
+                      }
+                    >
+                      Broker Name
+                    </th>
+                    <th
+                      style={{ width: "10%", textAlign: "center" }}
+                      className={
+                        localStorage.getItem("theme") === "light-theme"
+                          ? ""
+                          : "dark-theme-class"
+                      }
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody style={{ textAlign: "center" }}>
+                  {clientdata.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.userData.data.clientcode}</td>
+                      <td
+                        style={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {item.userData.data.name.toUpperCase()}
+                      </td>
+                      <td>12/5/2004</td>
+                      <td>AngelOne</td>
+                      <td>
+                        <img
+                          src={delete_broker}
+                          height={20}
+                          className="delete-icon"
+                          alt="Delete Broker"
+                          onClick={() => delete_broker_fun(index)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

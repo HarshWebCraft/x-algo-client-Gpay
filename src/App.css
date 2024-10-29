@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.bg{
+.bg {
   position: relative;
   width: 94.9em;
   height: 45em;
@@ -15,22 +15,20 @@ table.table-bordered > tbody > tr > td {
 
 /*dark */
 
-.dark-theme{
+.dark-theme {
   text-align: center;
   background-color: #101214; /* Dark background color */
-  color: #FFFFFF; /* Light text color */
+  color: #ffffff; /* Light text color */
 }
 
-.aaa{
+.aaa {
   background-color: blue;
 }
-
 
 .App {
   background-color: var(--bg-color);
   color: var(--text-color);
   min-height: 100vh;
-  
 }
 
 .app {
@@ -40,7 +38,7 @@ table.table-bordered > tbody > tr > td {
 
 .dark {
   --bg-color: #1a1a1a !important;
-  --text-color: white !important; 
+  --text-color: white !important;
   --opo-bg-color: white !important;
   --opo-text-color: black !important;
 }
