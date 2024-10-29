@@ -5,6 +5,29 @@
   justify-content: center; /* Center the cards horizontally */
 }
 
+/* Style for the normal subscribe button */
+.subscribe-btn {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Style for hover effect */
+.subscribe-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Style for the disabled button */
+.subscribe-btn:disabled {
+  background-color: #cccccc; /* Lighter gray to indicate disabled state */
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .card {
   margin-top: 2em;
   width: 21em;
@@ -82,7 +105,12 @@
   flex-grow: 0; /* Prevents this from expanding */
 }
 
-.time-info, .days-info {
+.time-info,
+.days-info,
+.subscriber-info,
+.deployed-info,
+.created-by-info,
+.creation-date-info {
   padding: 0.3em;
   width: 100%;
   border-radius: 0.5em;
@@ -111,7 +139,14 @@
   flex-shrink: 0; /* Keeps footer from shrinking */
 }
 
-.subscribe-btn, .learn-more-btn {
+.additional-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.subscribe-btn,
+.learn-more-btn {
   padding: 0.5em 1em;
   width: 100%;
   font-size: 0.875em;

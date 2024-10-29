@@ -8,6 +8,10 @@
     align-content: flex-end;
 }
 
+.deskbord{
+    padding: 0 1.5em;
+}
+
 .yqrgk{
     background-color: var(--bg-color);
     border-radius: 0.5em; 
