@@ -7,7 +7,6 @@
 .form-control,
 .form-select {
   background-color: transparent !important;
-  color: gray;
 }
 
 .form-select {
@@ -75,7 +74,7 @@
 
 .alert {
   position: relative;
-  width: 80em;
+  width: 100%;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }

@@ -19,7 +19,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   const getActiveLink = () => {
     if (location.pathname.startsWith("/Strategies")) {
       console.log(location.pathname);
-
       return "Strategies";
     }
     switch (location.pathname) {

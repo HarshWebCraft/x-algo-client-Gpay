@@ -52,15 +52,13 @@ function Listofbroker() {
       ? "https://x-algo-gpay.onrender.com"
       : "http://localhost:5000";
 
-  useEffect(() => {
+  useEffect(async () => {
     const fetchData = async () => {
       console.log(userSchema);
       console.log(clientdata);
-      // const response = await axios.post('${url}/checkBroker', { Email: email });
-      // setisLoggedIn(response.data.success)
     };
     fetchData();
-  }, [email, userSchema]);
+  }, [email, userSchema, clientdata]);
 
   const showAlertWithTimeout = (message, duration) => {
     setShowAlert(true);
@@ -99,6 +97,7 @@ function Listofbroker() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setLoading(false);
     } else {
       e.preventDefault();
       console.log("broker add");
@@ -127,6 +126,7 @@ function Listofbroker() {
           console.log(response.data.userSchema);
           const dbschema = await axios.post(`${url}/dbSchema`, { Email });
           const profileData = await axios.post(`${url}/userinfo`, { Email });
+          console.log(profileData.data);
           dispatch(allClientData(profileData.data));
           showAlertWithTimeout2("Successfully added", 3000);
           Swal.fire({
@@ -174,10 +174,13 @@ function Listofbroker() {
 
     if (confirmation.isConfirmed) {
       try {
+        setLoading(true);
         const response = await axios.post(`${url}/removeClient`, {
           Email,
           index,
         });
+        setLoading(false);
+
         const profileData = await axios.post(`${url}/userinfo`, { Email });
         dispatch(allClientData(profileData.data));
         const dbschema = await axios.post(`${url}/dbSchema`, { Email });
