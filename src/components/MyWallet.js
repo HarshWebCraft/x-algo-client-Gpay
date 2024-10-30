@@ -1,48 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar';
-import './myWallet.css';
-import './button.scss';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaBell, FaSearch, FaLongArrowAltDown, FaLongArrowAltUp, FaBriefcase, FaBed, FaExchangeAlt, FaCcMastercard, FaCcVisa } from 'react-icons/fa';
-import { FaCutlery } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
+import "./myWallet.css";
+import "./button.scss";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  FaBell,
+  FaSearch,
+  FaLongArrowAltDown,
+  FaLongArrowAltUp,
+  FaBriefcase,
+  FaBed,
+  FaExchangeAlt,
+  FaCcMastercard,
+  FaCcVisa,
+} from "react-icons/fa";
+import { FaCutlery } from "react-icons/fa";
 
 const MyWallet = ({ darkMode, toggleDarkMode }) => {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [show, setShow] = useState(false);
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
   const Email = useSelector((state) => state.email.email);
-  const [balance, setbalance] = useState('')
-  const [transaction, settransaction] = useState([])
+  const [balance, setbalance] = useState("");
+  const [transaction, settransaction] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const url = process.env.NODE_ENV === "production"
-    ? "https://x-algo-gpay.onrender.com"
-    : "http://localhost:5000";
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      : "http://localhost:5000";
 
   useEffect(() => {
-    setLoading2(true)
+    setLoading2(true);
     const newAmount = async () => {
-      const response = await axios.post(`${url}/newamount`, { Email })
-      setbalance(response.data.balance)
-      settransaction(response.data.Transaction)
-    }
-    newAmount()
-    setLoading2(false)
-  }, [])
+      const response = await axios.post(`${url}/newamount`, { Email });
+      setbalance(response.data.balance);
+      settransaction(response.data.Transaction);
+    };
+    newAmount();
+    setLoading2(false);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(`${url}/addtowallet`, { Email, amount });
+      const response = await axios.post(`${url}/addtowallet`, {
+        Email,
+        amount,
+      });
       console.log(response.data.order);
       const options = {
         key: "x",
@@ -67,7 +81,7 @@ const MyWallet = ({ darkMode, toggleDarkMode }) => {
               window.location.reload();
             }
           } catch (error) {
-            console.error('Error verifying payment:', error);
+            console.error("Error verifying payment:", error);
           }
         },
         prefill: {
@@ -86,22 +100,26 @@ const MyWallet = ({ darkMode, toggleDarkMode }) => {
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
-      console.error('Error during payment:', error);
+      console.error("Error during payment:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    document.body.className = localStorage.getItem('theme');
+    document.body.className = localStorage.getItem("theme");
   }, []);
 
   return (
-    <div className=''>
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>
-      <div className={localStorage.getItem('theme') === "light-theme" ? 'thaksn' : 'rgvba'}>
+    <div className="">
+      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <div
+        className={
+          localStorage.getItem("theme") === "light-theme" ? "thaksn" : "rgvba"
+        }
+      >
         {loading ? (
-          <div className='loader2 uytr'>
+          <div className="loader2 uytr">
             <div className="loader liop">
               <div className="loader__bar"></div>
               <div className="loader__bar"></div>
@@ -112,81 +130,116 @@ const MyWallet = ({ darkMode, toggleDarkMode }) => {
             </div>
           </div>
         ) : (
-          <div className='aiydgcjkdmcsd container'>
-            <h2 className='oquen'>My Balance</h2>
-            <div className='fund'><h2 className='aksbandjkanskcmjkdc'></h2>{
-              loading2 ?
+          <div className="aiydgcjkdmcsd container">
+            <h2 className="oquen">My Balance</h2>
+            <div className="fund">
+              <h2 className="aksbandjkanskcmjkdc"></h2>
+              {loading2 ? (
                 <div class="loader4"></div>
-                :
-                <h2 className='ahsbhsdfgsgvfsgh'>₹{balance}</h2>
-            }</div>
-            <div className='with-dipo-button'>
-              <Button className="qscavn" onClick={handleShow}>Deposit</Button>
+              ) : (
+                <h2 className="ahsbhsdfgsgvfsgh">₹{balance}</h2>
+              )}
+            </div>
+            <div className="with-dipo-button">
+              <Button className="qscavn" onClick={handleShow}>
+                Deposit
+              </Button>
               <Button className="qscavn2">Withdraw</Button>
             </div>
           </div>
         )}
 
-        <div >
+        <div>
           <div>
             <div className="wrapper rounded">
-
-              <div className='mt-3 p-4 '>
-                <table className={`table masbdavghsvdghcvsghd ${localStorage.getItem('theme')=="light-theme"?"table-light":"table-dark"}`}>
+              <div className="mt-3 p-4 ">
+                <table
+                  className={`table masbdavghsvdghcvsghd ${
+                    localStorage.getItem("theme") == "light-theme"
+                      ? "table-light"
+                      : "table-dark"
+                  }`}
+                >
                   <thead>
                     <tr>
-                      <th scope="col" className='text-center text-primary'>Type</th>
-                      <th scope="col" className='text-center text-primary'>razorpay_payment_id</th>
-                      <th scope="col" className='text-center text-primary'>razorpay_order_id</th>
-                      <th scope="col" className='text-center text-primary'>Date</th>
-                      <th scope="col"  className="text-center text-primary">Amount</th>
+                      <th scope="col" className="text-center text-primary">
+                        Type
+                      </th>
+                      <th scope="col" className="text-center text-primary">
+                        razorpay_payment_id
+                      </th>
+                      <th scope="col" className="text-center text-primary">
+                        razorpay_order_id
+                      </th>
+                      <th scope="col" className="text-center text-primary">
+                        Date
+                      </th>
+                      <th scope="col" className="text-center text-primary">
+                        Amount
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {transaction.map((transaction, index) => (
                       <tr key={index}>
-                        <td className="text-right text-center">{
-                          transaction.payment_type=="Deposit"?
-                          <p style={{color:"green"}}>{transaction.payment_type}</p>:
-                          <p style={{color:"red"}}>{transaction.payment_type}</p>
-                          }
+                        <td className="text-right text-center">
+                          {transaction.payment_type == "Deposit" ? (
+                            <p style={{ color: "green" }}>
+                              {transaction.payment_type}
+                            </p>
+                          ) : (
+                            <p style={{ color: "red" }}>
+                              {transaction.payment_type}
+                            </p>
+                          )}
                         </td>
-                        <td className='text-center'>{transaction.razorpay_payment_id}</td>
-                        <td className='text-center'>{transaction.razorpay_order_id}</td>
-                        <td className='text-center'>{transaction.date}</td>
-                        <td className="text-right text-center">{
-                          transaction.payment_type=="Deposit"?
-                          <p style={{color:"green"}}>{transaction.amount}</p>:
-                          <p style={{color:"red"}}>{transaction.amount}</p>
-                          }
+                        <td className="text-center">
+                          {transaction.razorpay_payment_id}
+                        </td>
+                        <td className="text-center">
+                          {transaction.razorpay_order_id}
+                        </td>
+                        <td className="text-center">{transaction.date}</td>
+                        <td className="text-right text-center">
+                          {transaction.payment_type == "Deposit" ? (
+                            <p style={{ color: "green" }}>
+                              {transaction.amount}
+                            </p>
+                          ) : (
+                            <p style={{ color: "red" }}>{transaction.amount}</p>
+                          )}
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-
             </div>
           </div>
         </div>
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title className='text-primary'>Add To Wallet</Modal.Title>
+            <Modal.Title className="text-primary">Add To Wallet</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
-                <Form.Label className='text-primary'>Amount</Form.Label>
+                <Form.Label className="text-primary">Amount</Form.Label>
                 <Form.Control
-                  type='number'
+                  type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   required
                 />
               </Form.Group>
-              <Button variant="primary" type='submit' className="mt-3" disabled={loading}>
-                {loading ? 'Processing...' : 'Deposit'}
+              <Button
+                variant="primary"
+                type="submit"
+                className="mt-3"
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Deposit"}
               </Button>
             </Form>
           </Modal.Body>

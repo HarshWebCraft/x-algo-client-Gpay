@@ -26,7 +26,7 @@ function Verifyemail() {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://x-algo-gpay.onrender.com"
+      ? "https://walrus-app-3x9yr.ondigitalocean.app"
       : "http://localhost:5000";
 
   const handleClose = () => setShow(false);
