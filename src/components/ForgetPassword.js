@@ -30,7 +30,7 @@ function ForgotPassword() {
     }
 
     try {
-      await axios.post(`${url}/resetPassword`, { email });
+      await axios.post(`${url}/forgetPassword`, { email });
       Swal.fire({
         title: "Success",
         text: "An email has been sent to reset your password.",
