@@ -10,6 +10,11 @@ function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [aniLoading, setAniLoading] = useState(true); // State to manage loading
 
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      : "http://localhost:5000";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -25,7 +30,7 @@ function ForgotPassword() {
     }
 
     try {
-      await axios.post("/resetPassword", { email });
+      await axios.post(`${url}/resetPassword`, { email });
       Swal.fire({
         title: "Success",
         text: "An email has been sent to reset your password.",
