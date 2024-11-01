@@ -154,7 +154,7 @@ function New_Signin() {
             <label>
               <input type="checkbox" /> Remember me
             </label>
-            <a href="/forgetPassword">Forgot password?</a>
+            <Link to="/forgetPassword">Forgot password?</Link>
           </div>
 
           <button

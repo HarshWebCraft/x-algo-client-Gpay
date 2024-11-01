@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -8,6 +8,7 @@ import Loader from "./loader.js"; // Assuming you have a Loader component
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [aniLoading, setAniLoading] = useState(true); // State to manage loading
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,12 +43,21 @@ function ForgotPassword() {
     }
   };
 
+  useEffect(() => {
+    // Simulate loading for 1 second (you can adjust the duration)
+    const timer = setTimeout(() => {
+      setAniLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer); // Cleanup timer on unmount
+  }, []);
+
   return (
     <div className="signin-container">
       <div
         style={{ margin: "auto", width: "26em" }}
         className={`signin-login-box ${
-          loading ? "animate__animated animate__fadeIn" : ""
+          aniLoading ? "animate__animated animate__fadeIn" : ""
         }`}
       >
         <h2 style={{ marginBottom: "2em" }}>Reset Password 🔒</h2>
