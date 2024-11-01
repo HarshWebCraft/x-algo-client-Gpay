@@ -122,26 +122,27 @@ function Dashboard({ darkMode, toggleDarkMode }) {
       )}
       <div className={`row yqrgk`}>
         <div
-          className={`col py-2 d-flex justify-content-end ${
+          className={`col py-3 px-4 d-flex justify-content-end align-items-center ${
             darkMode ? "dark" : "light"
           }`}
         >
-          <ul className="d-flex list-no-style ">
-            <li className="me-5">
-              p&l
-              <br />₹
-            </li>
-            <li className="me-5">
-              Capital
-              <br />
-              {capital.forEach((item) => {
-                console.log(item.net);
-                sum += parseFloat(item.net);
-              })}
+          <div className="d-flex flex-column text-center me-5">
+            <div>P&L</div>
+            <div>₹</div>
+          </div>
+          <div className="d-flex flex-column text-center">
+            <div>Capital</div>
+            <div>
+              {
+                // Calculating the sum
+                capital.forEach((item) => {
+                  console.log(item.net);
+                  sum += parseFloat(item.net);
+                })
+              }
               <div className={sum < 0 ? "red" : "green"}>₹{sum.toFixed(2)}</div>
-              <br />
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
 
