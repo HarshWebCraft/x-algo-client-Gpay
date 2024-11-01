@@ -1,46 +1,48 @@
-
-
-.loader2{
-  
-    /* background-color:rgba(0, 0, 0, 0.3); */
-    backdrop-filter: blur(2px);
-    /* background-color: white; */
-    z-index: 1;
+.loader2 {
+  width: 100% !important;
+  position: absolute;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  display: flex;
+  height: 100vh !important;
+  align-items: center;
+  justify-content: center;
 }
 
-.liop{
+.liop {
   left: 45em;
   position: absolute;
   top: 17em;
   z-index: 1000;
 }
 
-.uytr{
+.uytr {
   width: 94.9em;
-    left: 0em;
-    top: 0em;
-    position: fixed;
-    background-color:rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
-    height: 46em;
-    z-index: 111111;
+  left: 0em;
+  top: 0em;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  height: 46em;
+  z-index: 111111;
 }
 
-
 .loader {
-  top: 17em;
-  position: fixed;
+  /* top: 17em; */
   width: 75px;
   height: 100px;
+  position: absolute;
+
   margin-left: 0em;
-  left: 47em;
+  /* left: 47em; */
 }
 .loader__bar {
   position: absolute;
   bottom: 0;
   width: 10px;
   height: 50%;
-  background: rgb(251, 213, 53) ;
+  background: rgb(251, 213, 53);
   transform-origin: center bottom;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
 }
@@ -48,31 +50,31 @@
   left: 0px;
   transform: scale(1, 0.2);
   -webkit-animation: barUp1 4s infinite;
-          animation: barUp1 4s infinite;
+  animation: barUp1 4s infinite;
 }
 .loader__bar:nth-child(2) {
   left: 15px;
   transform: scale(1, 0.4);
   -webkit-animation: barUp2 4s infinite;
-          animation: barUp2 4s infinite;
+  animation: barUp2 4s infinite;
 }
 .loader__bar:nth-child(3) {
   left: 30px;
   transform: scale(1, 0.6);
   -webkit-animation: barUp3 4s infinite;
-          animation: barUp3 4s infinite;
+  animation: barUp3 4s infinite;
 }
 .loader__bar:nth-child(4) {
   left: 45px;
   transform: scale(1, 0.8);
   -webkit-animation: barUp4 4s infinite;
-          animation: barUp4 4s infinite;
+  animation: barUp4 4s infinite;
 }
 .loader__bar:nth-child(5) {
   left: 60px;
   transform: scale(1, 1);
   -webkit-animation: barUp5 4s infinite;
-          animation: barUp5 4s infinite;
+  animation: barUp5 4s infinite;
 }
 .loader__ball {
   position: absolute;
@@ -83,7 +85,7 @@
   background: rgb(251, 213, 53);
   border-radius: 50%;
   -webkit-animation: ball 4s infinite;
-          animation: ball 4s infinite;
+  animation: ball 4s infinite;
 }
 
 @-webkit-keyframes ball {

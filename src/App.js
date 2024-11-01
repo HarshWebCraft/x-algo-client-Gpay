@@ -35,7 +35,8 @@ function App() {
   const isAuth = useSelector((state) => state.account.auth);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-  // Retrieve the initial theme from localStorage
+  const [loading, setLoading] = useState(false);
+
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -58,25 +59,65 @@ function App() {
 
   return (
     <div className={`App app ${darkMode ? "dark" : "light"}`}>
+      {loading && (
+        <div className="loader2 ">
+          <div className="loader ">
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__bar"></div>
+            <div className="loader__ball"></div>
+          </div>
+        </div>
+      )}
       <Routes>
-        <Route path="/contactus" exact element={<ContactUs />} />
-        <Route path="/about" exact element={<AboutUs />} />
-        <Route path="/termcondistion" exact element={<TermsCondistion />} />
-        <Route path="/refund" exact element={<Refund />} />
-        <Route path="/privacypolicy" exact element={<PrivacyPolicy />} />
-        <Route path="/login" exact element={<New_Signin />} />
-        <Route path="/signup" exact element={<New_Signup />} />
+        <Route
+          path="/contactus"
+          exact
+          element={<ContactUs setLoading={setLoading} />}
+        />
+        <Route
+          path="/about"
+          exact
+          element={<AboutUs setLoading={setLoading} />}
+        />
+        <Route
+          path="/termcondistion"
+          exact
+          element={<TermsCondistion setLoading={setLoading} />}
+        />
+        <Route
+          path="/refund"
+          exact
+          element={<Refund setLoading={setLoading} />}
+        />
+        <Route
+          path="/privacypolicy"
+          exact
+          element={<PrivacyPolicy setLoading={setLoading} />}
+        />
+        <Route
+          path="/login"
+          exact
+          element={<New_Signin setLoading={setLoading} />}
+        />
+        <Route
+          path="/signup"
+          exact
+          element={<New_Signup setLoading={setLoading} />}
+        />
         <Route
           path="/addMarketPlaceStra"
           exact
-          element={<AddMarketPlaceData />}
+          element={<AddMarketPlaceData setLoading={setLoading} />}
         />
         <Route
           exact
           path="/"
           element={
             <PrivateRoute2>
-              <First />
+              <First setLoading={setLoading} />
             </PrivateRoute2>
           }
         />
@@ -85,7 +126,11 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-              <Home darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <Home
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -94,7 +139,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Broker darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <Broker
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -103,7 +152,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <MyWallet darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <MyWallet
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -115,6 +168,7 @@ function App() {
               <PaperTrading
                 darkMode={darkMode}
                 toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
               />
             </PrivateRoute>
           }
@@ -124,7 +178,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Services darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <Services
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -133,7 +191,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Strategies darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <Strategies
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -142,7 +204,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Profile darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <Profile
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -151,20 +217,36 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <HowToAdd />
+              <HowToAdd setLoading={setLoading} />
             </PrivateRoute>
           }
         />
-        <Route path="/verify-email" exact element={<Verifyemail />} />
-        <Route path="/otp-verify" exact element={<Otpverify />} />
-        <Route path="/resetPassword" exact element={<ResetPassword />} />
-        <Route path="/forgetPassword" exact element={<ForgetPassword />} />
+        <Route
+          path="/verify-email"
+          exact
+          element={<Verifyemail setLoading={setLoading} />}
+        />
+        <Route
+          path="/otp-verify"
+          exact
+          element={<Otpverify setLoading={setLoading} />}
+        />
+        <Route
+          path="/resetPassword"
+          exact
+          element={<ResetPassword setLoading={setLoading} />}
+        />
+        <Route
+          path="/forgetPassword"
+          exact
+          element={<ForgetPassword setLoading={setLoading} />}
+        />
         <Route
           path="/strategies/mystartegies"
           exact
           element={
             <PrivateRoute>
-              <MyStartegies />
+              <MyStartegies setLoading={setLoading} />
             </PrivateRoute>
           }
         />
@@ -173,7 +255,7 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Deployed />
+              <Deployed setLoading={setLoading} />
             </PrivateRoute>
           }
         />
@@ -185,6 +267,7 @@ function App() {
               <MarketPlace
                 darkMode={darkMode}
                 toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
               />
             </PrivateRoute>
           }

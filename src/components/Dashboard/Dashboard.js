@@ -14,7 +14,7 @@ import {
 import { Audio, FallingLines, Triangle } from "react-loader-spinner";
 import OrderPlace from "../OrderPlace";
 import BotCard from "../BotCard";
-function Dashboard({ darkMode, toggleDarkMode }) {
+function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
   let a = 0;
 
   const Email = useSelector((state) => state.email.email);
@@ -31,7 +31,7 @@ function Dashboard({ darkMode, toggleDarkMode }) {
   console.log(pass);
   console.log(clientdata);
   const [broker, isBroker] = useState();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [capital, setCapital] = useState([]);
   const [allcap, setallcap] = useState("");
   const [ert, seta] = useState(true);
@@ -108,7 +108,7 @@ function Dashboard({ darkMode, toggleDarkMode }) {
 
   return (
     <div className={`container deskbord ${darkMode ? "dark" : "light"}`}>
-      {loading && (
+      {/* {loading && (
         <div className="loader2 uytr">
           <div className="loader liop">
             <div className="loader__bar"></div>
@@ -119,7 +119,7 @@ function Dashboard({ darkMode, toggleDarkMode }) {
             <div className="loader__ball"></div>
           </div>
         </div>
-      )}
+      )} */}
       <div className={`row yqrgk`}>
         <div
           className={`col py-3 px-4 d-flex justify-content-end align-items-center ${

@@ -23,7 +23,7 @@ import "sweetalert2/src/sweetalert2.scss";
 import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
 import { Triangle } from "react-loader-spinner";
 
-function Listofbroker() {
+function Listofbroker({ setLoading }) {
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
   const clientdata = useSelector((state) => state.account.allClientData);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function Listofbroker() {
   const [id, insertid] = useState("");
   const [pass, insertpass] = useState("");
   const checklogin = true;
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(true);
   const [broker, addbroker] = useState("");
   const [secretKey, insertSecretKey] = useState("");
   const [isLoggedIn, setisLoggedIn] = useState(false);
@@ -231,9 +231,9 @@ function Listofbroker() {
         {alertMessage2}
       </div>
 
-      {loading && (
-        <div className="loader2 uytr">
-          <div className="loader liop">
+      {/* {loading && (
+        <div className="loader2 ">
+          <div className="loader ">
             <div className="loader__bar"></div>
             <div className="loader__bar"></div>
             <div className="loader__bar"></div>
@@ -242,7 +242,7 @@ function Listofbroker() {
             <div className="loader__ball"></div>
           </div>
         </div>
-      )}
+      )} */}
 
       <div
         className={`broker-list mt-5 p-2 ${
