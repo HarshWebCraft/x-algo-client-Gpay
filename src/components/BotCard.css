@@ -118,7 +118,8 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 48em) { /* 768px becomes 48em */
+@media (max-width: 48em) {
+  /* 768px becomes 48em */
   .stat-item {
     width: 48%; /* Two columns on medium screens */
   }
@@ -138,11 +139,20 @@
   }
 }
 
-@media (max-width: 30em) { /* 480px becomes 30em */
+@media (max-width: 30em) {
+  /* 480px becomes 30em */
   .stat-item {
+    display: flex;
+    justify-content: space-between;
     width: 100%; /* Full width on small screens */
+    margin-bottom: 0.5em;
+    border-bottom: 0.05em solid grey;
   }
 
+  .stats-container {
+    margin: 0.625em 0em;
+    padding: 1.25em 0em;
+  }
   .toggle-switch {
     width: 2.5em; /* 40px becomes approximately 2.5em */
     height: 1.25em; /* 20px becomes approximately 1.25em */

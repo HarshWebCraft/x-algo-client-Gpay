@@ -1,78 +1,83 @@
-
-.list-no-style
-{
-    list-style-type: none;
+.list-no-style {
+  list-style-type: none;
 }
-.qwe{
-    display: flex;
-    align-content: flex-end;
+.qwe {
+  display: flex;
+  align-content: flex-end;
 }
 
-.deskbord{
-    padding: 0 1.5em;
+.deskbord {
+  padding: 0 1.5em;
 }
 
-.yqrgk{
-    background-color: var(--bg-color);
-    border-radius: 0.5em; 
-    box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
-    margin-top: 2em;
+.yqrgk {
+  background-color: var(--bg-color);
+  border-radius: 0.5em;
+  box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
+  margin-top: 2em;
 }
 
-.jahgs{
-    margin-top: 3em;
-    border-radius: 1em;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+.jahgs {
+  margin-top: 3em;
+  border-radius: 1em;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 }
 
-.OrderPlace{
-    margin-top: 3em;
-    border-radius: 1em;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    padding: 1em;
+.OrderPlace {
+  margin-top: 3em;
+  border-radius: 1em;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  padding: 1em;
 }
 
-.nays{
-    padding: 0.9em;
-    margin-left: 0em;
-    margin-top: 2em;
-    border-radius: 1em;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+.nays {
+  padding: 0.9em;
+  margin-left: 0em;
+  margin-top: 2em;
+  border-radius: 1em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.agvs{
-    border-radius: 1em;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+.agvs {
+  border-radius: 1em;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.green{
-    color: lime;
+.green {
+  color: lime;
 }
 
-.red{
-    color: red;
+.red {
+  color: red;
 }
 
 /* .sc-beySPh{
     margin-left: 78px;
 } */
 
-.qscv{
-    margin-left: -10pxpx !important;
+.qscv {
+  margin-left: -10pxpx !important;
 }
 
 /* dark */
 
-.cdaacceecaec{
-    margin-top: 3em;
-    border-radius: 1em;
-    background-color: 	#161A1D;
-    box-shadow: 
-    1px 1px 1px rgba(200, 200, 200, 0.1),
-    1px 1px 1px rgba(70, 70, 70, 0.1)
+.cdaacceecaec {
+  margin-top: 3em;
+  border-radius: 1em;
+  background-color: #161a1d;
+  box-shadow: 1px 1px 1px rgba(200, 200, 200, 0.1),
+    1px 1px 1px rgba(70, 70, 70, 0.1);
 }
 
-.vgjsdbhcd{
-    background-color: #161A1D;
-    border-radius: 1em;
+.vgjsdbhcd {
+  background-color: #161a1d;
+  border-radius: 1em;
+}
+
+@media (max-width: 30em) {
+  .yqrgk {
+    margin: 0;
+  }
 }
