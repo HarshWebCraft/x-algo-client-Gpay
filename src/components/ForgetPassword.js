@@ -1,106 +1,95 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import "./forgetpassword.css";
 import axios from "axios";
-import Swal from "sweetalert2/dist/sweetalert2.js";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
+import "./signin.css"; // Use the same CSS as the SignIn page
+import Loader from "./loader.js"; // Assuming you have a Loader component
 
-function ForgetPassword() {
+function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const url =
-    process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
-      : "http://localhost:5000";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
+
+    if (!email) {
+      Swal.fire({
+        title: "Error",
+        text: "Please enter your email address",
+        icon: "error",
+      });
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.post(`${url}/forgetPassword`, { email });
-      if (response.data) {
-        Swal.fire({
-          icon: "success",
-          title: "",
-          text: "Mail sended",
-          footer: "",
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "",
-          text: "Mail doesn't exist",
-          footer: "",
-        });
-      }
-      setEmail("");
+      await axios.post("/reset-password", { email });
+      Swal.fire({
+        title: "Success",
+        text: "An email has been sent to reset your password.",
+        icon: "success",
+      });
       setLoading(false);
     } catch (error) {
-      // Handle error if needed
-    } finally {
-      setLoading(false); // Stop loading
+      console.error("Error:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Failed to send reset email. Please try again.",
+        icon: "error",
+      });
+      setLoading(false);
     }
   };
 
   return (
-    <div>
+    <div className="signin-container">
       <div
-        className="modal fade modal2"
-        id="resetPassword"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
+        style={{ margin: "auto", width: "26em" }}
+        className={`signin-login-box ${
+          loading ? "animate__animated animate__fadeIn" : ""
+        }`}
       >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content klkjio">
-            <div className="modal-header">
-              <h5 className="modal-title m-auto oiojkb" id="exampleModalLabel">
-                Reset Password
-              </h5>
-            </div>
-            <div className="modal-body">
-              <div className="container">
-                <form onSubmit={handleSubmit}>
-                  <div className="rtgbn">
-                    <p className="zdgl mt-2">
-                      Enter email address for your account. We'll send an email
-                      with a link to reset your password.
-                    </p>
-                  </div>
-                  <div className="form-group">
-                    <label
-                      htmlFor="exampleInputEmail1"
-                      className="mt-3 mb-4 qsdxcv"
-                    >
-                      Email Address*
-                    </label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      placeholder="Enter email"
-                      required
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary mt-3"
-                    disabled={loading}
-                  >
-                    {loading ? "Sending..." : "Send Email"}
-                  </button>
-                </form>
+        <h2 style={{ marginBottom: "2em" }}>Reset Password 🔒</h2>
+        <p>Please enter your email to receive a password reset link.</p>
+
+        <form onSubmit={handleSubmit}>
+          <label>Email Address</label>
+          <input
+            className="signin-input"
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <button
+            className={
+              loading ? "signin-login-button pt-2 pb-2" : "signin-login-button"
+            }
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? (
+              <div
+                style={{
+                  marginLeft: 10,
+                  marginRight: 10,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Loader />
               </div>
-            </div>
-          </div>
-        </div>
+            ) : (
+              "Send Reset Link"
+            )}
+          </button>
+        </form>
       </div>
     </div>
   );
 }
 
-export default ForgetPassword;
+export default ForgotPassword;

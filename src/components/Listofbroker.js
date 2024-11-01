@@ -52,7 +52,7 @@ function Listofbroker() {
       ? "https://walrus-app-3x9yr.ondigitalocean.app"
       : "http://localhost:5000";
 
-  useEffect(async () => {
+  useEffect(() => {
     const fetchData = async () => {
       console.log(userSchema);
       console.log(clientdata);
