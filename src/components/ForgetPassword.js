@@ -30,12 +30,22 @@ function ForgotPassword() {
     }
 
     try {
-      await axios.post(`${url}/forgetPassword`, { email });
-      Swal.fire({
-        title: "Success",
-        text: "An email has been sent to reset your password.",
-        icon: "success",
-      });
+      const response = await axios.post(`${url}/forgetPassword`, { email });
+
+      if (response.data) {
+        Swal.fire({
+          title: "Success",
+          text: "An email has been sent to reset your password.",
+          icon: "success",
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "The email address is not registered. Please try again.",
+          icon: "error",
+        });
+      }
+
       setLoading(false);
     } catch (error) {
       console.error("Error:", error);
@@ -49,12 +59,11 @@ function ForgotPassword() {
   };
 
   useEffect(() => {
-    // Simulate loading for 1 second (you can adjust the duration)
     const timer = setTimeout(() => {
       setAniLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer); // Cleanup timer on unmount
+    return () => clearTimeout(timer);
   }, []);
 
   return (

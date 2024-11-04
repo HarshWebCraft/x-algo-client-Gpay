@@ -9,7 +9,7 @@ function ResetPassword() {
   console.log(encodedData);
   const [pass, passInput] = useState("");
   const [pass2, pass2Input] = useState("");
-  const [expired, setexpired] = useState(false);
+  const [expired, setexpired] = useState(true);
   const url =
     process.env.NODE_ENV === "production"
       ? "https://walrus-app-3x9yr.ondigitalocean.app"
