@@ -9,6 +9,12 @@
   background-color: transparent !important;
 }
 
+.table thead th,
+.table tbody tr td {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color);
+}
+
 .form-select {
   color: var(--text-color);
   border: 1px solid var(--text-color);

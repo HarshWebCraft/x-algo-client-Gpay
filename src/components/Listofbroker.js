@@ -330,14 +330,7 @@ function Listofbroker({ setLoading }) {
               <table className="table">
                 <thead>
                   <tr style={{ textAlign: "center" }}>
-                    <th
-                      style={{ width: "15%" }}
-                      className={
-                        localStorage.getItem("theme") === "light-theme"
-                          ? ""
-                          : "dark-theme-class"
-                      }
-                    >
+                    <th style={{ width: "15%" }} className="edcvl">
                       Client ID
                     </th>
                     <th
