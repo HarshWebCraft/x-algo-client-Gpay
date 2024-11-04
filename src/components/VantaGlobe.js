@@ -31,8 +31,8 @@ const VantaGlobe = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1.5, ease: "easeInOut" }}
               >
-                Best <br />
-                E-commerce
+                Bestc:\Users\VICTUS\Downloads\Animation - 1730712692349.json
+                Algo
               </motion.h1>
               <motion.p
                 className="text-center"
@@ -40,8 +40,11 @@ const VantaGlobe = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1.5, ease: "easeInOut" }}
               >
-                Discover Your Style, Shop with a Smile <br />
-                Exclusive Deals Await - Start Your Journey Today!
+                Unlock Your Trading Potential - Invest with Confidence Discover
+                the power of algorithmic trading with precision and speed. Take
+                advantage of exclusive strategies designed for today's market
+                dynamics. Maximize your opportunities - Start your trading
+                journey with us today!"
               </motion.p>
               <div className="btn-box">
                 <motion.a
