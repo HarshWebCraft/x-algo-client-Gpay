@@ -100,9 +100,12 @@ function PaperTrading({ darkMode, toggleDarkMode }) {
 
   // }, [])
 
-  // const ws = new WebSocket('ws://localhost:3001');
+  const ws = new WebSocket("wss://walrus-app-3x9yr.ondigitalocean.app");
 
-  // ws.onmessage = (event) => {
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log(data);
+  };
   //     const data = JSON.parse(event.data);
   //     console.log(data.last_traded_price/10)
 
