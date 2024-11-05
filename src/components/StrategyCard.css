@@ -14,14 +14,31 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+.deploy-btn {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
 /* Style for hover effect */
 .subscribe-btn:hover {
   background-color: #0056b3;
 }
+.deploy-btn:hover {
+  background-color: #0056b3;
+}
 
 /* Style for the disabled button */
 .subscribe-btn:disabled {
+  background-color: #cccccc; /* Lighter gray to indicate disabled state */
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.deploy-btn:disabled {
   background-color: #cccccc; /* Lighter gray to indicate disabled state */
   color: #666666;
   cursor: not-allowed;
@@ -146,7 +163,7 @@
 }
 
 .subscribe-btn,
-.learn-more-btn {
+.deploy-btn {
   padding: 0.5em 1em;
   width: 100%;
   font-size: 0.875em;
@@ -160,8 +177,13 @@
   background-color: var(--opo-bg-color);
   color: var(--opo-text-color);
 }
+/* .deploy-btn {
+  width: 100%;
+  background-color: var(--opo-bg-color);
+  color: var(--opo-text-color);
+} */
 
-.learn-more-btn {
+.deploy-btn {
   background-color: transparent;
   color: var(--opo-bg-color);
   border: 0.0625em solid var(--opo-bg-color);

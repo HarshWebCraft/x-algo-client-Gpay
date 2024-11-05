@@ -119,7 +119,12 @@ function StrategyCard() {
                 ? "Subscribed"
                 : "Subscribe"}
             </button>
-            <button className="learn-more-btn">Learn More</button>
+            <button
+              className="deploy-btn"
+              disabled={!subscribedStrategies.includes(strategy._id)} // Disable if not subscribed
+            >
+              Deploy
+            </button>
           </div>
         </div>
       ))}
