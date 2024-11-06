@@ -23,7 +23,7 @@ function Menubar() {
         <div className="menubar-logo">
           <img src={Logo_Dark} alt="X-Algos" />
         </div>
-        <div className="hamburger" onClick={toggleMenu}>
+        <div className="hamburger2" onClick={toggleMenu}>
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
         <ul className={`menu ${isMenuOpen ? "menu-open" : "menu-close"}`}>
