@@ -16,6 +16,7 @@
 }
 
 .menubar {
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -23,7 +24,7 @@
 .hamburger2 {
   display: none;
   font-size: 2em;
-  margin-top: 1em;
+  margin-top: 0.3em;
   cursor: pointer;
   color: white;
 }
@@ -72,8 +73,7 @@
 
   .hamburger2 {
     display: block;
-    margin-left: auto;
-    margin-right: 1em;
+    margin-right: 0.5em;
     font-size: 1.8em;
   }
 
