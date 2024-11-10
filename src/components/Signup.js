@@ -9,6 +9,7 @@ import { setEmail } from "../actions/email_action";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import Loader from "./loader";
+import { ProductionUrl } from "../URL/url";
 
 function Signup() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Signup() {
   const dispatch = useDispatch();
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   const f1 = () => {

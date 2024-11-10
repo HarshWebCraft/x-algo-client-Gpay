@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./AddMarketPlaceData.css"; // Import the CSS file here
+import { ProductionUrl } from "../URL/url";
 
 function AddMarketPlaceData() {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ function AddMarketPlaceData() {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   const handleChange = (e) => {

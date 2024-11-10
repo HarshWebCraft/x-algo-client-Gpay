@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import StrategyCard from "./StrategyCard";
+import { ProductionUrl } from "../URL/url";
 
 function MarketPlace({ darkMode, toggleDarkMode }) {
   const Email = useSelector((state) => state.email.email);
@@ -17,7 +18,7 @@ function MarketPlace({ darkMode, toggleDarkMode }) {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   useEffect(() => {

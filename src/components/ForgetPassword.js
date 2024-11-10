@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import "./signin.css"; // Use the same CSS as the SignIn page
 import Loader from "./loader.js"; // Assuming you have a Loader component
+import { ProductionUrl } from "../URL/url.js";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ function ForgotPassword() {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   const handleSubmit = async (e) => {

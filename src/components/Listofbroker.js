@@ -22,6 +22,7 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { responsivePropType } from "react-bootstrap/esm/createUtilityClasses";
 import { Triangle } from "react-loader-spinner";
+import { ProductionUrl } from "../URL/url";
 
 function Listofbroker({ setLoading }) {
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -49,7 +50,7 @@ function Listofbroker({ setLoading }) {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   useEffect(() => {

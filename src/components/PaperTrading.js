@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import * as XLSX from "xlsx";
 import React from "react";
+import { ProductionUrl } from "../URL/url";
 
 function PaperTrading({ darkMode, toggleDarkMode }) {
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -36,7 +37,7 @@ function PaperTrading({ darkMode, toggleDarkMode }) {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   useEffect(() => {
@@ -100,7 +101,7 @@ function PaperTrading({ darkMode, toggleDarkMode }) {
 
   // }, [])
 
-  const ws = new WebSocket("wss://walrus-app-3x9yr.ondigitalocean.app");
+  const ws = new WebSocket("ws://206.189.133.159:8080");
 
   ws.onmessage = (event) => {
     const data = JSON.parse(event.data);

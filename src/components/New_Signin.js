@@ -17,6 +17,7 @@ import { allClientData, auth, userSchemaRedux } from "../actions/actions";
 import "sweetalert2/src/sweetalert2.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
+import { ProductionUrl } from "../URL/url";
 
 function New_Signin() {
   const [aniLoading, setAniLoading] = useState(true); // State to manage loading
@@ -44,7 +45,7 @@ function New_Signin() {
     setLoading(true);
     const url =
       process.env.NODE_ENV === "production"
-        ? "https://walrus-app-3x9yr.ondigitalocean.app"
+        ? ProductionUrl
         : "http://localhost:5000";
 
     try {

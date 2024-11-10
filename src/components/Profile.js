@@ -20,6 +20,7 @@ import {
   allClientData,
 } from "../actions/actions";
 import { useLocation } from "react-router-dom";
+import { ProductionUrl } from "../URL/url";
 
 function Profile() {
   const location = useLocation();
@@ -31,7 +32,7 @@ function Profile() {
   console.log(clientdata);
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");

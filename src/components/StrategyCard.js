@@ -3,6 +3,7 @@ import "./StrategyCard.css"; // Add CSS styles
 import image from "../images/StrategyImage.jpeg"; // Import the default image
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { ProductionUrl } from "../URL/url";
 
 function StrategyCard() {
   const [strategyData, setStrategyData] = useState([]);
@@ -11,7 +12,7 @@ function StrategyCard() {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   useEffect(() => {

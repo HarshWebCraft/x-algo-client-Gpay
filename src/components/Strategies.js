@@ -6,6 +6,7 @@ import { Dropdown, DropdownButton, Nav } from "react-bootstrap";
 import axios from "axios";
 import persistCombineReducers from "redux-persist/lib/persistCombineReducers";
 import StrategiesNavbar from "./StrategiesNavbar";
+import { ProductionUrl } from "../URL/url";
 function Strategies() {
   const [ceEntry, setCeEntry] = useState(0);
   const [peEntry, setPeEntry] = useState(0);
@@ -29,7 +30,7 @@ function Strategies() {
   const [Exit_price_pe, setExit_price_pe] = useState(0);
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   const lotsize = 15;

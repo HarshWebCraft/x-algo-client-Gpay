@@ -8,6 +8,7 @@ import sideImage from "../images/signup-image.jpg";
 import skjdasbjksd from "../images/hero-bg.png";
 import "./verifyemail.css";
 import Loader from "./loader.js"; // Assuming you have a Loader component
+import { ProductionUrl } from "../URL/url.js";
 
 function Verifyemail() {
   const [name, setName] = useState("");
@@ -26,7 +27,7 @@ function Verifyemail() {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   const handleClose = () => setShow(false);

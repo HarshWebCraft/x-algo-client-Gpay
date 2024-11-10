@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 import "../loader.css";
+import { ProductionUrl } from "../../URL/url";
 import {
   allClientData,
   addItem,
@@ -40,7 +41,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
   let sum = 0;
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   useEffect(() => {

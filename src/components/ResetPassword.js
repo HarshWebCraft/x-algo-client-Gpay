@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import "./resetPassword.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { ProductionUrl } from "../URL/url";
 function ResetPassword() {
   let params = new URLSearchParams(document.location.search);
   let encodedData = params.get("token");
@@ -12,7 +13,7 @@ function ResetPassword() {
   const [expired, setexpired] = useState(true);
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
   useEffect(() => {
     const a = async () => {

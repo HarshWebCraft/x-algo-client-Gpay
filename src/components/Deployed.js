@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { userSchemaRedux } from "../actions/actions";
 import React from "react";
+import { ProductionUrl } from "../URL/url";
 
 function Deployed() {
   const [accountid, setaccountid] = useState("");
@@ -18,7 +19,7 @@ function Deployed() {
   const dispatch = useDispatch();
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
   const Deployed = userSchema.DeployedData;
   useEffect(() => {

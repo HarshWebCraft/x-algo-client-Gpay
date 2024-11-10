@@ -20,6 +20,7 @@ import {
   FaCcVisa,
 } from "react-icons/fa";
 import { FaCutlery } from "react-icons/fa";
+import { ProductionUrl } from "../URL/url";
 
 const MyWallet = ({ darkMode, toggleDarkMode }) => {
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ const MyWallet = ({ darkMode, toggleDarkMode }) => {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   useEffect(() => {

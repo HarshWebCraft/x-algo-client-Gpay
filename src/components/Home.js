@@ -7,6 +7,7 @@ import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import axios from "axios";
 import ResponsiveNavbar from "./ResponsiveNavbar";
+import { ProductionUrl } from "../URL/url";
 
 function Home({ darkMode, toggleDarkMode }) {
   const location = useLocation();
@@ -15,7 +16,7 @@ function Home({ darkMode, toggleDarkMode }) {
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://walrus-app-3x9yr.ondigitalocean.app"
+      ? ProductionUrl
       : "http://localhost:5000";
 
   // Initialize theme on load
