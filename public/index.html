@@ -41,9 +41,9 @@
     function updateFavicon() {
       const favicon = document.getElementById("favicon");
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        favicon.href = 'PUBLIC_URL%/X-Algo-Dark.png'; // Dark mode favicon
+        favicon.href = 'public/X-Algo-Dark.png'; // Dark mode favicon
       } else {
-        favicon.href = 'PUBLIC_URL%/X-Algo-Light.png'; // Light mode favicon
+        favicon.href = 'public/X-Algo-Light.png'; // Light mode favicon
       }
     }
 
