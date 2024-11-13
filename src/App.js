@@ -30,6 +30,7 @@ import New_Signup from "./components/New_Signup";
 import New_Signin from "./components/New_Signin";
 import Navbar from "./components/Navbar";
 import AddMarketPlaceData from "./components/AddMarketPlaceData";
+import Active from "./components/Active";
 
 function App() {
   const isAuth = useSelector((state) => state.account.auth);
@@ -157,6 +158,15 @@ function App() {
                 toggleDarkMode={toggleDarkMode}
                 setLoading={setLoading}
               />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/Active"
+          exact
+          element={
+            <PrivateRoute>
+              <Active />
             </PrivateRoute>
           }
         />
