@@ -1,0 +1,62 @@
+.crypto-container {
+  padding: 20px;
+  overflow: hidden;
+  color: white !important;
+}
+
+.scroll-button {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2em;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.scroll-button.left {
+  left: 10px;
+}
+
+.scroll-button.right {
+  right: 10px;
+}
+
+h4 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.crypto-cards {
+  display: flex;
+  overflow-x: scroll; /* Makes the container scrollable horizontally */
+  gap: 10px; /* Space between the cards */
+  padding: 10px 0; /* Optional: Adds some space around the container */
+  scrollbar-width: none; /* For Firefox: Hides the scrollbar */
+}
+
+/* Hides the scrollbar in Webkit browsers (Chrome, Safari) */
+.crypto-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.crypto-card {
+  min-width: 200px; /* Ensures consistent card size */
+  border: 1px solid #ffa700;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: transparent;
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevents the card from shrinking */
+}
+
+.crypto-card.positive {
+  border-color: #ffa700;
+}
+
+.crypto-card.negative {
+  border-color: #f44336;
+  color: #f44336;
+}

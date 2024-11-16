@@ -13,6 +13,8 @@ import "./First.css";
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
 import animationData from "../lotties/Home.json";
+import CryptoWebSocket from "./CryptoWebSocket";
+import Features from "./Features";
 
 function First() {
   const defaultOptions = {
@@ -36,10 +38,10 @@ function First() {
       {/* <VantaGlobe /> */}
       <div className="d-flex xjsgk container">
         <div className="banner-container">
-          <p className="banner-intro mb-0">Introducing</p>
           <h1 className="banner-title">
-            Easy <br />
-            Trading
+            Stock <spna style={{ color: "#ffa700" }}>Market</spna> <br />
+            is the Best Way to <br />
+            <spna style={{ color: "#ffa700" }}>Invest</spna> your Money
           </h1>
           <p className="banner-subtitle">The Future of Trading Guide</p>
           <p className="banner-description">
@@ -62,6 +64,9 @@ function First() {
         </div>
       </div>
 
+      <CryptoWebSocket />
+
+      <Features />
       <div
         className="container-fluid bg-light footer pt-5 wowhgcghchg fadeIn"
         data-wow-delay="0.1s"
