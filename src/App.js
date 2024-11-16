@@ -18,7 +18,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import PrivateRoute2 from "./components/PrivateRoute2";
 import ResetPassword from "./components/ResetPassword";
 import ForgetPassword from "./components/ForgetPassword";
-import MyStartegies from "./components/MyStartegies";
+import Subscribed from "./components/Subscribed";
 import Deployed from "./components/Deployed";
 import MarketPlace from "./components/MarketPlace";
 import Otpverify from "./components/Otpverify";
@@ -31,6 +31,7 @@ import New_Signin from "./components/New_Signin";
 import Navbar from "./components/Navbar";
 import AddMarketPlaceData from "./components/AddMarketPlaceData";
 import Active from "./components/Active";
+import Model from "./components/Model";
 
 function App() {
   const isAuth = useSelector((state) => state.account.auth);
@@ -166,7 +167,7 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Active />
+              <Model />
             </PrivateRoute>
           }
         />
@@ -252,11 +253,15 @@ function App() {
           element={<ForgetPassword setLoading={setLoading} />}
         />
         <Route
-          path="/strategies/mystartegies"
+          path="/strategies/subscribed"
           exact
           element={
             <PrivateRoute>
-              <MyStartegies setLoading={setLoading} />
+              <Subscribed
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />
@@ -265,7 +270,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Deployed setLoading={setLoading} />
+              <Deployed
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />

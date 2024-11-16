@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import * as XLSX from "xlsx";
 import React from "react";
 import { ProductionUrl } from "../URL/url";
+import { Container } from "react-bootstrap";
+import PaperTradeTable from "./PaperTradeTable";
 
 function PaperTrading({ darkMode, toggleDarkMode }) {
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -169,16 +171,18 @@ function PaperTrading({ darkMode, toggleDarkMode }) {
   // }
 
   return (
-    <div className="container">
+    <div className="">
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <div
+
+      <PaperTradeTable />
+      {/* <div
         className={`${
           localStorage.getItem("theme") == "light-theme"
-            ? "row jahgs"
-            : "jhsbdchjbdcbs"
+            ? "row jahgs container"
+            : "jhsbdchjbdcbs container"
         }`}
-      >
-        <div
+      > */}
+      {/* <div
           className={`${
             localStorage.getItem("theme") == "light-theme"
               ? "col-12 hdfhj"
@@ -218,8 +222,8 @@ function PaperTrading({ darkMode, toggleDarkMode }) {
               ))}
             </tbody>
           </table>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   );
 }

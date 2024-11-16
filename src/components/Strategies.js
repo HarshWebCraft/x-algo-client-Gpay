@@ -5,7 +5,6 @@ import data from "../data.json";
 import { Dropdown, DropdownButton, Nav } from "react-bootstrap";
 import axios from "axios";
 import persistCombineReducers from "redux-persist/lib/persistCombineReducers";
-import StrategiesNavbar from "./StrategiesNavbar";
 import { ProductionUrl } from "../URL/url";
 function Strategies() {
   const [ceEntry, setCeEntry] = useState(0);
@@ -146,7 +145,6 @@ function Strategies() {
     <div className="">
       <div className="s-nav">
         <Navbar />
-        <StrategiesNavbar />
       </div>
     </div>
   );

@@ -1,0 +1,73 @@
+.paper-trade-table-container {
+  width: 100%;
+}
+
+.paper-trade-balance-container {
+  text-align: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.paper-trade-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.paper-trade-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.paper-trade-table th,
+.paper-trade-table td {
+  padding: 9px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.paper-trade-table th {
+  background-color: grey;
+  border: 0 white transparent;
+}
+
+.paper-trade-table thead {
+  background-color: #f4f4f4;
+}
+
+@media (max-width: 600px) {
+  .paper-trade-table,
+  .paper-trade-table thead,
+  .paper-trade-table tbody,
+  .paper-trade-table th,
+  .paper-trade-table td,
+  .paper-trade-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .paper-trade-table tr {
+    margin-bottom: 15px;
+  }
+
+  .paper-trade-table th {
+    text-align: right;
+  }
+
+  .paper-trade-table th::after {
+    content: ": ";
+  }
+
+  .paper-trade-table td {
+    text-align: left;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .paper-trade-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    padding-left: 10px;
+    font-weight: bold;
+  }
+}

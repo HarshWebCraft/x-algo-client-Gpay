@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./StrategyCard.css"; // Add CSS styles
 import image from "../images/StrategyImage.jpeg"; // Import the default image
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ProductionUrl } from "../URL/url";
+import { userSchemaRedux } from "../actions/actions";
 
 function StrategyCard() {
   const [strategyData, setStrategyData] = useState([]);
   const [subscribedStrategies, setSubscribedStrategies] = useState([]);
   const email = useSelector((state) => state.email.email);
-
+  const dispatch = useDispatch();
+  const userSchema = useSelector((state) => state.account.userSchemaRedux);
+  console.log(userSchema.SubscribedStrategies);
   const url =
     process.env.NODE_ENV === "production"
       ? ProductionUrl
@@ -24,8 +27,12 @@ function StrategyCard() {
 
         console.log(response.data.allData);
         console.log(response.data.SubscribedStrategies);
+        console.log(response.data.userSchema);
+
+        dispatch(userSchemaRedux(response.data.userSchema));
+
         setStrategyData(response.data.allData);
-        setSubscribedStrategies(response.data.SubscribedStrategies); // Array of subscribed strategies' IDs
+        setSubscribedStrategies(response.data.SubscribedStrategies);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -41,6 +48,8 @@ function StrategyCard() {
         email,
       });
 
+      dispatch(userSchemaRedux(response.data.userSchema));
+
       setStrategyData((prevData) =>
         prevData.map((strategy) =>
           strategy._id === strategyId
@@ -48,6 +57,9 @@ function StrategyCard() {
             : strategy
         )
       );
+
+      dispatch(userSchemaRedux(response.data.userSchema));
+
       setSubscribedStrategies(response.data.SubscribedStrategies); // Update subscribed strategies
     } catch (error) {
       console.error("Error updating subscribe count:", error);

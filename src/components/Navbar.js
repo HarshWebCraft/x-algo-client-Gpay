@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import Logo_Dark from "../images/X-Algo-Dark.png";
@@ -6,54 +6,52 @@ import Logo_Light from "../images/X-Algo-Light.png";
 import Wallet from "../images/wallet.png";
 import Logout from "../images/logout.png";
 import { Image } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedStrategy, setSelectedStrategy] = useState("Strategies"); // New state for selected strategy
+  const [selectedStrategy, setSelectedStrategy] = useState("Strategies");
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dropdownRef = useRef(null); // Ref for dropdown
 
-  const getActiveLink = () => {
-    if (location.pathname.startsWith("/Strategies")) {
-      console.log(location.pathname);
-      return "Strategies";
-    }
-    switch (location.pathname) {
-      case "/home":
-        return "Dashboard";
-      case "/PaperTrading":
-        return "Paper trading";
-      case "/Services":
-        return "Services";
-      case "/home/broker":
-        return "Broker";
-      default:
-        return "Dashboard";
-    }
-  };
-
-  const [activeLink, setActiveLink] = useState(getActiveLink());
-
+  // Update selected strategy based on URL
   useEffect(() => {
-    setActiveLink(getActiveLink());
+    if (location.pathname.startsWith("/Strategies/")) {
+      const strategy = location.pathname.split("/")[2];
+      setSelectedStrategy(strategy.charAt(0).toUpperCase() + strategy.slice(1));
+    }
   }, [location]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    if (dropdownOpen) {
+      document.addEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [dropdownOpen]);
+
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen((prev) => !prev);
   };
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+    setDropdownOpen((prev) => !prev);
   };
 
   const handleStrategySelect = (strategy) => {
-    setSelectedStrategy(strategy); // Update selected strategy
+    setSelectedStrategy(strategy);
     setDropdownOpen(false); // Close dropdown
-    setMenuOpen(false); // Close menu
-    navigate(`/Strategies/${strategy.replace(" ", "")}`); // Navigate to selected strategy
+    navigate(`/Strategies/${strategy.replace(" ", "")}`);
   };
 
   const logout = () => {
@@ -70,7 +68,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <li>
           <Link
             to="/home"
-            className={activeLink === "Dashboard" ? "active" : ""}
+            className={location.pathname === "/home" ? "active" : ""}
             onClick={() => setMenuOpen(false)}
           >
             Dashboard
@@ -79,74 +77,56 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <li>
           <Link
             to="/Active"
-            className={activeLink === "Active" ? "active" : ""}
+            className={location.pathname === "/Active" ? "active" : ""}
             onClick={() => setMenuOpen(false)}
           >
             Active
           </Link>
         </li>
-        <li className="dropdown">
+        <li className="dropdown" ref={dropdownRef}>
           <div
             className={`dropdown-toggle ${
-              activeLink === "Strategies" ? "active" : ""
+              location.pathname.startsWith("/Strategies") ? "active" : ""
             }`}
             onClick={toggleDropdown}
           >
-            {selectedStrategy} {/* Display the selected strategy */}
+            <span>{selectedStrategy}</span>
+            {/* <span className="dropdown-indicator">⮟</span> */}
           </div>
           {dropdownOpen && (
             <ul className="dropdown-menu">
-              <li>
-                <div
-                  className={
-                    location.pathname === "/Strategies/MyStrategies"
-                      ? "active"
-                      : ""
-                  }
-                  onClick={() => handleStrategySelect("My Strategies")}
-                >
-                  My Strategies
-                </div>
+              <li
+                className={selectedStrategy === "Subscribed" ? "active" : ""}
+                onClick={() => handleStrategySelect("Subscribed")}
+              >
+                Subscribed
               </li>
-              <li>
-                <div
-                  className={
-                    location.pathname === "/Strategies/Deployed" ? "active" : ""
-                  }
-                  onClick={() => handleStrategySelect("Deployed")}
-                >
-                  Deployed
-                </div>
+              <li
+                className={selectedStrategy === "Deployed" ? "active" : ""}
+                onClick={() => handleStrategySelect("Deployed")}
+              >
+                Deployed
               </li>
-              <li>
-                <div
-                  className={
-                    location.pathname === "/Strategies/Active" ? "active" : ""
-                  }
-                  onClick={() => handleStrategySelect("Active")}
-                >
-                  Active
-                </div>
+              <li
+                className={selectedStrategy === "Active" ? "active" : ""}
+                onClick={() => handleStrategySelect("Active")}
+              >
+                Active
               </li>
-              <li>
-                <div
-                  className={
-                    location.pathname === "/Strategies/Marketplace"
-                      ? "active"
-                      : ""
-                  }
-                  onClick={() => handleStrategySelect("Marketplace")}
-                >
-                  Marketplace
-                </div>
+              <li
+                className={selectedStrategy === "Marketplace" ? "active" : ""}
+                onClick={() => handleStrategySelect("Marketplace")}
+              >
+                Marketplace
               </li>
             </ul>
           )}
         </li>
+
         <li>
           <Link
             to="/PaperTrading"
-            className={activeLink === "Paper trading" ? "active" : ""}
+            className={location.pathname === "/PaperTrading" ? "active" : ""}
             onClick={() => setMenuOpen(false)}
           >
             Paper trading
@@ -155,7 +135,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <li>
           <Link
             to="/home/broker"
-            className={activeLink === "Broker" ? "active" : ""}
+            className={location.pathname === "/home/broker" ? "active" : ""}
             onClick={() => setMenuOpen(false)}
           >
             Add Broker

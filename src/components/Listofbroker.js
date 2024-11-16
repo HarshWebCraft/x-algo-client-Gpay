@@ -53,13 +53,26 @@ function Listofbroker({ setLoading }) {
       ? ProductionUrl
       : "http://localhost:5000";
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const profileData = await axios.post(`${url}/userinfo`, { Email });
+  //     console.log(profileData.data);
+  //     dispatch(allClientData(profileData.data));
+  //     console.log(userSchema);
+  //     console.log(clientdata);
+  //   };
+  //   fetchData();
+  // }, [email]);
+
   useEffect(() => {
     const fetchData = async () => {
-      console.log(userSchema);
+      const profileData = await axios.post(`${url}/userinfo`, { Email });
+      console.log(profileData.data);
+      dispatch(allClientData(profileData.data));
       console.log(clientdata);
     };
     fetchData();
-  }, [email, userSchema, clientdata]);
+  }, []);
 
   const showAlertWithTimeout = (message, duration) => {
     setShowAlert(true);
@@ -125,10 +138,7 @@ function Listofbroker({ setLoading }) {
 
           // dispatch(addItem(id))
           console.log(response.data.userSchema);
-          const dbschema = await axios.post(`${url}/dbSchema`, { Email });
-          const profileData = await axios.post(`${url}/userinfo`, { Email });
-          console.log(profileData.data);
-          dispatch(allClientData(profileData.data));
+
           showAlertWithTimeout2("Successfully added", 3000);
           Swal.fire({
             position: "center",
@@ -152,6 +162,10 @@ function Listofbroker({ setLoading }) {
           setisLoggedIn(true);
 
           console.log("user data is " + response.data.data.net);
+          const dbschema = await axios.post(`${url}/dbSchema`, { Email });
+          const profileData = await axios.post(`${url}/userinfo`, { Email });
+          console.log(profileData.data);
+          dispatch(allClientData(profileData.data));
         }
       } catch (e) {
         console.log("Error is " + e);

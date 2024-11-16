@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import StrategiesNavbar from "./StrategiesNavbar";
 import "./marketplace.css";
 import marketplacedata from "./marketPlace.json";
 import axios from "axios";

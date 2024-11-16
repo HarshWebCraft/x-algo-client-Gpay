@@ -7,6 +7,60 @@
   color: var(--text-color);
 }
 
+/* Active dropdown item */
+.dropdown .dropdown-toggle.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; /* Position the underline slightly below the text */
+  left: 39%;
+  transform: translateX(-50%);
+  width: 50%; /* Adjust width for a shorter underline */
+  height: 3px;
+  background-color: #f0b90b; /* Color for the active dropdown underline */
+  transition: width 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Smooth animation for the active dropdown item on hover */
+.dropdown .dropdown-toggle.active:hover::after {
+  width: 100%; /* Full width on hover */
+}
+
+/* Active dropdown menu item */
+.dropdown-menu li.active a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 3px;
+  background-color: #f0b90b;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Smooth animation for dropdown menu item on hover */
+.dropdown-menu li.active a:hover::after {
+  width: 100%; /* Full width on hover */
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.dropdown-icon {
+  margin-left: 8px;
+  font-size: 12px;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.dropdown.open .dropdown-icon {
+  transform: rotate(180deg); /* Rotate icon when dropdown is open */
+}
+
 .icon-container {
   position: relative; /* Required for positioning the tooltip */
   display: inline-block; /* Allows the tooltip to position correctly */

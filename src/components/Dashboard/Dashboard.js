@@ -56,7 +56,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
         console.log("jcnnjaskcnasncnaskcnkascnkasnjk" + storedTheme);
 
         const dbschema = await axios.post(`${url}/dbSchema`, { Email });
-        console.log(dbschema.data.BrokerData);
+        console.log(dbschema.data);
         console.log(userSchema);
 
         console.log(auth);
@@ -92,12 +92,13 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
           const newCapital = a.map((user) => user.userData.data);
           setCapital(newCapital);
 
-          setLoading(false);
+          // setLoading(false);
           seta(false);
           // document.body.style.overflow = 'unset';
+          console.log(dbschema.data);
           dispatch(userSchemaRedux(dbschema.data));
         } else {
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching data:", error);

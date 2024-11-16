@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import StrategiesNavbar from "./StrategiesNavbar";
 import { Button, Dropdown, Form, Nav, NavDropdown } from "react-bootstrap";
 import "./deployed.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +8,7 @@ import { userSchemaRedux } from "../actions/actions";
 import React from "react";
 import { ProductionUrl } from "../URL/url";
 
-function Deployed() {
+function Deployed({ darkMode, toggleDarkMode, setLoading }) {
   const [accountid, setaccountid] = useState("");
   const [applieddate, setapplieddate] = useState("");
   const [totaltrades, settotaltrades] = useState("");
@@ -36,9 +35,12 @@ function Deployed() {
   }, []);
 
   return (
-    <div className="container">
-      <Navbar />
-      <StrategiesNavbar />
+    <div className="">
+      <Navbar
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        setLoading={setLoading}
+      />
       {Deployed.map((item) => {
         return (
           <div className="row col-10 nays center-div">
