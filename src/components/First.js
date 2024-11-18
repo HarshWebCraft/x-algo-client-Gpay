@@ -39,9 +39,12 @@ function First() {
       <div className="d-flex xjsgk container">
         <div className="banner-container">
           <h1 className="banner-title">
-            Stock <spna style={{ color: "#ffa700" }}>Market</spna> <br />
-            is the Best Way to <br />
-            <spna style={{ color: "#ffa700" }}>Invest</spna> your Money
+            <spna style={{ color: "#54fb54" }}>Green</spna> is better
+            <br />
+            than <spna style={{ color: "#ff3a4a" }}> Red </spna>, <br />{" "}
+            <spna style={{ color: "#ffa700" }}> always </spna>
+            :)
+            {/* <spna style={{ color: "#ffa700" }}>Invest</spna> your Money */}
           </h1>
           <p className="banner-subtitle">The Future of Trading Guide</p>
           <p className="banner-description">
@@ -52,7 +55,6 @@ function First() {
             <button className="btn-signin" onClick={(e) => goto("login")}>
               Sign In
             </button>
-            <button className="btn-free-trial">Free Trial</button>
           </div>
         </div>
         <div className="lottie-container ">

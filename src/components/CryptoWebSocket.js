@@ -80,9 +80,6 @@ const CryptoWebSocket = () => {
 
   return (
     <div className="crypto-container container mt-5">
-      <h4 style={{ fontSize: "2em" }}>
-        🔥 Top <span style={{ color: "#ffa700" }}>Stocks</span> in the market
-      </h4>
       <div className="crypto-cards">
         {Object.keys(prices).map((symbol) => (
           <div
