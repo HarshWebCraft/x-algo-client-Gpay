@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./BotCard.css";
-import Switch from '@mui/material/Switch';
+import Switch from "@mui/material/Switch";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,16 +8,19 @@ import { useDispatch, useSelector } from "react-redux";
 const BotCard = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [clientDataWithActiveStatus, setClientDataWithActiveStatus] = useState([]);
+  const [clientDataWithActiveStatus, setClientDataWithActiveStatus] = useState(
+    []
+  );
 
   const dispatch = useDispatch();
-  const userSchema = useSelector(state => state.account.userSchemaRedux);
-  const clientdata = useSelector(state => state.account.allClientData);
+  const userSchema = useSelector((state) => state.account.userSchemaRedux);
+  const clientdata = useSelector((state) => state.account.allClientData);
   const capital = props.capital;
 
   useEffect(() => {
     // Initialize client data with active status
-    const initializedData = clientdata.map(item => ({
+    console.log(clientdata);
+    const initializedData = clientdata.map((item) => ({
       ...item,
       isActive: true, // Default status is Active
     }));
@@ -47,7 +50,7 @@ const BotCard = (props) => {
 
   const handleToggleChange = (index) => {
     // Toggle the active state for the specific item
-    setClientDataWithActiveStatus(prevData => {
+    setClientDataWithActiveStatus((prevData) => {
       const newData = [...prevData];
       newData[index].isActive = !newData[index].isActive; // Toggle the active status
       return newData;
@@ -130,7 +133,8 @@ const BotCard = (props) => {
               <div className="stat-item">
                 <div className="label">Trade Ratio</div>
                 <div className="value">
-                  <span className="green">0%</span> / <span className="red">0%</span>
+                  <span className="green">0%</span> /{" "}
+                  <span className="red">0%</span>
                 </div>
               </div>
 
@@ -156,7 +160,9 @@ const BotCard = (props) => {
 
               <div className="stat-item">
                 <div className="label">Status</div>
-                <div className={item.isActive ? 'value green' : 'value red'}>{item.isActive ? 'Active' : 'Not Active'}</div>
+                <div className={item.isActive ? "value green" : "value red"}>
+                  {item.isActive ? "Active" : "Not Active"}
+                </div>
               </div>
 
               <div className="stat-item">
@@ -165,7 +171,10 @@ const BotCard = (props) => {
                   {capital.map((cap, index1) => {
                     if (index === index1) {
                       return (
-                        <div className={cap.net < 0 ? "red" : "green"} key={index1}>
+                        <div
+                          className={cap.net < 0 ? "red" : "green"}
+                          key={index1}
+                        >
                           ₹{cap.net}
                         </div>
                       );

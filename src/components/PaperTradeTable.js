@@ -2,34 +2,31 @@ import React, { useEffect, useState } from "react";
 import "./PaperTradeTable.css";
 import io from "socket.io-client";
 
-const socket = io("https://oyster-app-4y3eb.ondigitalocean.app");
+// const socket = io("ws://oyster-app-4y3eb.ondigitalocean.app");
 
 const PaperTradeTable = () => {
   const [pnlData, setPnlData] = useState([]);
 
   useEffect(() => {
-    // Listen for PnL updates
-    socket.on("updatePnL", (data) => {
-      setPnlData((prev) => {
-        const existing = prev.find(
-          (item) => item.symbol === data.symbol && item.side === data.side
-        );
-
-        if (existing) {
-          return prev.map((item) =>
-            item.symbol === data.symbol && item.side === data.side
-              ? { ...item, runningPnL: data.runningPnL }
-              : item
-          );
-        }
-
-        return [...prev, data];
-      });
-    });
-
-    return () => {
-      socket.off("updatePnL");
-    };
+    // // Listen for PnL updates
+    // socket.on("updatePnL", (data) => {
+    //   setPnlData((prev) => {
+    //     const existing = prev.find(
+    //       (item) => item.symbol === data.symbol && item.side === data.side
+    //     );
+    //     if (existing) {
+    //       return prev.map((item) =>
+    //         item.symbol === data.symbol && item.side === data.side
+    //           ? { ...item, runningPnL: data.runningPnL }
+    //           : item
+    //       );
+    //     }
+    //     return [...prev, data];
+    //   });
+    // });
+    // return () => {
+    //   socket.off("updatePnL");
+    // };
   }, []);
 
   const data = [

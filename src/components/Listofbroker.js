@@ -44,9 +44,12 @@ function Listofbroker({ setLoading }) {
   // const [loading, setLoading] = useState(true);
   const [broker, addbroker] = useState("");
   const [secretKey, insertSecretKey] = useState("");
+  const [DeltaSecret, insertDeltaSecret] = useState("");
+  const [DeltaKey, insertDeltaKey] = useState("");
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [addedId, insertaddedId] = useState("");
   const [apikey, insertApiKey] = useState("");
+  const [selectBroker, setSelectBroker] = useState("1"); // Default to "AngelOne"
 
   const url =
     process.env.NODE_ENV === "production"
@@ -97,6 +100,7 @@ function Listofbroker({ setLoading }) {
   const f1 = async (e) => {
     setLoading(true);
     document.body.style.overflow = "hidden";
+
     userSchema.BrokerData.map((item, index) => {
       if (item.AngelId == id) {
         userExist = true;
@@ -277,45 +281,8 @@ function Listofbroker({ setLoading }) {
             {/* Input fields and button row */}
             <div className="d-flex flex-column flex-md-row justify-content-between w-100 mt-3 gap-3 qsxpog">
               {/* Input fields */}
-              <input
-                type="text"
-                className="form-control mb-2 mb-md-0 input-focus-yellow"
-                placeholder="Client ID"
-                value={id}
-                onChange={(e) => insertid(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-              <input
-                type="text"
-                className="form-control mb-2 mb-md-0 input-focus-yellow"
-                placeholder="PIN"
-                value={pass}
-                onChange={(e) => insertpass(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-              <input
-                type="text"
-                className="form-control mb-2 mb-md-0 input-focus-yellow"
-                placeholder="Totp Key"
-                value={secretKey}
-                onChange={(e) => insertSecretKey(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-              <input
-                type="text"
-                className="form-control mb-2 mb-md-0 input-focus-yellow"
-                placeholder="Api Key"
-                value={apikey}
-                onChange={(e) => insertApiKey(e.target.value)}
-                required
-                style={{ width: "100%" }}
-              />
-
               {/* Broker selection dropdown */}
-              <select
+              {/* <select
                 className="form-select mb-2 mb-md-0 input-focus-yellow"
                 aria-label="Broker selection"
                 style={{
@@ -326,9 +293,88 @@ function Listofbroker({ setLoading }) {
                 }}
               >
                 <option value="1">AngelOne</option>
-                <option value="2">Zerodha</option>
+                <option value="2">Delta</option>
+                <option value="3">Upstox</option>
+              </select> */}
+
+              <select
+                className="form-select mb-2 mb-md-0 input-focus-yellow"
+                aria-label="Broker selection"
+                style={{
+                  width: "100%",
+                  maxWidth: "200px",
+                  boxShadow: "none",
+                  color: "gray",
+                }}
+                onChange={(e) => setSelectBroker(e.target.value)}
+                value={selectBroker}
+              >
+                <option value="1">AngelOne</option>
+                <option value="2">Delta</option>
                 <option value="3">Upstox</option>
               </select>
+              {selectBroker == 1 && (
+                <>
+                  <input
+                    type="text"
+                    className="form-control mb-2 mb-md-0 input-focus-yellow"
+                    placeholder="Client ID"
+                    value={id}
+                    onChange={(e) => insertid(e.target.value)}
+                    required
+                    style={{ width: "100%" }}
+                  />
+                  <input
+                    type="text"
+                    className="form-control mb-2 mb-md-0 input-focus-yellow"
+                    placeholder="PIN"
+                    value={pass}
+                    onChange={(e) => insertpass(e.target.value)}
+                    required
+                    style={{ width: "100%" }}
+                  />
+                  <input
+                    type="text"
+                    className="form-control mb-2 mb-md-0 input-focus-yellow"
+                    placeholder="Totp Key"
+                    value={secretKey}
+                    onChange={(e) => insertSecretKey(e.target.value)}
+                    required
+                    style={{ width: "100%" }}
+                  />
+                  <input
+                    type="text"
+                    className="form-control mb-2 mb-md-0 input-focus-yellow"
+                    placeholder="Api Key"
+                    value={apikey}
+                    onChange={(e) => insertApiKey(e.target.value)}
+                    required
+                    style={{ width: "100%" }}
+                  />
+                </>
+              )}
+              {selectBroker == 2 && (
+                <>
+                  <input
+                    type="text"
+                    className="form-control mb-2 mb-md-0 input-focus-yellow"
+                    placeholder="API Secret"
+                    value={id}
+                    onChange={(e) => insertDeltaSecret(e.target.value)}
+                    required
+                    style={{ width: "100%" }}
+                  />
+                  <input
+                    type="text"
+                    className="form-control mb-2 mb-md-0 input-focus-yellow"
+                    placeholder="API Key"
+                    value={pass}
+                    onChange={(e) => insertDeltaKey(e.target.value)}
+                    required
+                    style={{ width: "100%" }}
+                  />
+                </>
+              )}
             </div>
             <button
               className="btn mt-3 w-100"
