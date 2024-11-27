@@ -38,6 +38,8 @@
 
 .paper-trade-table-wrapper {
   max-height: 400px; 
+  width: 100%;
+  overflow-x: auto;
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
@@ -81,7 +83,7 @@
   .paper-trade-table th,
   .paper-trade-table td,
   .paper-trade-table tr {
-    display: block;
+    /* display: block; */
     width: 100%;
   }
 
@@ -109,5 +111,20 @@
     left: 0;
     padding-left: 10px;
     font-weight: bold;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .paper-trade-table th, .paper-trade-table td {
+    font-size: 12px;  /* Smaller font for mobile */
+    padding: 8px;     /* Reduce padding on mobile */
+  }
+
+  .paper-trade-table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;  /* Prevent text wrapping */
   }
 }
