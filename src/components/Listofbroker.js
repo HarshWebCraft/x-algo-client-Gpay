@@ -44,8 +44,8 @@ function Listofbroker({ setLoading }) {
   // const [loading, setLoading] = useState(true);
   const [broker, addbroker] = useState("");
   const [secretKey, insertSecretKey] = useState("");
-  const [DeltaSecret, insertDeltaSecret] = useState("");
-  const [DeltaKey, insertDeltaKey] = useState("");
+  const [deltaSecret, insertDeltaSecret] = useState("");
+  const [deltaKey, insertDeltaKey] = useState("");
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [addedId, insertaddedId] = useState("");
   const [apikey, insertApiKey] = useState("");
@@ -97,7 +97,7 @@ function Listofbroker({ setLoading }) {
     }, duration);
   };
 
-  const f1 = async (e) => {
+  const addBrokerBtn = async (e) => {
     setLoading(true);
     document.body.style.overflow = "hidden";
 
@@ -120,56 +120,77 @@ function Listofbroker({ setLoading }) {
       e.preventDefault();
       console.log("broker add");
       try {
-        const response = await axios.post(`${url}/addbroker`, {
-          First: true,
-          id: id,
-          pass: pass,
-          email: email,
-          secretKey: secretKey,
-          userSchema: userSchema,
-          ApiKey: apikey,
-        });
-
-        console.log("when user enter angelid and pass" + response.data);
-        if (!response.data) {
-          showAlertWithTimeout("Invalid id or password", 5000);
-          insertid("");
-          insertpass("");
-        } else {
-          dispatch(loginSuccess(response));
-          dispatch(angelId({ id, pass }));
-          addbroker();
-
-          // dispatch(addItem(id))
-          console.log(response.data.userSchema);
-
-          showAlertWithTimeout2("Successfully added", 3000);
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Account added successfully",
-            showConfirmButton: false,
-            timer: 1500,
+        if (selectBroker == 1) {
+          const response = await axios.post(`${url}/addbroker`, {
+            First: true,
+            id: id,
+            pass: pass,
+            email: email,
+            secretKey: secretKey,
+            userSchema: userSchema,
+            ApiKey: apikey,
           });
 
-          dispatch(userSchemaRedux(dbschema.data));
-          if (dbschema.data.BrokerCount) {
-            dispatch(brokerLogin(true));
+          console.log("when user enter angelid and pass" + response.data);
+          if (!response.data) {
+            showAlertWithTimeout("Invalid id or password", 5000);
+            insertid("");
+            insertpass("");
           } else {
-            dispatch(brokerLogin(false));
+            dispatch(loginSuccess(response));
+            dispatch(angelId({ id, pass }));
+            addbroker();
+
+            // dispatch(addItem(id))
+            console.log(response.data.userSchema);
+
+            showAlertWithTimeout2("Successfully added", 3000);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Account added successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            dispatch(userSchemaRedux(dbschema.data));
+            if (dbschema.data.BrokerCount) {
+              dispatch(brokerLogin(true));
+            } else {
+              dispatch(brokerLogin(false));
+            }
+
+            insertaddedId(id);
+            insertid("");
+            insertpass("");
+            insertSecretKey("");
+            setisLoggedIn(true);
+
+            console.log("user data is " + response.data.data.net);
+            const dbschema = await axios.post(`${url}/dbSchema`, { Email });
+            const profileData = await axios.post(`${url}/userinfo`, { Email });
+            console.log(profileData.data);
+            dispatch(allClientData(profileData.data));
           }
-
-          insertaddedId(id);
-          insertid("");
-          insertpass("");
-          insertSecretKey("");
-          setisLoggedIn(true);
-
-          console.log("user data is " + response.data.data.net);
-          const dbschema = await axios.post(`${url}/dbSchema`, { Email });
-          const profileData = await axios.post(`${url}/userinfo`, { Email });
-          console.log(profileData.data);
-          dispatch(allClientData(profileData.data));
+        } else {
+          const response = await axios.post(`${url}/addDeltaBroker`, {
+            apiKey: deltaKey,
+            apiSecret: deltaSecret,
+          });
+          if (response.data.success) {
+            showAlertWithTimeout2("Successfully added", 3000);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Account added successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else {
+            showAlertWithTimeout("Invalid id or password", 5000);
+            insertid("");
+            insertpass("");
+          }
         }
       } catch (e) {
         console.log("Error is " + e);
@@ -359,7 +380,7 @@ function Listofbroker({ setLoading }) {
                     type="text"
                     className="form-control mb-2 mb-md-0 input-focus-yellow"
                     placeholder="API Secret"
-                    value={id}
+                    value={deltaSecret}
                     onChange={(e) => insertDeltaSecret(e.target.value)}
                     required
                     style={{ width: "100%" }}
@@ -368,7 +389,7 @@ function Listofbroker({ setLoading }) {
                     type="text"
                     className="form-control mb-2 mb-md-0 input-focus-yellow"
                     placeholder="API Key"
-                    value={pass}
+                    value={deltaKey}
                     onChange={(e) => insertDeltaKey(e.target.value)}
                     required
                     style={{ width: "100%" }}
@@ -379,7 +400,7 @@ function Listofbroker({ setLoading }) {
             <button
               className="btn mt-3 w-100"
               style={{ backgroundColor: "#FBD535" }}
-              onClick={f1}
+              onClick={addBrokerBtn}
             >
               Add Broker
             </button>

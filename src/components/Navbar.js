@@ -58,6 +58,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
+  const gotoWallet = () => {
+    navigate("/home/myWallet");
+  };
 
   return (
     <nav className={`navbar ${darkMode ? "dark" : "light"}`}>
@@ -149,6 +152,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             height={23}
             className="logout-icon"
             onClick={logout}
+          />
+        </div>
+        <div className="icon-container" title="Wallet">
+          <Image
+            src={Wallet}
+            height={23}
+            className="logout-icon"
+            onClick={gotoWallet}
           />
         </div>
         <button onClick={toggleDarkMode}>{darkMode ? "🌙" : "☀️"}</button>

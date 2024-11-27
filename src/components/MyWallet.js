@@ -58,7 +58,7 @@ const MyWallet = ({ darkMode, toggleDarkMode }) => {
         Email,
         amount,
       });
-      console.log(response.data.order);
+      console.log(response);
       const options = {
         key: "x",
         amount: response.data.order.amount,
