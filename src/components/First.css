@@ -301,7 +301,14 @@ h6,
   color: white;
 }
 
-
+.navbar .dropdown-toggle::after {
+  border: none;
+  content: "\f078";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  vertical-align: middle;
+  margin-left: 0.5rem; /* 8px to rem */
+}
 
 @media (max-width: 991.98px) {
   .navbar .navbar-nav .nav-link {
