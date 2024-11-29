@@ -102,17 +102,18 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
 
   const handleDeploy = async (strategyId) => {
     try {
+      console.log(selectedStrategyId);
       const response = await axios.post(`${url}/addDeployed`, {
         Email,
-        strategyId,
+        selectedStrategyId,
         Index,
         Quaninty,
         Account,
       });
-      console.log(response);
+      console.log(response.data);
 
       handleClose();
-
+      dispatch(userSchemaRedux(response.data));
       showAlertWithTimeout2("Successfully added", 3000);
     } catch (e) {
       console.log(e);

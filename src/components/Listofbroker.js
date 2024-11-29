@@ -152,6 +152,7 @@ function Listofbroker({ setLoading }) {
               showConfirmButton: false,
               timer: 1500,
             });
+            const dbschema = await axios.post(`${url}/dbSchema`, { Email });
 
             dispatch(userSchemaRedux(dbschema.data));
             if (dbschema.data.BrokerCount) {
@@ -167,16 +168,25 @@ function Listofbroker({ setLoading }) {
             setisLoggedIn(true);
 
             console.log("user data is " + response.data.data.net);
-            const dbschema = await axios.post(`${url}/dbSchema`, { Email });
             const profileData = await axios.post(`${url}/userinfo`, { Email });
             console.log(profileData.data);
             dispatch(allClientData(profileData.data));
           }
         } else {
           const response = await axios.post(`${url}/addDeltaBroker`, {
+            email: email,
             apiKey: deltaKey,
             apiSecret: deltaSecret,
           });
+          const dbschema = await axios.post(`${url}/dbSchema`, { Email });
+
+          dispatch(userSchemaRedux(dbschema.data));
+          if (dbschema.data.BrokerCount) {
+            dispatch(brokerLogin(true));
+          } else {
+            dispatch(brokerLogin(false));
+          }
+
           if (response.data.success) {
             showAlertWithTimeout2("Successfully added", 3000);
             Swal.fire({

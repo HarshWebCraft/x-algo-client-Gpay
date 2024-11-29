@@ -3,9 +3,20 @@ import "./PaperTradeTable.css";
 import { ProductionUrl } from "../URL/url";
 import axios from "axios";
 import { Scrollbar } from "react-scrollbars-custom";
+import Switch from "@mui/material/Switch";
+import { useSelector } from "react-redux";
+import delete_broker from "../images/delete_broker.png";
 
 const PaperTradeTable = () => {
-  const [pnlData, setPnlData] = useState([]);
+  const [ExcelData, setExcelData] = useState([]);
+  const [pnl, setpnl] = useState();
+  const [allStrategies, setAllStrategies] = useState([]); // Store the strategies
+  const [allSheetData, setAllSheetData] = useState([]); // Store the sheet data
+  const [filteredData, setFilteredData] = useState([]);
+
+  const email = useSelector((state) => state.email.email);
+  const userSchema = useSelector((state) => state.account.userSchemaRedux);
+  const ids = userSchema.DeployedStrategies;
 
   const url =
     process.env.NODE_ENV === "production"
@@ -15,9 +26,40 @@ const PaperTradeTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${url}/fetchSheetData`); // Your backend API endpoint
-        console.log(response.data);
-        setPnlData(response.data);
+        const response = await axios.post(`${url}/getMarketPlaceData`, {
+          email,
+        });
+        const jsonData = response.data.allData;
+
+        // Filter strategies based on IDs
+        const filteredData = jsonData.filter((item) => ids.includes(item._id));
+
+        // Merge filteredData with DeployedData
+        const mergedData = filteredData.map((strategy) => {
+          // Find matching DeployedData entry for this strategy
+          const deployedInfo = userSchema.DeployedData.find(
+            (data) => data.Strategy.toString() === strategy._id.toString()
+          );
+
+          // Merge strategy with deployedInfo
+          return {
+            ...strategy,
+            AppliedDate: deployedInfo ? deployedInfo.AppliedDate : "N/A", // Add AppliedDate
+            Index: deployedInfo ? deployedInfo.Index : "N/A", // Add other fields if needed
+          };
+        });
+
+        console.log(mergedData);
+        setFilteredData(mergedData);
+
+        console.log(filteredData);
+
+        const response3 = await axios.post(`${url}/fetchSheetData`, { email });
+        console.log(response3.data.allSheetData);
+
+        // Set sheet data to state
+        setAllSheetData(response3.data.allSheetData);
+        console.log(allSheetData);
       } catch (error) {
         console.error("Error fetching sheet data:", error);
       }
@@ -27,48 +69,134 @@ const PaperTradeTable = () => {
   }, []);
 
   return (
-    <div className="paper-trade-table-container container">
-      <div className="paper-trade-balance-container">
-        {/* <h3>Paper Trading Balance: ${}</h3> */}
-      </div>
-      <div className="paper-trade-table-wrapper">
-        <Scrollbar style={{ height: 400 }}>
-          <table className="paper-trade-table">
-            <thead>
-              <tr>
-                <th>NO</th>
-                <th>Symbol</th>
-                <th>Entry Type</th>
+    <>
+      {allSheetData.length > 0 ? (
+        allSheetData.map((strategy, index) => {
+          // Extract the P&L (9th column, index 8) from sheetData
+          const pnlValues = strategy.sheetData.map(
+            (row) => parseFloat(row[8]) || 0
+          );
+          // Calculate the total P&L for the current strategy
+          console.log(pnlValues);
+          const totalPnl = pnlValues.reduce((sum, value) => sum + value, 0);
 
-                <th>Entry Time</th>
-                <th>Exit Time</th>
+          return (
+            <div className="container" key={strategy.strategyId}>
+              <div className="row stats-container">
+                {/* Account Info Section */}
+                <div className="account-info tfghnc pe-3">
+                  <div className="phjhverthj">
+                    <div className="account-item">
+                      <span className="label">Name:</span>
+                      <span className="value"> {strategy.strategyName}</span>
+                    </div>
+                    <div className="account-item">
+                      <span className="label">Deploy Date :</span>
+                      <span className="value">
+                        {strategy.DeploedDate || "N/A"}
+                      </span>
+                    </div>
+                  </div>
 
-                <th>Entry Price</th>
-                <th>Exit Price</th>
-                <th>Entry Qty</th>
+                  <div className="phjhverthj2">
+                    <div className="account-item">
+                      <span className="value">P&L : </span>
+                      <span className={totalPnl < 0 ? "red" : "green"}>
+                        {totalPnl.toFixed(2)}$
+                      </span>
+                    </div>
+                    <div className="account-item">
+                      <img
+                        src={delete_broker || "delete_broker_placeholder.png"}
+                        height={20}
+                        className="delete-icon"
+                        alt="Delete Broker"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                <th>P&L</th>
-              </tr>
-            </thead>
-            <tbody className="paper-trade-table-body">
-              {pnlData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item[0]}</td>
-                  <td>{item[1]}</td>
-                  <td>{item[2]}</td>
-                  <td>{item[3]}</td>
-                  <td>{item[4]}</td>
-                  <td>{item[5]}</td>
-                  <td>{item[6]}</td>
-                  <td>{item[7]}</td>
-                  <td>{item[8]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Scrollbar>
-      </div>
-    </div>
+                {/* Stats Table Section */}
+                <div className="stats-toggle-container">
+                  <div className="paper-trade-table-container container">
+                    <div className="paper-trade-balance-container">
+                      {/* Balance can be added here if required */}
+                    </div>
+                    <div className="paper-trade-table-wrapper">
+                      <Scrollbar style={{ height: 200 }}>
+                        <table className="paper-trade-table">
+                          <thead>
+                            <tr>
+                              <th>NO</th>
+                              <th>Symbol</th>
+                              <th>Entry Type</th>
+                              <th>Entry Time</th>
+                              <th>Exit Time</th>
+                              <th>Entry Price</th>
+                              <th>Exit Price</th>
+                              <th>Entry Qty</th>
+                              <th>P&L</th>
+                            </tr>
+                          </thead>
+                          <tbody className="paper-trade-table-body">
+                            {strategy.sheetData.map((row, rowIndex) => (
+                              <tr key={rowIndex}>
+                                {row.map((cell, cellIndex) => (
+                                  <td key={cellIndex}>{cell || "N/A"}</td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </Scrollbar>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <p>No data available</p>
+      )}
+    </>
+    // <div>
+    //   {allSheetData.length > 0 ? (
+    //     allSheetData.map((item, index) => (
+    //       <div
+    //         key={index}
+    //         style={{
+    //           marginBottom: "20px",
+    //           border: "1px solid #ccc",
+    //           padding: "10px",
+    //         }}
+    //       >
+    //         <h3>{item.strategyName}</h3>
+    //         <table border="1">
+    //           <thead>
+    //             <tr>
+    //               {/* Assuming 9 columns based on `sheetData` structure */}
+    //               {item.sheetData[0].map((_, colIndex) => (
+    //                 <th key={colIndex}>Column {colIndex + 1}</th>
+    //               ))}
+    //             </tr>
+    //           </thead>
+    //           <tbody>
+    //             {item.sheetData.map((row, rowIndex) => (
+    //               <tr key={rowIndex}>
+    //                 {row.map((cell, cellIndex) => (
+    //                   <td key={cellIndex}>{cell}</td>
+    //                 ))}
+    //               </tr>
+    //             ))}
+    //           </tbody>
+    //         </table>
+    //       </div>
+    //     ))
+    //   ) : (
+    //     <p>No data available</p>
+    //   )}
+    // </div>
   );
 };
 

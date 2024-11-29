@@ -59,6 +59,7 @@ function Verifyemail() {
     }
 
     try {
+      console.log(urlEmail);
       await axios.post(`${url}/verifyemail`, {
         urlEmail,
         iv,
