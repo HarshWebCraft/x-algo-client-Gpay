@@ -18,6 +18,33 @@ const PaperTradeTable = () => {
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
   const ids = userSchema.DeployedStrategies;
 
+  const removeDeploy = async (strategyId) => {
+    try {
+      const response = await axios.post(`${url}/removeDeployStra`, {
+        email,
+        strategyId,
+      });
+
+      if (response.status === 200) {
+        // Filter out the deleted strategy from allSheetData
+        setAllSheetData((prevData) =>
+          prevData.filter((strategy) => strategy.strategyId !== strategyId)
+        );
+
+        // Also update filteredData if needed
+        setFilteredData((prevData) =>
+          prevData.filter((strategy) => strategy._id !== strategyId)
+        );
+
+        console.log("Strategy deleted successfully!");
+      } else {
+        console.error("Failed to delete strategy:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting strategy:", error);
+    }
+  };
+
   const url =
     process.env.NODE_ENV === "production"
       ? ProductionUrl
@@ -110,6 +137,7 @@ const PaperTradeTable = () => {
                         src={delete_broker || "delete_broker_placeholder.png"}
                         height={20}
                         className="delete-icon"
+                        onClick={(e) => removeDeploy(strategy.strategyId)}
                         alt="Delete Broker"
                       />
                     </div>
@@ -139,13 +167,21 @@ const PaperTradeTable = () => {
                             </tr>
                           </thead>
                           <tbody className="paper-trade-table-body">
-                            {strategy.sheetData.map((row, rowIndex) => (
-                              <tr key={rowIndex}>
-                                {row.map((cell, cellIndex) => (
-                                  <td key={cellIndex}>{cell || "N/A"}</td>
-                                ))}
+                            {strategy.sheetData.length > 0 ? (
+                              strategy.sheetData.map((row, rowIndex) => (
+                                <tr key={rowIndex}>
+                                  {row.map((cell, cellIndex) => (
+                                    <td key={cellIndex}>{cell || "N/A"}</td>
+                                  ))}
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan="9" style={{ textAlign: "center" }}>
+                                  No trade executed
+                                </td>
                               </tr>
-                            ))}
+                            )}
                           </tbody>
                         </table>
                       </Scrollbar>

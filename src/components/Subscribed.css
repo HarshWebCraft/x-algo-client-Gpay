@@ -16,3 +16,16 @@
   padding-left: 2em;
   padding-right: 2em;
 }
+
+.deploy-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.no-strategy-message{
+    width: 100%;
+    border: 2px solid black;
+    padding: 1em;
+}
+
