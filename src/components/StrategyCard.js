@@ -5,6 +5,10 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductionUrl } from "../URL/url";
 import { userSchemaRedux } from "../actions/actions";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 function StrategyCard() {
   const [strategyData, setStrategyData] = useState([]);
@@ -12,11 +16,45 @@ function StrategyCard() {
   const email = useSelector((state) => state.email.email);
   const dispatch = useDispatch();
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
+  const [selectedStrategyId, setSelectedStrategyId] = React.useState(null);
+  const Email = useSelector((state) => state.email.email);
+
   console.log(userSchema.SubscribedStrategies);
+  const [open, setOpen] = React.useState(false);
+  const [Quaninty, setQuaninty] = useState("");
+  const [Index, setIndex] = useState("");
+  const [Account, setAccount] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert2, setShowAlert2] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertMessage2, setAlertMessage2] = useState("");
+  const [clientIds, setClientIds] = useState([]);
+
+  const handleOpen = (strategyId) => {
+    setSelectedStrategyId(strategyId);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedStrategyId(null);
+    setOpen(false);
+  };
+
   const url =
     process.env.NODE_ENV === "production"
       ? ProductionUrl
       : "http://localhost:5000";
+
+  const handleInputChange = (e, field) => {
+    const value = e.target.value;
+    if (field === "Quaninty") {
+      setQuaninty(value);
+    } else if (field === "Index") {
+      setIndex(value);
+    } else if (field === "Account") {
+      setAccount(value);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,6 +101,36 @@ function StrategyCard() {
       setSubscribedStrategies(response.data.SubscribedStrategies); // Update subscribed strategies
     } catch (error) {
       console.error("Error updating subscribe count:", error);
+    }
+  };
+
+  const showAlertWithTimeout2 = (message, duration) => {
+    setShowAlert2(true);
+    setAlertMessage2(message);
+
+    setTimeout(() => {
+      setShowAlert2(false);
+      setAlertMessage2("");
+    }, duration);
+  };
+
+  const handleDeploy = async (strategyId) => {
+    try {
+      console.log(selectedStrategyId);
+      const response = await axios.post(`${url}/addDeployed`, {
+        Email,
+        selectedStrategyId,
+        Index,
+        Quaninty,
+        Account,
+      });
+      console.log(response.data);
+
+      handleClose();
+      dispatch(userSchemaRedux(response.data));
+      showAlertWithTimeout2("Successfully added", 3000);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -134,6 +202,7 @@ function StrategyCard() {
             </button>
             <button
               className="deploy-btn"
+              onClick={() => handleOpen(strategy._id)}
               disabled={!subscribedStrategies.includes(strategy._id)} // Disable if not subscribed
             >
               Deploy
@@ -141,6 +210,172 @@ function StrategyCard() {
           </div>
         </div>
       ))}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="sub-model" style={{ padding: "1.5rem" }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Deployment Configuration
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
+            Please configure the details below before <br /> deploying the
+            strategy:
+          </Typography>
+          <form style={{ marginTop: "2rem" }}>
+            {/* Quantity Field */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              <label
+                htmlFor="quantity"
+                style={{
+                  width: "100%",
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  textAlign: "left",
+                }}
+              >
+                Quantity:
+              </label>
+              <input
+                id="quantity"
+                type="number"
+                min="1"
+                value={Quaninty}
+                onChange={(e) => handleInputChange(e, "Quaninty")}
+                placeholder="Enter quantity"
+                style={{
+                  width: "100%",
+                  padding: "0.3rem",
+                  fontSize: "0.9rem",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                }}
+                required
+              />
+            </div>
+
+            {/* Account Dropdown */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              <label
+                htmlFor="account"
+                style={{
+                  width: "100%",
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  textAlign: "left",
+                }}
+              >
+                Select Account:
+              </label>
+              <select
+                id="account"
+                value={Account}
+                onChange={(e) => handleInputChange(e, "Account")}
+                style={{
+                  width: "100%",
+                  padding: "0.3rem",
+                  fontSize: "0.9rem",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                }}
+                required
+              >
+                <option value="" disabled>
+                  Choose an account
+                </option>
+                {clientIds.map((id, index) => (
+                  <option key={index} value={id}>
+                    {id}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Index Dropdown */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              <label
+                htmlFor="index"
+                style={{
+                  width: "100%",
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  textAlign: "left",
+                }}
+              >
+                Select Index:
+              </label>
+              <select
+                id="index"
+                value={Index}
+                onChange={(e) => handleInputChange(e, "Index")}
+                style={{
+                  width: "100%",
+                  padding: "0.3rem",
+                  fontSize: "0.9rem",
+                  border: "1px solid #ccc",
+                  borderRadius: "4px",
+                }}
+                required
+              >
+                <option value="" disabled>
+                  Choose an index
+                </option>
+                <option value="Index1">Index 1</option>
+                <option value="Index2">Index 2</option>
+                <option value="Index3">Index 3</option>
+              </select>
+            </div>
+          </form>
+          <div
+            style={{
+              marginTop: "1rem",
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "1rem",
+            }}
+          >
+            <Button
+              style={{ width: "100%" }}
+              variant="outlined"
+              color="secondary"
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              style={{ width: "100%" }}
+              color="primary"
+              onClick={() => {
+                // addDeployed(strategy.id);
+                handleDeploy();
+              }}
+            >
+              Deploy
+            </Button>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 }

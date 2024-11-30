@@ -5,7 +5,15 @@
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
+.gfhglio{
+  position: absolute;
+  left: 48%;
+  top: 15%;
+}
 
+.hjg{
+  margin-top:8em;
+}
 
 .phjhverthj{
   display: flex;

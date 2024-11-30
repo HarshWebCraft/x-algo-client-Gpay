@@ -15,6 +15,7 @@ import {
 import { Audio, FallingLines, Triangle } from "react-loader-spinner";
 import OrderPlace from "../OrderPlace";
 import BotCard from "../BotCard";
+import Spinner from "../Spinner";
 function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
   let a = 0;
 
@@ -27,6 +28,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
   const items = useSelector((state) => state.account.items);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
   const brokerCount = userSchema ? userSchema.BrokerCount : 0;
+  const [loader, setLoader] = useState(false);
   console.log("brokerlogin value in redux" + brokerLogin1);
   console.log(id);
   console.log(pass);
@@ -47,6 +49,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoader(true);
         const profileData = await axios.post(`${url}/userinfo`, { Email });
         console.log(profileData);
         dispatch(allClientData(profileData.data));
@@ -92,14 +95,15 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
           const newCapital = a.map((user) => user.userData.data);
           setCapital(newCapital);
 
-          // setLoading(false);
+          setLoading(false);
           seta(false);
           // document.body.style.overflow = 'unset';
           console.log(dbschema.data);
           dispatch(userSchemaRedux(dbschema.data));
         } else {
-          // setLoading(false);
+          setLoading(false);
         }
+        setLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -149,7 +153,13 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
       </div>
 
       {/* {b?(<OrderPlace load={ert} broker={broker} capital={capital} />):""} */}
-      {b ? <BotCard load={ert} broker={broker} capital={capital} /> : ""}
+      {b ? (
+        <BotCard load={ert} broker={broker} capital={capital} />
+      ) : (
+        <div className="hjg gfhglio">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 }

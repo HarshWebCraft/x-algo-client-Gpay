@@ -6,6 +6,7 @@ import { Scrollbar } from "react-scrollbars-custom";
 import Switch from "@mui/material/Switch";
 import { useSelector } from "react-redux";
 import delete_broker from "../images/delete_broker.png";
+import Spinner from "./Spinner";
 
 const PaperTradeTable = () => {
   const [ExcelData, setExcelData] = useState([]);
@@ -13,6 +14,7 @@ const PaperTradeTable = () => {
   const [allStrategies, setAllStrategies] = useState([]); // Store the strategies
   const [allSheetData, setAllSheetData] = useState([]); // Store the sheet data
   const [filteredData, setFilteredData] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const email = useSelector((state) => state.email.email);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -53,6 +55,7 @@ const PaperTradeTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoader(true);
         const response = await axios.post(`${url}/getMarketPlaceData`, {
           email,
         });
@@ -87,6 +90,7 @@ const PaperTradeTable = () => {
         // Set sheet data to state
         setAllSheetData(response3.data.allSheetData);
         console.log(allSheetData);
+        setLoader(false);
       } catch (error) {
         console.error("Error fetching sheet data:", error);
       }
@@ -97,142 +101,110 @@ const PaperTradeTable = () => {
 
   return (
     <>
-      {allSheetData.length > 0 ? (
-        allSheetData.map((strategy, index) => {
-          // Extract the P&L (9th column, index 8) from sheetData
-          const pnlValues = strategy.sheetData.map(
-            (row) => parseFloat(row[8]) || 0
-          );
-          // Calculate the total P&L for the current strategy
-          console.log(pnlValues);
-          const totalPnl = pnlValues.reduce((sum, value) => sum + value, 0);
+      <div className="m-auto gfhglio">{loader ? <Spinner /> : ""}</div>
 
-          return (
-            <div className="container" key={strategy.strategyId}>
-              <div className="row stats-container">
-                {/* Account Info Section */}
-                <div className="account-info tfghnc pe-3">
-                  <div className="phjhverthj">
-                    <div className="account-item">
-                      <span className="label">Name:</span>
-                      <span className="value"> {strategy.strategyName}</span>
+      {allSheetData.length > 0
+        ? allSheetData.map((strategy, index) => {
+            // Extract the P&L (9th column, index 8) from sheetData
+            const pnlValues = strategy.sheetData.map(
+              (row) => parseFloat(row[8]) || 0
+            );
+            // Calculate the total P&L for the current strategy
+            console.log(pnlValues);
+            const totalPnl = pnlValues.reduce((sum, value) => sum + value, 0);
+
+            return (
+              <div className="container" key={strategy.strategyId}>
+                <div className="row stats-container">
+                  {/* Account Info Section */}
+                  <div className="account-info tfghnc pe-3">
+                    <div className="phjhverthj">
+                      <div className="account-item">
+                        <span className="label">Name:</span>
+                        <span className="value"> {strategy.strategyName}</span>
+                      </div>
+                      <div className="account-item">
+                        <span className="label">Deploy Date :</span>
+                        <span className="value">
+                          {strategy.DeploedDate || "N/A"}
+                        </span>
+                      </div>
                     </div>
-                    <div className="account-item">
-                      <span className="label">Deploy Date :</span>
-                      <span className="value">
-                        {strategy.DeploedDate || "N/A"}
-                      </span>
+
+                    <div className="phjhverthj2">
+                      <div className="account-item">
+                        <span className="value">P&L : </span>
+                        <span className={totalPnl < 0 ? "red" : "green"}>
+                          {totalPnl.toFixed(2)}$
+                        </span>
+                      </div>
+                      <div className="account-item">
+                        <img
+                          src={delete_broker || "delete_broker_placeholder.png"}
+                          height={20}
+                          className="delete-icon"
+                          onClick={(e) => removeDeploy(strategy.strategyId)}
+                          alt="Delete Broker"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="phjhverthj2">
-                    <div className="account-item">
-                      <span className="value">P&L : </span>
-                      <span className={totalPnl < 0 ? "red" : "green"}>
-                        {totalPnl.toFixed(2)}$
-                      </span>
-                    </div>
-                    <div className="account-item">
-                      <img
-                        src={delete_broker || "delete_broker_placeholder.png"}
-                        height={20}
-                        className="delete-icon"
-                        onClick={(e) => removeDeploy(strategy.strategyId)}
-                        alt="Delete Broker"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Stats Table Section */}
-                <div className="stats-toggle-container">
-                  <div className="paper-trade-table-container container">
-                    <div className="paper-trade-balance-container">
-                      {/* Balance can be added here if required */}
-                    </div>
-                    <div className="paper-trade-table-wrapper">
-                      <Scrollbar style={{ height: 200 }}>
-                        <table className="paper-trade-table">
-                          <thead>
-                            <tr>
-                              <th>NO</th>
-                              <th>Symbol</th>
-                              <th>Entry Type</th>
-                              <th>Entry Time</th>
-                              <th>Exit Time</th>
-                              <th>Entry Price</th>
-                              <th>Exit Price</th>
-                              <th>Entry Qty</th>
-                              <th>P&L</th>
-                            </tr>
-                          </thead>
-                          <tbody className="paper-trade-table-body">
-                            {strategy.sheetData.length > 0 ? (
-                              strategy.sheetData.map((row, rowIndex) => (
-                                <tr key={rowIndex}>
-                                  {row.map((cell, cellIndex) => (
-                                    <td key={cellIndex}>{cell || "N/A"}</td>
-                                  ))}
-                                </tr>
-                              ))
-                            ) : (
+                  {/* Stats Table Section */}
+                  <div className="stats-toggle-container">
+                    <div className="paper-trade-table-container container">
+                      <div className="paper-trade-balance-container">
+                        {/* Balance can be added here if required */}
+                      </div>
+                      <div className="paper-trade-table-wrapper">
+                        <Scrollbar style={{ height: 200 }}>
+                          <table className="paper-trade-table">
+                            <thead>
                               <tr>
-                                <td colSpan="9" style={{ textAlign: "center" }}>
-                                  No trade executed
-                                </td>
+                                <th>NO</th>
+                                <th>Symbol</th>
+                                <th>Entry Type</th>
+                                <th>Entry Time</th>
+                                <th>Exit Time</th>
+                                <th>Entry Price</th>
+                                <th>Exit Price</th>
+                                <th>Entry Qty</th>
+                                <th>P&L</th>
                               </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </Scrollbar>
+                            </thead>
+                            <tbody className="paper-trade-table-body">
+                              {strategy.sheetData.length > 0 ? (
+                                strategy.sheetData.map((row, rowIndex) => (
+                                  <tr key={rowIndex}>
+                                    {row.map((cell, cellIndex) => (
+                                      <td key={cellIndex}>{cell || "N/A"}</td>
+                                    ))}
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr>
+                                  <td
+                                    colSpan="9"
+                                    style={{ textAlign: "center" }}
+                                  >
+                                    No trade executed
+                                  </td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                        </Scrollbar>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <p>No data available</p>
-      )}
+            );
+          })
+        : ""}
+
+      <p>{loader ? "" : "No data available"}</p>
     </>
-    // <div>
-    //   {allSheetData.length > 0 ? (
-    //     allSheetData.map((item, index) => (
-    //       <div
-    //         key={index}
-    //         style={{
-    //           marginBottom: "20px",
-    //           border: "1px solid #ccc",
-    //           padding: "10px",
-    //         }}
-    //       >
-    //         <h3>{item.strategyName}</h3>
-    //         <table border="1">
-    //           <thead>
-    //             <tr>
-    //               {/* Assuming 9 columns based on `sheetData` structure */}
-    //               {item.sheetData[0].map((_, colIndex) => (
-    //                 <th key={colIndex}>Column {colIndex + 1}</th>
-    //               ))}
-    //             </tr>
-    //           </thead>
-    //           <tbody>
-    //             {item.sheetData.map((row, rowIndex) => (
-    //               <tr key={rowIndex}>
-    //                 {row.map((cell, cellIndex) => (
-    //                   <td key={cellIndex}>{cell}</td>
-    //                 ))}
-    //               </tr>
-    //             ))}
-    //           </tbody>
-    //         </table>
-    //       </div>
-    //     ))
-    //   ) : (
-    //     <p>No data available</p>
-    //   )}
-    // </div>
   );
 };
 

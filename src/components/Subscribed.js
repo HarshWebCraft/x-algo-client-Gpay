@@ -65,6 +65,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [alertMessage2, setAlertMessage2] = useState("");
   const [selectedStrategyId, setSelectedStrategyId] = React.useState(null);
   const [clientIds, setClientIds] = useState([]);
+  const [deployedStrategies, setDeployedStrategies] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -114,6 +115,9 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
 
       handleClose();
       dispatch(userSchemaRedux(response.data));
+      setDeployedStrategies((prev) => [...prev, selectedStrategyId]); // Mark the strategy as deployed
+      console.log(deployedStrategies);
+
       showAlertWithTimeout2("Successfully added", 3000);
     } catch (e) {
       console.log(e);
@@ -149,24 +153,6 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
     } else if (field === "Account") {
       setAccount(value);
     }
-  };
-
-  const removeMyStrategies = async (index) => {
-    const response = await axios.post(`${url}/removeMyStra`, { Email, index });
-    console.log(response.data);
-    dispatch(userSchemaRedux(response.data));
-  };
-
-  const addDeployed = async (id) => {
-    const response = await axios.post(`${url}/addDeployed`, {
-      Email,
-      id,
-      Quaninty,
-      Index,
-      Account,
-    });
-    console.log("this is upadted" + response.data);
-    dispatch(userSchemaRedux(response.data));
   };
 
   React.useEffect(() => {
@@ -266,14 +252,17 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                 <button
                   className="deploy-btn"
                   onClick={() => handleOpen(strategy._id)}
+                  disabled={deployedStrategies.includes(strategy._id)} // Disable if already deployed
                 >
-                  Deploy
+                  {deployedStrategies.includes(strategy._id)
+                    ? "Deployed"
+                    : "Deploy"}
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <div className="no-strategy-message container">
+          <div className="no-strategy-message container ">
             No strategy subscribed
           </div>
         )}
