@@ -13,32 +13,26 @@ const BotCard = (props) => {
   );
 
   const dispatch = useDispatch();
-  const userSchema = useSelector((state) => state.account.userSchemaRedux);
   const clientdata = useSelector((state) => state.account.allClientData);
   const capital = props.capital;
 
   useEffect(() => {
     // Initialize client data with active status
-    console.log(clientdata);
     const initializedData = clientdata.map((item) => ({
       ...item,
       isActive: true, // Default status is Active
     }));
     setClientDataWithActiveStatus(initializedData);
+    console.log(clientDataWithActiveStatus);
   }, [clientdata]);
 
   const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
+    setIsMobile(window.innerWidth < 768);
   };
 
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -49,10 +43,10 @@ const BotCard = (props) => {
   };
 
   const handleToggleChange = (index) => {
-    // Toggle the active state for the specific item
     setClientDataWithActiveStatus((prevData) => {
       const newData = [...prevData];
-      newData[index].isActive = !newData[index].isActive; // Toggle the active status
+      newData[index].isActive = !newData[index].isActive; // Toggle active status
+
       return newData;
     });
   };
@@ -73,15 +67,25 @@ const BotCard = (props) => {
                   <div className="dropdown-content">
                     <div className="account-item">
                       <span className="label">Name:</span>
-                      <span className="value">Harsh Vadhavna</span>
+                      <span className="value">
+                        {item.userData
+                          ? item.userData.data.name
+                          : item.userDetails?.result?.name || "N/A"}
+                      </span>
                     </div>
                     <div className="account-item">
                       <span className="label">Broker:</span>
-                      <span className="value">Angel one</span>
+                      <span className="value">
+                        {item.userData ? "Angel One" : "Delta"}
+                      </span>
                     </div>
                     <div className="account-item">
                       <span className="label">User Id:</span>
-                      <span className="value">H54303926</span>
+                      <span className="value">
+                        {item.userData
+                          ? item.userData.data.clientcode
+                          : item.userDetails?.result?.phishing_code || "N/A"}
+                      </span>
                     </div>
                     <div className="account-item">
                       <span className="label">Strategies:</span>
@@ -103,15 +107,26 @@ const BotCard = (props) => {
               <>
                 <div className="account-item">
                   <span className="label">Name:</span>
-                  <span className="value">{item.userData.data.name}</span>
+                  <span className="value">
+                    {item.userData
+                      ? item.userData.data.name
+                      : item.userDetails?.result?.first_name +
+                          item.userDetails?.result?.last_name || "N/A"}
+                  </span>
                 </div>
                 <div className="account-item">
                   <span className="label">Broker:</span>
-                  <span className="value">Angel one</span>
+                  <span className="value">
+                    {item.userData ? "Angel One" : "Delta"}
+                  </span>
                 </div>
                 <div className="account-item">
                   <span className="label">User Id:</span>
-                  <span className="value">{item.userData.data.clientcode}</span>
+                  <span className="value">
+                    {item.userData
+                      ? item.userData.data.clientcode
+                      : item.userDetails?.result?.phishing_code || "N/A"}
+                  </span>
                 </div>
                 <div className="account-item">
                   <span className="label">Strategy No:</span>
@@ -179,7 +194,7 @@ const BotCard = (props) => {
                         </div>
                       );
                     }
-                    return null; // Return null if condition is not met
+                    return null;
                   })}
                 </div>
               </div>

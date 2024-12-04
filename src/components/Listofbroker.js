@@ -470,7 +470,14 @@ function Listofbroker({ setLoading }) {
                 <tbody style={{ textAlign: "center" }}>
                   {clientdata.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.userData.data.clientcode}</td>
+                      {/* Displaying client code */}
+                      <td>
+                        {item.userData
+                          ? item.userData.data.clientcode
+                          : item.deltaApiKey && "No Client Code"}
+                      </td>
+
+                      {/* Displaying user name */}
                       <td
                         style={{
                           whiteSpace: "nowrap",
@@ -478,10 +485,27 @@ function Listofbroker({ setLoading }) {
                           textOverflow: "ellipsis",
                         }}
                       >
-                        {item.userData.data.name.toUpperCase()}
+                        {item.userData
+                          ? item.userData.data.name.toUpperCase()
+                          : item.userDetails?.result?.first_name?.toUpperCase() +
+                              " " +
+                              item.userDetails?.result?.last_name.toUpperCase() ||
+                            "N/A"}
                       </td>
+
+                      {/* Hardcoded or dynamic date (adjust as needed) */}
                       <td>12/5/2004</td>
-                      <td>AngelOne</td>
+
+                      {/* Displaying source */}
+                      <td>
+                        {item.userData
+                          ? "AngelOne"
+                          : item.deltaApiKey
+                          ? "Delta"
+                          : "Unknown"}
+                      </td>
+
+                      {/* Delete action */}
                       <td>
                         <img
                           src={delete_broker}
