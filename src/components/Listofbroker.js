@@ -474,8 +474,10 @@ function Listofbroker({ setLoading }) {
                       <td>
                         {item.userData
                           ? item.userData.data.clientcode
-                          : item.deltaApiKey && "No Client Code"}
+                          : item.userDetails?.result?.phishing_code &&
+                            "No Client Code"}
                       </td>
+                      {console.log(item.userDetails?.result?.phishing_code)}
 
                       {/* Displaying user name */}
                       <td

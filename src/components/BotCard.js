@@ -14,6 +14,8 @@ const BotCard = (props) => {
 
   const dispatch = useDispatch();
   const clientdata = useSelector((state) => state.account.allClientData);
+  const userSchema = useSelector((state) => state.account.userSchemaRedux);
+
   const capital = props.capital;
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const BotCard = (props) => {
       isActive: true, // Default status is Active
     }));
     setClientDataWithActiveStatus(initializedData);
-    console.log(clientDataWithActiveStatus);
+    console.log(userSchema.DeployedData);
   }, [clientdata]);
 
   const handleResize = () => {
@@ -91,7 +93,7 @@ const BotCard = (props) => {
                       <span className="label">Strategies:</span>
                       <span className="value">5</span>
                     </div>
-                    <div className="account-item">
+                    {/* <div className="account-item">
                       <div className="toggle-container">
                         <Switch
                           checked={item.isActive}
@@ -99,7 +101,7 @@ const BotCard = (props) => {
                           onChange={() => handleToggleChange(index)}
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 )}
               </>
@@ -129,59 +131,24 @@ const BotCard = (props) => {
                   </span>
                 </div>
                 <div className="account-item">
-                  <span className="label">Strategy No:</span>
-                  <span className="value">1</span>
+                  <span className="label">Active Strategy:</span>
+                  <span className="value">{userSchema.ActiveStrategys}</span>
                 </div>
-                <div className="toggle-container">
+
+                {/* <div className="toggle-container">
                   <Switch
                     checked={item.isActive}
                     color="warning"
                     onChange={() => handleToggleChange(index)}
                   />
-                </div>
+                </div> */}
               </>
             )}
           </div>
-
           <div className="stats-toggle-container">
             <div className="stats-card">
               <div className="stat-item">
-                <div className="label">Trade Ratio</div>
-                <div className="value">
-                  <span className="green">0%</span> /{" "}
-                  <span className="red">0%</span>
-                </div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Number of trades</div>
-                <div className="value">0</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Profit gained</div>
-                <div className="value green">0%</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Percentage gain</div>
-                <div className="value red">0%</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Working time</div>
-                <div className="value">5h 23m</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Status</div>
-                <div className={item.isActive ? "value green" : "value red"}>
-                  {item.isActive ? "Active" : "Not Active"}
-                </div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Total Balance</div>
+                <div className="label">Account Balance</div>
                 <div className="value">
                   {item.userData ? (
                     capital.map((cap, index1) => {
@@ -200,35 +167,55 @@ const BotCard = (props) => {
                   ) : (
                     <div
                       className={
-                        item.balances.result[0].balance_inr < 0
+                        item?.balances?.result[0]?.balance_inr < 0
                           ? "red"
-                          : "green"
+                          : "green" || ""
                       }
                       key={index}
                     >
-                      ₹{item.balances.result[0].balance_inr}
+                      ₹{item?.balances?.result[0]?.balance_inr || ""}
                     </div>
                   )}
-                  {/* {capital.map((cap, index1) => {
-                    if (index === index1) {
-                      return (
-                        <div
-                          className={cap.net < 0 ? "red" : "green"}
-                          key={index1}
-                        >
-                          ₹{cap.net}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })} */}
                 </div>
               </div>
 
               <div className="stat-item">
-                <div className="label">Orders</div>
+                <div className="label">Overall gain</div>
                 <div className="value">0</div>
               </div>
+
+              <div className="stat-item">
+                <div className="label">Monthly gain</div>
+                <div className="value green">0%</div>
+              </div>
+
+              <div className="stat-item">
+                <div className="label">Today's gain</div>
+                <div className="value red">10%</div>
+              </div>
+
+              {userSchema.DeployedData.map((item, index) => (
+                // <div key={index}>
+                <>
+                  <div className="stat-item">
+                    <div className="label">Strategy Name</div>
+                    <div className="value">{item.StrategyName}</div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="label">Accuracy</div>
+                    <div className="value">0</div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="label">Monthly gain</div>
+                    <div className="value green">0%</div>
+                  </div>
+                  <div className="stat-item">
+                    <div className="label">Today's gain</div>
+                    <div className="value red">0%</div>
+                  </div>
+                </>
+                // </div>
+              ))}
             </div>
           </div>
         </div>

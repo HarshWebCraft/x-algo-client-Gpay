@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Spinner from "./Spinner";
+import Loader from "./loader";
 
 function StrategyCard() {
   const [strategyData, setStrategyData] = useState([]);
@@ -31,7 +32,8 @@ function StrategyCard() {
   const [alertMessage2, setAlertMessage2] = useState("");
   const [clientIds, setClientIds] = useState([]);
   const [loader, setLoader] = useState(false);
-
+  const [deployedBtnLoader, setDeployedBtnLoader] = useState(false);
+  const [brokerId, setBrokerId] = useState([]);
   const handleOpen = (strategyId) => {
     setSelectedStrategyId(strategyId);
     setOpen(true);
@@ -62,6 +64,7 @@ function StrategyCard() {
     const fetchData = async () => {
       try {
         setLoader(true);
+
         const response = await axios.post(`${url}/getMarketPlaceData`, {
           email,
         });
@@ -74,6 +77,7 @@ function StrategyCard() {
 
         setStrategyData(response.data.allData);
         setSubscribedStrategies(response.data.SubscribedStrategies);
+        setBrokerId(userSchema.BrokerIds);
         setLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -120,6 +124,7 @@ function StrategyCard() {
 
   const handleDeploy = async (strategyId) => {
     try {
+      setDeployedBtnLoader(true);
       console.log(selectedStrategyId);
       const response = await axios.post(`${url}/addDeployed`, {
         Email,
@@ -133,6 +138,7 @@ function StrategyCard() {
       handleClose();
       dispatch(userSchemaRedux(response.data));
       showAlertWithTimeout2("Successfully added", 3000);
+      setDeployedBtnLoader(false);
     } catch (e) {
       console.log(e);
     }
@@ -308,7 +314,8 @@ function StrategyCard() {
                 <option value="" disabled>
                   Choose an account
                 </option>
-                {clientIds.map((id, index) => (
+                <option>Paper Trade</option>
+                {brokerId.map((id, index) => (
                   <option key={index} value={id}>
                     {id}
                   </option>
@@ -381,8 +388,22 @@ function StrategyCard() {
                 // addDeployed(strategy.id);
                 handleDeploy();
               }}
+              disabled={deployedBtnLoader}
             >
-              Deploy
+              {deployedBtnLoader ? (
+                <div
+                  style={{
+                    marginLeft: 10,
+                    marginRight: 10,
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Loader />
+                </div>
+              ) : (
+                "Deploy"
+              )}
             </Button>
           </div>
         </Box>

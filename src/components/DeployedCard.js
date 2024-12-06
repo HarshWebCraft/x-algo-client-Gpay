@@ -106,14 +106,10 @@ const DeployedCard = (props) => {
             ) : (
               <>
                 <div className="account-item">
-                  <span className="label">Name:</span>
-                  <span className="value">
-                    {item.userData
-                      ? item.userData.data.name
-                      : item.userDetails?.result?.first_name +
-                          item.userDetails?.result?.last_name || "N/A"}
-                  </span>
+                  <span className="label">Strategy Name:</span>
+                  <span className="value">1</span>
                 </div>
+
                 <div className="account-item">
                   <span className="label">Broker:</span>
                   <span className="value">
@@ -128,10 +124,7 @@ const DeployedCard = (props) => {
                       : item.userDetails?.result?.phishing_code || "N/A"}
                   </span>
                 </div>
-                <div className="account-item">
-                  <span className="label">Strategy No:</span>
-                  <span className="value">1</span>
-                </div>
+
                 <div className="toggle-container">
                   <Switch
                     checked={item.isActive}
@@ -141,95 +134,6 @@ const DeployedCard = (props) => {
                 </div>
               </>
             )}
-          </div>
-
-          <div className="stats-toggle-container">
-            <div className="stats-card">
-              <div className="stat-item">
-                <div className="label">Trade Ratio</div>
-                <div className="value">
-                  <span className="green">0%</span> /{" "}
-                  <span className="red">0%</span>
-                </div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Number of trades</div>
-                <div className="value">0</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Profit gained</div>
-                <div className="value green">0%</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Percentage gain</div>
-                <div className="value red">0%</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Working time</div>
-                <div className="value">5h 23m</div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Status</div>
-                <div className={item.isActive ? "value green" : "value red"}>
-                  {item.isActive ? "Active" : "Not Active"}
-                </div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Total Balance</div>
-                <div className="value">
-                  {item.userData ? (
-                    capital.map((cap, index1) => {
-                      if (index === index1) {
-                        return (
-                          <div
-                            className={cap.net < 0 ? "red" : "green"}
-                            key={index1}
-                          >
-                            ₹{cap.net}
-                          </div>
-                        );
-                      }
-                      return null;
-                    })
-                  ) : (
-                    <div
-                      className={
-                        item.balances.result[0].balance_inr < 0
-                          ? "red"
-                          : "green"
-                      }
-                      key={index}
-                    >
-                      ₹{item.balances.result[0].balance_inr}
-                    </div>
-                  )}
-                  {/* {capital.map((cap, index1) => {
-                    if (index === index1) {
-                      return (
-                        <div
-                          className={cap.net < 0 ? "red" : "green"}
-                          key={index1}
-                        >
-                          ₹{cap.net}
-                        </div>
-                      );
-                    }
-                    return null;
-                  })} */}
-                </div>
-              </div>
-
-              <div className="stat-item">
-                <div className="label">Orders</div>
-                <div className="value">0</div>
-              </div>
-            </div>
           </div>
         </div>
       ))}

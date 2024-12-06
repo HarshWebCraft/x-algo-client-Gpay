@@ -167,7 +167,11 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <Model />
+              <Active
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />

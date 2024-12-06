@@ -17,6 +17,7 @@ import Modal from "@mui/material/Modal";
 import { color } from "framer-motion";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import Spinner from "./Spinner";
+import Loader from "./loader";
 
 function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [open, setOpen] = React.useState(false);
@@ -68,6 +69,8 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [clientIds, setClientIds] = useState([]);
   const [deployedStrategies, setDeployedStrategies] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [deployedBtnLoader, setDeployedBtnLoader] = useState(false);
+  const [brokerId, setBrokerId] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -100,6 +103,13 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
         setClientIds(ids); // Update state with extracted IDs
         console.log(clientIds);
       }
+      if (userSchema && userSchema.DeltaBrokerSchema) {
+        const ids = userSchema.DeltaBrokerSchema.map(
+          (account) => account.AngelId
+        );
+      }
+      setBrokerId(userSchema.BrokerIds);
+
       setLoader(false);
     };
     fetchData();
@@ -107,6 +117,8 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
 
   const handleDeploy = async (strategyId) => {
     try {
+      setDeployedBtnLoader(true);
+
       console.log(selectedStrategyId);
       const response = await axios.post(`${url}/addDeployed`, {
         Email,
@@ -123,6 +135,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
       console.log(deployedStrategies);
 
       showAlertWithTimeout2("Successfully added", 3000);
+      setDeployedBtnLoader(false);
     } catch (e) {
       console.log(e);
     }
@@ -363,7 +376,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                   Choose an account
                 </option>
                 <option>Paper Trade</option>
-                {clientIds.map((id, index) => (
+                {brokerId.map((id, index) => (
                   <option key={index} value={id}>
                     {id}
                   </option>
@@ -436,8 +449,22 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                 // addDeployed(strategy.id);
                 handleDeploy();
               }}
+              disabled={deployedBtnLoader}
             >
-              Deploy
+              {deployedBtnLoader ? (
+                <div
+                  style={{
+                    marginLeft: 10,
+                    marginRight: 10,
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Loader />
+                </div>
+              ) : (
+                "Deploy"
+              )}
             </Button>
           </div>
         </Box>
