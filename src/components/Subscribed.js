@@ -283,7 +283,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
           </Typography>
           <form style={{ marginTop: "2rem" }}>
             {/* Quantity Field */}
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -317,7 +317,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                 }}
                 required
               />
-            </div>
+            </div> */}
 
             {/* Account Dropdown */}
             <div
@@ -364,7 +364,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
             </div>
 
             {/* Index Dropdown */}
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -402,7 +402,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                 <option value="Index2">Index 2</option>
                 <option value="Index3">Index 3</option>
               </select>
-            </div>
+            </div> */}
           </form>
           <div
             style={{
