@@ -303,7 +303,7 @@ h6,
 
 .navbar .dropdown-toggle::after {
   border: none;
-  content: "\f078";
+  /* content: "\f078"; */
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   vertical-align: middle;
