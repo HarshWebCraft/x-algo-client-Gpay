@@ -49,21 +49,20 @@
 }
 
 
-/* .loader {
-    border: 7px solid #f3f3f3;
-    border-top: 7px solid #f0b90b;
+.loader3 {
+    border-top: 5px solid #f0b90b;
     border-radius: 50%;
     width: 35px;
     height: 35px;
     animation: spin 1s linear infinite;
-  } */
+  }
 
   
- /* @keyframes spin {
+ @keyframes spin {
     0% {
       transform: rotate(0deg);
     }
     100% {
       transform: rotate(360deg);
     }
-  }  */
+  } 

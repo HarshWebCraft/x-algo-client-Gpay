@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import Spinner from "./Spinner";
 
 function StrategyCard() {
   const [strategyData, setStrategyData] = useState([]);
@@ -29,6 +30,7 @@ function StrategyCard() {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertMessage2, setAlertMessage2] = useState("");
   const [clientIds, setClientIds] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const handleOpen = (strategyId) => {
     setSelectedStrategyId(strategyId);
@@ -59,6 +61,7 @@ function StrategyCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoader(true);
         const response = await axios.post(`${url}/getMarketPlaceData`, {
           email,
         });
@@ -71,6 +74,7 @@ function StrategyCard() {
 
         setStrategyData(response.data.allData);
         setSubscribedStrategies(response.data.SubscribedStrategies);
+        setLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -136,80 +140,87 @@ function StrategyCard() {
 
   return (
     <div className="card-container">
-      {strategyData.map((strategy) => (
-        <div key={strategy._id} className="card">
-          <div className="card-header">
-            <div className="header-left">
-              <img src={image} alt="Icon" className="strategy-icon" />
-              <div className="strategy-details">
-                <h2>{strategy.title}</h2>
-                <p className="strategy-type">
-                  Strategy: {strategy.strategyType}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="capital-info">
-            <strong>Capital requirement : </strong>
-            <p>{strategy.capitalRequirement}</p>
-          </div>
-
-          <div className="strategy-info">
-            <p>{strategy.description}</p>
-          </div>
-
-          <div className="execution-info">
-            <div className="created-by-info">
-              <i className="created-by-icon">✍️</i>
-              Created By: {strategy.createdBy}
-            </div>
-            <div className="creation-date-info">
-              <i className="date-icon">📅</i>
-              Created on:{" "}
-              {new Date(strategy.dateOfCreation).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              })}
-            </div>
-
-            <div className="d-flex gap-2">
-              <div className="subscriber-info">
-                <i className="subscriber-icon">👥</i>
-                Subscriber : {strategy.subscribeCount}
-              </div>
-              <div className="deployed-info">
-                <i className="deployed-icon">🚀</i>
-                Deployed : {strategy.deployedCount}
-              </div>
-            </div>
-            <div className="time-info">
-              <i className="clock-icon">🕒</i>
-              {strategy.days} at {strategy.time}
-            </div>
-          </div>
-
-          <div className="card-footer">
-            <button
-              className="subscribe-btn"
-              onClick={() => handleSubscribe(strategy._id)}
-              disabled={subscribedStrategies.includes(strategy._id)} // Disable if already subscribed
-            >
-              {subscribedStrategies.includes(strategy._id)
-                ? "Subscribed"
-                : "Subscribe"}
-            </button>
-            <button
-              className="deploy-btn"
-              onClick={() => handleOpen(strategy._id)}
-              disabled={!subscribedStrategies.includes(strategy._id)} // Disable if not subscribed
-            >
-              Deploy
-            </button>
-          </div>
+      {loader ? (
+        <div className="hjg gfhglio">
+          <Spinner />
         </div>
-      ))}
+      ) : (
+        strategyData.map((strategy) => (
+          <div key={strategy._id} className="card">
+            <div className="card-header">
+              <div className="header-left">
+                <img src={image} alt="Icon" className="strategy-icon" />
+                <div className="strategy-details">
+                  <h2>{strategy.title}</h2>
+                  <p className="strategy-type">
+                    Strategy: {strategy.strategyType}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="capital-info">
+              <strong>Capital requirement : </strong>
+              <p>{strategy.capitalRequirement}</p>
+            </div>
+
+            <div className="strategy-info">
+              <p>{strategy.description}</p>
+            </div>
+
+            <div className="execution-info">
+              <div className="created-by-info">
+                <i className="created-by-icon">✍️</i>
+                Created By: {strategy.createdBy}
+              </div>
+              <div className="creation-date-info">
+                <i className="date-icon">📅</i>
+                Created on:{" "}
+                {new Date(strategy.dateOfCreation).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
+              </div>
+
+              <div className="d-flex gap-2">
+                <div className="subscriber-info">
+                  <i className="subscriber-icon">👥</i>
+                  Subscriber : {strategy.subscribeCount}
+                </div>
+                <div className="deployed-info">
+                  <i className="deployed-icon">🚀</i>
+                  Deployed : {strategy.deployedCount}
+                </div>
+              </div>
+              <div className="time-info">
+                <i className="clock-icon">🕒</i>
+                {strategy.days} at {strategy.time}
+              </div>
+            </div>
+
+            <div className="card-footer">
+              <button
+                className="subscribe-btn"
+                onClick={() => handleSubscribe(strategy._id)}
+                disabled={subscribedStrategies.includes(strategy._id)} // Disable if already subscribed
+              >
+                {subscribedStrategies.includes(strategy._id)
+                  ? "Subscribed"
+                  : "Subscribe"}
+              </button>
+              <button
+                className="deploy-btn"
+                onClick={() => handleOpen(strategy._id)}
+                disabled={!subscribedStrategies.includes(strategy._id)} // Disable if not subscribed
+              >
+                Deploy
+              </button>
+            </div>
+          </div>
+        ))
+      )}
+
       <Modal
         open={open}
         onClose={handleClose}

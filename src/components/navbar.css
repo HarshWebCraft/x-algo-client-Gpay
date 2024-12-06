@@ -12,7 +12,7 @@
   content: "";
   position: absolute;
   bottom: -5px; /* Position the underline slightly below the text */
-  left: 39%;
+  left: 41%;
   transform: translateX(-50%);
   width: 50%; /* Adjust width for a shorter underline */
   height: 3px;

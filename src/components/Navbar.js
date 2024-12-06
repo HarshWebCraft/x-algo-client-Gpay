@@ -94,7 +94,12 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             onClick={toggleDropdown}
           >
             <span>{selectedStrategy}</span>
-            {/* <span className="dropdown-indicator">⮟</span> */}
+            <span
+              className="ml-2"
+              style={{ fontSize: "12px", lineHeight: "1" }}
+            >
+              ▼
+            </span>
           </div>
           {dropdownOpen && (
             <ul className="dropdown-menu">
