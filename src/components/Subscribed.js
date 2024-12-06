@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { color } from "framer-motion";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import Spinner from "./Spinner";
 
 function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [open, setOpen] = React.useState(false);
@@ -66,6 +67,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [selectedStrategyId, setSelectedStrategyId] = React.useState(null);
   const [clientIds, setClientIds] = useState([]);
   const [deployedStrategies, setDeployedStrategies] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -78,6 +80,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true);
       const response = await axios.post(`${url}/getMarketPlaceData`, {
         email,
       });
@@ -97,6 +100,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
         setClientIds(ids); // Update state with extracted IDs
         console.log(clientIds);
       }
+      setLoader(false);
     };
     fetchData();
   }, [userSchema]);
@@ -184,7 +188,11 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
       </div>
 
       <div className="card-container">
-        {filteredData.length > 0 ? (
+        {loader ? (
+          <div className="hjg gfhglio">
+            <Spinner />
+          </div>
+        ) : filteredData.length > 0 ? (
           filteredData.map((strategy) => (
             <div key={strategy._id} className="card">
               <div className="card-header">
