@@ -203,7 +203,7 @@ const PaperTradeTable = () => {
           })
         : ""}
 
-      <p>{loader ? "" : "No data available"}</p>
+      <p>{allSheetData.length > 0 ? "" : "No data available"}</p>
     </>
   );
 };

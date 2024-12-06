@@ -36,6 +36,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
   const [broker, isBroker] = useState();
   // const [loading, setLoading] = useState(false);
   const [capital, setCapital] = useState([]);
+  const [totalBalance, setTotalBalance] = useState(0);
   const [allcap, setallcap] = useState("");
   const [ert, seta] = useState(true);
   const dispatch = useDispatch();
@@ -45,6 +46,23 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
     process.env.NODE_ENV === "production"
       ? ProductionUrl
       : "http://localhost:5000";
+
+  useEffect(() => {
+    // Calculate total balance
+    let sum = 0;
+
+    clientdata.forEach((item, index) => {
+      if (item.userData) {
+        // Ensure the value is a number before adding
+        sum += Number(capital[index]?.net) || 0;
+      } else {
+        // Ensure the value is a number before adding
+        sum += Number(item.balances?.result[0]?.balance_inr) || 0;
+      }
+    });
+
+    setTotalBalance(sum); // Update the state with the total balance
+  }, [clientdata, capital]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -146,7 +164,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
                   sum += parseFloat(item.net);
                 })
               }
-              <div className={sum < 0 ? "red" : "green"}>₹{sum.toFixed(2)}</div>
+              <div className={sum < 0 ? "red" : "green"}>₹{totalBalance}</div>
             </div>
           </div>
         </div>

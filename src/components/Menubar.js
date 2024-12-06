@@ -6,15 +6,8 @@ import { FaBars, FaTimes } from "react-icons/fa"; // Import icons for hamburger 
 
 function Menubar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const goto = (e) => {
-    navigate(`/${e}`);
-    setIsMenuOpen(false); // Close menu after navigating
   };
 
   return (
@@ -27,20 +20,30 @@ function Menubar() {
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
         <ul className={`menu ${isMenuOpen ? "menu-open" : "menu-close"}`}>
-          <li className="link" onClick={() => goto("home")}>
-            <Link style={{ color: "white" }}>Home</Link>
+          <li className="link">
+            <Link style={{ color: "white" }} to="/home">
+              Home
+            </Link>
           </li>
-          <li className="link" onClick={() => goto("about")}>
-            <Link style={{ color: "white" }}>About Us</Link>
+          <li className="link">
+            <Link style={{ color: "white" }} to="/about">
+              About Us
+            </Link>
           </li>
-          <li className="link" onClick={() => goto("contactus")}>
-            <Link style={{ color: "white" }}>Contact Us</Link>
+          <li className="link">
+            <Link style={{ color: "white" }} to="/contactUs">
+              Contact Us
+            </Link>
           </li>
-          <li className="link" onClick={() => goto("login")}>
-            <Link style={{ color: "white" }}>Sign in</Link>
+          <li className="link">
+            <Link style={{ color: "white" }} to="/login">
+              Sign in
+            </Link>
           </li>
-          <li className="link" onClick={() => goto("signup")}>
-            <Link style={{ color: "white" }}>Sign up</Link>
+          <li className="link">
+            <Link style={{ color: "white" }} to="/signup">
+              Sign up
+            </Link>
           </li>
         </ul>
       </div>

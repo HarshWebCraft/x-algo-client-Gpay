@@ -354,6 +354,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                 <option value="" disabled>
                   Choose an account
                 </option>
+                <option>Paper Trade</option>
                 {clientIds.map((id, index) => (
                   <option key={index} value={id}>
                     {id}

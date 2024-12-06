@@ -183,7 +183,33 @@ const BotCard = (props) => {
               <div className="stat-item">
                 <div className="label">Total Balance</div>
                 <div className="value">
-                  {capital.map((cap, index1) => {
+                  {item.userData ? (
+                    capital.map((cap, index1) => {
+                      if (index === index1) {
+                        return (
+                          <div
+                            className={cap.net < 0 ? "red" : "green"}
+                            key={index1}
+                          >
+                            ₹{cap.net}
+                          </div>
+                        );
+                      }
+                      return null;
+                    })
+                  ) : (
+                    <div
+                      className={
+                        item.balances.result[0].balance_inr < 0
+                          ? "red"
+                          : "green"
+                      }
+                      key={index}
+                    >
+                      ₹{item.balances.result[0].balance_inr}
+                    </div>
+                  )}
+                  {/* {capital.map((cap, index1) => {
                     if (index === index1) {
                       return (
                         <div
@@ -195,7 +221,7 @@ const BotCard = (props) => {
                       );
                     }
                     return null;
-                  })}
+                  })} */}
                 </div>
               </div>
 
