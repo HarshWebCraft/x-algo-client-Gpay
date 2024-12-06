@@ -107,7 +107,7 @@ const DeployedCard = (props) => {
               <>
                 <div className="account-item">
                   <span className="label">Strategy Name:</span>
-                  <span className="value">1</span>
+                  <span className="value"></span>
                 </div>
 
                 <div className="account-item">
