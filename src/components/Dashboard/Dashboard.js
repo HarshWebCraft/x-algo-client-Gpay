@@ -99,10 +99,6 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
             userSchema,
           });
           console.log(response.data);
-          response.data.map((cap, index) => {
-            console.log(cap.userData.data.net);
-            // setCapital(...capital, cap.userData.data.net)
-          });
           console.log(capital);
 
           console.log(sum);
@@ -172,7 +168,7 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
 
       {/* {b?(<OrderPlace load={ert} broker={broker} capital={capital} />):""} */}
       {b ? (
-        <BotCard load={ert} broker={broker} capital={capital} />
+        <BotCard capital={capital} />
       ) : (
         <div className="hjg gfhglio">
           <Spinner />

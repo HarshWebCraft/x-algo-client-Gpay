@@ -115,12 +115,12 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               >
                 Deployed
               </li>
-              <li
+              {/* <li
                 className={selectedStrategy === "Active" ? "active" : ""}
                 onClick={() => handleStrategySelect("Active")}
               >
                 Active
-              </li>
+              </li> */}
               <li
                 className={selectedStrategy === "Marketplace" ? "active" : ""}
                 onClick={() => handleStrategySelect("Marketplace")}

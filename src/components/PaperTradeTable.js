@@ -14,7 +14,7 @@ const PaperTradeTable = () => {
   const [allStrategies, setAllStrategies] = useState([]); // Store the strategies
   const [allSheetData, setAllSheetData] = useState([]); // Store the sheet data
   const [filteredData, setFilteredData] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   const email = useSelector((state) => state.email.email);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -101,10 +101,13 @@ const PaperTradeTable = () => {
 
   return (
     <>
-      <div className="m-auto gfhglio">{loader ? <Spinner /> : ""}</div>
-
-      {allSheetData.length > 0
-        ? allSheetData.map((strategy, index) => {
+      <div>
+        {loader ? (
+          <div className="m-auto gfhglio">
+            <Spinner />
+          </div>
+        ) : allSheetData.length > 0 ? (
+          allSheetData.map((strategy, index) => {
             // Extract the P&L (9th column, index 8) from sheetData
             const pnlValues = strategy.sheetData.map(
               (row) => parseFloat(row[8]) || 0
@@ -201,9 +204,10 @@ const PaperTradeTable = () => {
               </div>
             );
           })
-        : ""}
-
-      <p>{allSheetData.length > 0 ? "" : "No data available"}</p>
+        ) : (
+          "No data available"
+        )}
+      </div>
     </>
   );
 };

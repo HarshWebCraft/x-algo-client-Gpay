@@ -7,12 +7,17 @@ import axios from "axios";
 import { userSchemaRedux } from "../actions/actions";
 import React from "react";
 import { ProductionUrl } from "../URL/url";
+import DeployedCard from "./DeployedCard";
 
 function Deployed({ darkMode, toggleDarkMode, setLoading }) {
   const [accountid, setaccountid] = useState("");
   const [applieddate, setapplieddate] = useState("");
   const [totaltrades, settotaltrades] = useState("");
   const [pl, setpl] = useState("");
+  const [capital, setCapital] = useState([]);
+  let sum = 0;
+  const [allcap, setallcap] = useState("");
+
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
   const Email = useSelector((state) => state.email.email);
   const dispatch = useDispatch();
@@ -21,8 +26,28 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
       ? ProductionUrl
       : "http://localhost:5000";
   const Deployed = userSchema.DeployedData;
+
   useEffect(() => {
-    console.log(Deployed);
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(`${url}/addbroker`, {
+          First: false,
+          Email,
+          userSchema,
+        });
+        console.log(response.data);
+        console.log(capital);
+
+        console.log(sum);
+        setallcap(sum);
+        console.log(capital);
+
+        const a = response.data;
+        const newCapital = a.map((user) => user.userData.data);
+        setCapital(newCapital);
+      } catch (e) {}
+    };
+    fetchData();
   }, []);
 
   const removeDeployed = async (id) => {
@@ -41,31 +66,9 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
         toggleDarkMode={toggleDarkMode}
         setLoading={setLoading}
       />
-      {Deployed.map((item) => {
-        return (
-          <div className="row col-10 nays center-div">
-            <div className="row">
-              <div className="col-3 nays">{item.Strategy}</div>
-            </div>
-            <div className="row nays">
-              <div className="col-12">
-                <p>Account Id:{item.Account}</p>
-                <p>Applied Date:{item.AppliedDate}</p>
-                <p>Total Trades:</p>
-                <p>Total P&L:</p>
-              </div>
-            </div>
-            <div className="col-12 m-3 d-flex justify-content-end">
-              <button
-                className="btn col-2 btn-danger button"
-                onClick={() => removeDeployed(item.Strategy)}
-              >
-                Remove
-              </button>
-            </div>
-          </div>
-        );
-      })}
+      <div className="container">
+        <DeployedCard capital={capital} />
+      </div>
     </div>
   );
 }
