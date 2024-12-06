@@ -67,7 +67,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [selectedStrategyId, setSelectedStrategyId] = React.useState(null);
   const [clientIds, setClientIds] = useState([]);
   const [deployedStrategies, setDeployedStrategies] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   const dispatch = useDispatch();
 

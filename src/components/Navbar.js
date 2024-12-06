@@ -146,7 +146,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             className={location.pathname === "/home/broker" ? "active" : ""}
             onClick={() => setMenuOpen(false)}
           >
-            Add Broker
+            Manage Broker
           </Link>
         </li>
       </div>

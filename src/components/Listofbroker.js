@@ -389,18 +389,18 @@ function Listofbroker({ setLoading }) {
                   <input
                     type="text"
                     className="form-control mb-2 mb-md-0 input-focus-yellow"
-                    placeholder="API Secret"
-                    value={deltaSecret}
-                    onChange={(e) => insertDeltaSecret(e.target.value)}
+                    placeholder="API Key"
+                    value={deltaKey}
+                    onChange={(e) => insertDeltaKey(e.target.value)}
                     required
                     style={{ width: "100%" }}
                   />
                   <input
                     type="text"
                     className="form-control mb-2 mb-md-0 input-focus-yellow"
-                    placeholder="API Key"
-                    value={deltaKey}
-                    onChange={(e) => insertDeltaKey(e.target.value)}
+                    placeholder="API Secret"
+                    value={deltaSecret}
+                    onChange={(e) => insertDeltaSecret(e.target.value)}
                     required
                     style={{ width: "100%" }}
                   />
