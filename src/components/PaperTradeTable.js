@@ -120,7 +120,7 @@ const PaperTradeTable = () => {
               <div className="container" key={strategy.strategyId}>
                 <div className="row stats-container">
                   {/* Account Info Section */}
-                  <div className="account-info tfghnc pe-3">
+                  <div className="account-info tfghnc pe-3 justify-content-between">
                     <div className="phjhverthj">
                       <div className="account-item">
                         <span className="label">Name:</span>
