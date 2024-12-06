@@ -233,7 +233,7 @@ function StrategyCard() {
                 marginBottom: "1rem",
               }}
             >
-              <label
+              {/* <label
                 htmlFor="quantity"
                 style={{
                   width: "100%",
@@ -243,8 +243,8 @@ function StrategyCard() {
                 }}
               >
                 Quantity:
-              </label>
-              <input
+              </label> */}
+              {/* <input
                 id="quantity"
                 type="number"
                 min="1"
@@ -259,7 +259,7 @@ function StrategyCard() {
                   borderRadius: "4px",
                 }}
                 required
-              />
+              /> */}
             </div>
 
             {/* Account Dropdown */}
@@ -306,7 +306,7 @@ function StrategyCard() {
             </div>
 
             {/* Index Dropdown */}
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -344,7 +344,7 @@ function StrategyCard() {
                 <option value="Index2">Index 2</option>
                 <option value="Index3">Index 3</option>
               </select>
-            </div>
+            </div> */}
           </form>
           <div
             style={{
