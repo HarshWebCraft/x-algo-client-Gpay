@@ -56,54 +56,8 @@ function MarketPlace({ darkMode, toggleDarkMode }) {
   }, []);
 
   return (
-    <div className="">
+    <div className="MarketPlace">
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      {/* {loading ?
-                <div className='loader2 uytr'>
-                    <div className="loader liop">
-
-                        <div className="loader__bar"></div>
-                        <div className="loader__bar"></div>
-                        <div className="loader__bar"></div>
-                        <div className="loader__bar"></div>
-                        <div className="loader__bar"></div>
-                        <div className="loader__ball"></div>
-                    </div>
-                </div>
-
-                :
-                (filteredStrategies.map(strategy => (
-                    <div className={`${localStorage.getItem('theme') == "light-theme" ? "'row col-10 nays center-div'" : "row col-10 nays center-div vgjsdbhcd"}`} key={strategy.id}>
-                        {loading ?
-                                <div className='loader2 uytr'>
-                                <div className="loader liop">
-            
-                                    <div className="loader__bar"></div>
-                                    <div className="loader__bar"></div>
-                                    <div className="loader__bar"></div>
-                                    <div className="loader__bar"></div>
-                                    <div className="loader__bar"></div>
-                                    <div className="loader__ball"></div>
-                                </div>
-                            </div>
-                            :
-                            <div>
-                                <div className='row'>
-                                    <div className='col-3 nays'>{strategy.name}</div>
-                                    <div className='col-7'></div>
-                                    <div className='btn col-2 btn-primary nays' onClick={subscribe(strategy.id)} id="ajsgdhagsdhabsnamaafarefse">Subscribe</div>
-                                </div>
-                                <div className='row nays'>
-                                    <div className='col-12'>
-                                        {strategy.content}
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                )))
-
-            } */}
       <StrategyCard />
     </div>
   );

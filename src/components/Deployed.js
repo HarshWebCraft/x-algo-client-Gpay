@@ -4,10 +4,12 @@ import { Button, Dropdown, Form, Nav, NavDropdown } from "react-bootstrap";
 import "./deployed.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { userSchemaRedux } from "../actions/actions";
+import { allClientData, userSchemaRedux } from "../actions/actions";
 import React from "react";
 import { ProductionUrl } from "../URL/url";
 import DeployedCard from "./DeployedCard";
+import Loader from "./loader";
+import Spinner from "./Spinner";
 
 function Deployed({ darkMode, toggleDarkMode, setLoading }) {
   const [accountid, setaccountid] = useState("");
@@ -17,6 +19,7 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
   const [capital, setCapital] = useState([]);
   let sum = 0;
   const [allcap, setallcap] = useState("");
+  const [loader, setLoader] = useState(true);
 
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
   const Email = useSelector((state) => state.email.email);
@@ -35,6 +38,11 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
           Email,
           userSchema,
         });
+
+        const profileData = await axios.post(`${url}/userinfo`, { Email });
+        dispatch(allClientData(profileData.data));
+        const dbschema = await axios.post(`${url}/dbSchema`, { Email });
+        dispatch(userSchemaRedux(dbschema.data));
         console.log(response.data);
         console.log(capital);
 
@@ -45,6 +53,7 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
         const a = response.data;
         const newCapital = a.map((user) => user.userData.data);
         setCapital(newCapital);
+        setLoader(false);
       } catch (e) {}
     };
     fetchData();
@@ -67,7 +76,13 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
         setLoading={setLoading}
       />
       <div className="container">
-        <DeployedCard capital={capital} />
+        {loader ? (
+          <div className="hjg gfhglio">
+            <Spinner />
+          </div>
+        ) : (
+          <DeployedCard capital={capital} />
+        )}
       </div>
     </div>
   );

@@ -101,25 +101,29 @@ function Listofbroker({ setLoading }) {
     setLoading(true);
     document.body.style.overflow = "hidden";
 
-    userSchema.AngelBrokerData.map((item, index) => {
-      if (item.AngelId == id) {
-        userExist = true;
-      }
-    });
-    userSchema.DeltaBrokerSchema.map((item, index) => {
-      if (item.deltaApiKey == deltaKey) {
-        userExist = true;
-      }
-    });
-
-    if (userExist) {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Broker already added",
-        showConfirmButton: false,
-        timer: 1500,
+    if (userSchema.AngelBrokerData != null) {
+      userSchema.AngelBrokerData.map((item, index) => {
+        if (item.AngelId == id) {
+          userExist = true;
+        }
       });
+    }
+    if (userSchema.AngelBrokerData != null) {
+      userSchema.DeltaBrokerSchema.map((item, index) => {
+        if (item.deltaApiKey == deltaKey) {
+          userExist = true;
+        }
+      });
+    }
+    if (userExist) {
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "error",
+      //   title: "Broker already added",
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      showAlertWithTimeout("Broker already added", 2000);
       setLoading(false);
     } else {
       e.preventDefault();
@@ -206,6 +210,11 @@ function Listofbroker({ setLoading }) {
             insertid("");
             insertpass("");
           }
+          const profileData = await axios.post(`${url}/userinfo`, { Email });
+          console.log(profileData.data);
+          dispatch(allClientData(profileData.data));
+          insertDeltaSecret("");
+          insertDeltaKey("");
         }
       } catch (e) {
         console.log("Error is " + e);
@@ -216,7 +225,7 @@ function Listofbroker({ setLoading }) {
     }
   };
 
-  const delete_broker_fun = async (index) => {
+  const delete_broker_fun = async (index, clientId) => {
     const confirmation = await Swal.fire({
       title: "Are you sure?",
       text: "Do you want to delete",
@@ -226,6 +235,7 @@ function Listofbroker({ setLoading }) {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     });
+    console.log(clientId);
 
     if (confirmation.isConfirmed) {
       try {
@@ -233,6 +243,7 @@ function Listofbroker({ setLoading }) {
         const response = await axios.post(`${url}/removeClient`, {
           Email,
           index,
+          clientId,
         });
         setLoading(false);
 
@@ -241,13 +252,13 @@ function Listofbroker({ setLoading }) {
         const dbschema = await axios.post(`${url}/dbSchema`, { Email });
         dispatch(userSchemaRedux(dbschema.data));
         console.log(response.data);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Account removed successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "success",
+        //   title: "Account removed successfully",
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
 
         setisLoggedIn(false);
         dispatch(brokerLogin(false));
@@ -518,7 +529,14 @@ function Listofbroker({ setLoading }) {
                           height={20}
                           className="delete-icon"
                           alt="Delete Broker"
-                          onClick={() => delete_broker_fun(index)}
+                          onClick={() =>
+                            delete_broker_fun(
+                              index,
+                              item.userData
+                                ? item.userData.data.clientcode
+                                : item.userDetails?.result?.phishing_code
+                            )
+                          }
                         />
                       </td>
                     </tr>

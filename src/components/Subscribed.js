@@ -71,6 +71,8 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [loader, setLoader] = useState(true);
   const [deployedBtnLoader, setDeployedBtnLoader] = useState(false);
   const [brokerId, setBrokerId] = useState([]);
+  const [deployedBrokerIds, setDeployedBrokerIds] = useState([]);
+  const [dropDownIds, setDropDownIds] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -96,8 +98,10 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
       console.log(filteredData);
       setFilteredData(filteredData);
 
-      if (userSchema && userSchema.BrokerData) {
-        const ids = userSchema.BrokerData.map((account) => account.AngelId);
+      if (userSchema && userSchema.AngelBrokerData) {
+        const ids = userSchema.AngelBrokerData.map(
+          (account) => account.AngelId
+        );
         console.log(ids);
 
         setClientIds(ids); // Update state with extracted IDs
@@ -109,7 +113,12 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
         );
       }
       setBrokerId(userSchema.BrokerIds);
-
+      setDeployedBrokerIds(userSchema.DeployedStrategiesBrokerIds);
+      const filteredIds = brokerId.filter(
+        (id) => !deployedBrokerIds.includes(id)
+      );
+      console.log(filteredIds);
+      setDropDownIds(filteredIds);
       setLoader(false);
     };
     fetchData();
@@ -376,7 +385,7 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                   Choose an account
                 </option>
                 <option>Paper Trade</option>
-                {brokerId.map((id, index) => (
+                {dropDownIds.map((id, index) => (
                   <option key={index} value={id}>
                     {id}
                   </option>

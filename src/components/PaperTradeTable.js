@@ -18,13 +18,16 @@ const PaperTradeTable = () => {
 
   const email = useSelector((state) => state.email.email);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
-  const ids = userSchema.DeployedStrategies;
+  const ids = userSchema.DeployedData.filter(
+    (data) => data.Broker === "paperTrade"
+  ).map((data) => data.Strategy);
 
-  const removeDeploy = async (strategyId) => {
+  const removeDeploy = async (strategyId, broker) => {
     try {
       const response = await axios.post(`${url}/removeDeployStra`, {
         email,
         strategyId,
+        broker,
       });
 
       if (response.status === 200) {
@@ -124,7 +127,9 @@ const PaperTradeTable = () => {
                     <div className="phjhverthj">
                       <div className="account-item">
                         <span className="label">Name:</span>
-                        <span className="value"> {strategy.strategyName}</span>
+                        <span className="value">
+                          {userSchema.DeployedData[index].StrategyName}
+                        </span>
                       </div>
                       <div className="account-item">
                         <span className="label">Deploy Date :</span>
@@ -146,7 +151,12 @@ const PaperTradeTable = () => {
                           src={delete_broker || "delete_broker_placeholder.png"}
                           height={20}
                           className="delete-icon"
-                          onClick={(e) => removeDeploy(strategy.strategyId)}
+                          onClick={(e) =>
+                            removeDeploy(
+                              strategy.strategyId,
+                              userSchema.DeployedData[index].Broker
+                            )
+                          }
                           alt="Delete Broker"
                         />
                       </div>

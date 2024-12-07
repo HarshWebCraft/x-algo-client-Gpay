@@ -17,15 +17,14 @@ const BotCard = (props) => {
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
 
   const capital = props.capital;
+  const userId = "H54303926"; // Example userId, this can be dynamically fetched from state if required
 
   useEffect(() => {
-    // Initialize client data with active status
     const initializedData = clientdata.map((item) => ({
       ...item,
       isActive: true, // Default status is Active
     }));
     setClientDataWithActiveStatus(initializedData);
-    console.log(userSchema.DeployedData);
   }, [clientdata]);
 
   const handleResize = () => {
@@ -93,15 +92,6 @@ const BotCard = (props) => {
                       <span className="label">Strategies:</span>
                       <span className="value">5</span>
                     </div>
-                    {/* <div className="account-item">
-                      <div className="toggle-container">
-                        <Switch
-                          checked={item.isActive}
-                          color="warning"
-                          onChange={() => handleToggleChange(index)}
-                        />
-                      </div>
-                    </div> */}
                   </div>
                 )}
               </>
@@ -134,14 +124,6 @@ const BotCard = (props) => {
                   <span className="label">Active Strategy:</span>
                   <span className="value">{userSchema.ActiveStrategys}</span>
                 </div>
-
-                {/* <div className="toggle-container">
-                  <Switch
-                    checked={item.isActive}
-                    color="warning"
-                    onChange={() => handleToggleChange(index)}
-                  />
-                </div> */}
               </>
             )}
           </div>
@@ -194,8 +176,14 @@ const BotCard = (props) => {
                 <div className="value green">0%</div>
               </div>
 
-              {/* {userSchema.DeployedData.map((item, index) => (
-                // <div key={index}>
+              {/* Render strategy data based on userId */}
+              {userSchema.DeployedData.filter((deployedItem) => {
+                return (
+                  deployedItem.Account === item.userData?.data.clientcode ||
+                  deployedItem.Account ===
+                    item.userDetails?.result?.phishing_code
+                );
+              }).map((item, index) => (
                 <>
                   <div className="stat-item">
                     <div className="label">Strategy Name</div>
@@ -211,11 +199,10 @@ const BotCard = (props) => {
                   </div>
                   <div className="stat-item">
                     <div className="label">Today's gain</div>
-                    <div className="value red">0%</div>
+                    <div className="value green">0%</div>
                   </div>
                 </>
-                // </div>
-              ))} */}
+              ))}
             </div>
           </div>
         </div>

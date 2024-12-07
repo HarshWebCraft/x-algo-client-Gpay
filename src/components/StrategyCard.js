@@ -4,7 +4,7 @@ import image from "../images/StrategyImage.jpeg"; // Import the default image
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductionUrl } from "../URL/url";
-import { userSchemaRedux } from "../actions/actions";
+import { allClientData, userSchemaRedux } from "../actions/actions";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -21,7 +21,6 @@ function StrategyCard() {
   const [selectedStrategyId, setSelectedStrategyId] = React.useState(null);
   const Email = useSelector((state) => state.email.email);
 
-  console.log(userSchema.SubscribedStrategies);
   const [open, setOpen] = React.useState(false);
   const [Quaninty, setQuaninty] = useState("");
   const [Index, setIndex] = useState("");
@@ -34,6 +33,10 @@ function StrategyCard() {
   const [loader, setLoader] = useState(false);
   const [deployedBtnLoader, setDeployedBtnLoader] = useState(false);
   const [brokerId, setBrokerId] = useState([]);
+  const [deployedBrokerIds, setDeployedBrokerIds] = useState([]);
+  const [dropDownIds, setDropDownIds] = useState([]);
+  console.log(deployedBrokerIds);
+
   const handleOpen = (strategyId) => {
     setSelectedStrategyId(strategyId);
     setOpen(true);
@@ -64,7 +67,8 @@ function StrategyCard() {
     const fetchData = async () => {
       try {
         setLoader(true);
-
+        setDeployedBrokerIds(userSchema.DeployedStrategiesBrokerIds);
+        console.log(userSchema.DeployedStrategiesBrokerIds);
         const response = await axios.post(`${url}/getMarketPlaceData`, {
           email,
         });
@@ -78,6 +82,15 @@ function StrategyCard() {
         setStrategyData(response.data.allData);
         setSubscribedStrategies(response.data.SubscribedStrategies);
         setBrokerId(userSchema.BrokerIds);
+        setDeployedBrokerIds(userSchema.DeployedStrategiesBrokerIds);
+        const filteredIds = brokerId.filter(
+          (id) => !deployedBrokerIds.includes(id)
+        );
+        console.log(filteredIds);
+        console.log(brokerId);
+        console.log(deployedBrokerIds);
+
+        setDropDownIds(filteredIds);
         setLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -137,6 +150,10 @@ function StrategyCard() {
 
       handleClose();
       dispatch(userSchemaRedux(response.data));
+      const profileData = await axios.post(`${url}/userinfo`, { Email });
+      dispatch(allClientData(profileData.data));
+      const dbschema = await axios.post(`${url}/dbSchema`, { Email });
+      dispatch(userSchemaRedux(dbschema.data));
       showAlertWithTimeout2("Successfully added", 3000);
       setDeployedBtnLoader(false);
     } catch (e) {
