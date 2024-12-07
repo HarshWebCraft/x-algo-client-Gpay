@@ -314,7 +314,7 @@ function StrategyCard() {
                 <option value="" disabled>
                   Choose an account
                 </option>
-                <option>Paper Trade</option>
+                <option value="papertrade">Paper Trade</option>
                 {brokerId.map((id, index) => (
                   <option key={index} value={id}>
                     {id}

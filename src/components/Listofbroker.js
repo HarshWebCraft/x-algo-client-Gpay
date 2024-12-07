@@ -101,8 +101,13 @@ function Listofbroker({ setLoading }) {
     setLoading(true);
     document.body.style.overflow = "hidden";
 
-    userSchema.BrokerData.map((item, index) => {
+    userSchema.AngelBrokerData.map((item, index) => {
       if (item.AngelId == id) {
+        userExist = true;
+      }
+    });
+    userSchema.DeltaBrokerSchema.map((item, index) => {
+      if (item.deltaApiKey == deltaKey) {
         userExist = true;
       }
     });
@@ -474,8 +479,7 @@ function Listofbroker({ setLoading }) {
                       <td>
                         {item.userData
                           ? item.userData.data.clientcode
-                          : item.userDetails?.result?.phishing_code &&
-                            "No Client Code"}
+                          : item.userDetails?.result?.phishing_code}
                       </td>
                       {console.log(item.userDetails?.result?.phishing_code)}
 
