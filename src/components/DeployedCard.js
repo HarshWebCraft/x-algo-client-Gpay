@@ -57,86 +57,37 @@ const DeployedCard = (props) => {
       {userSchema.DeployedData
         ? userSchema.DeployedData.map((item, index) => (
             <div className="row stats-container" key={index}>
-              <div className="account-info justify-content-between">
-                {isMobile ? (
-                  <>
-                    <div className="dropdown-header" onClick={toggleExpand}>
-                      <span>Account Information</span>
-                      {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                    </div>
+              <div className="account-info udfhdjbnns justify-content-between">
+                <>
+                  <div className="account-item">
+                    <span className="label">Strategy Name:</span>
+                    <span className="value">{item.StrategyName}</span>
+                    {console.log(item)}
+                  </div>
 
-                    {isExpanded && (
-                      <div className="dropdown-content">
-                        <div className="account-item">
-                          <span className="label">Name:</span>
-                          <span className="value">
-                            {item.userData
-                              ? item.userData.data.name
-                              : item.userDetails?.result?.name || "N/A"}
-                          </span>
-                        </div>
-                        <div className="account-item">
-                          <span className="label">Broker:</span>
-                          <span className="value">
-                            {item.userData ? "Angel One" : "Delta"}
-                          </span>
-                        </div>
-                        <div className="account-item">
-                          <span className="label">User Id:</span>
-                          <span className="value">
-                            {item.userData
-                              ? item.userData.data.clientcode
-                              : item.userDetails?.result?.phishing_code ||
-                                "N/A"}
-                          </span>
-                        </div>
-                        <div className="account-item">
-                          <span className="label">Strategies:</span>
-                          <span className="value">5</span>
-                        </div>
-                        <div className="account-item">
-                          <div className="toggle-container">
-                            <Switch
-                              checked={item.isActive}
-                              color="warning"
-                              onChange={() => handleToggleChange(index)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <div className="account-item">
-                      <span className="label">Strategy Name:</span>
-                      <span className="value">{item.StrategyName}</span>
-                    </div>
-
-                    <div className="account-item">
-                      <span className="label">Broker:</span>
-                      <span className="value">
-                        {item.userData ? "Angel One" : "Delta"}
-                      </span>
-                    </div>
-                    <div className="account-item">
-                      <span className="label">User Id:</span>
-                      <span className="value">
-                        {/* {item.userData
+                  <div className="account-item">
+                    <span className="label">Broker:</span>
+                    <span className="value">
+                      {item.userData ? "Angel One" : "Delta"}
+                    </span>
+                  </div>
+                  <div className="account-item">
+                    <span className="label">User Id:</span>
+                    <span className="value">
+                      {/* {item.userData
                           ? item.userData.data.clientcode
                           : item.userDetails?.result?.phishing_code || "N/A"} */}
-                      </span>
-                    </div>
+                    </span>
+                  </div>
 
-                    <div className="toggle-container">
-                      <Switch
-                        checked={item.isActive}
-                        color="warning"
-                        onChange={() => handleToggleChange(index)}
-                      />
-                    </div>
-                  </>
-                )}
+                  <div className="toggle-container">
+                    <Switch
+                      checked={item.isActive}
+                      color="warning"
+                      onChange={() => handleToggleChange(index)}
+                    />
+                  </div>
+                </>
               </div>
             </div>
           ))

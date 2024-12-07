@@ -9,6 +9,8 @@
   box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.3); /* 2px becomes 0.125em and 10px becomes 0.625em */
 }
 
+
+
 /* Individual stat item */
 .stat-item {
   width: 22%; /* Stat items arranged in 4 columns by default */
@@ -121,6 +123,12 @@ gap: 5em;
 /* Responsive adjustments */
 @media (max-width: 48em) {
   /* 768px becomes 48em */
+
+  .udfhdjbnns{
+    flex-direction: column;
+    gap: 1em;
+  }
+
   .stat-item {
     width: 48%; /* Two columns on medium screens */
   }

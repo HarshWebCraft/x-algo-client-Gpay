@@ -88,18 +88,20 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </li>
         <li className="dropdown" ref={dropdownRef}>
           <div
-            className={`dropdown-toggle ${
+            className={`dropdown-toggle justify-content-center ${
               location.pathname.startsWith("/Strategies") ? "active" : ""
             }`}
             onClick={toggleDropdown}
           >
-            <span>{selectedStrategy}</span>
-            <span
-              className="ml-2"
-              style={{ fontSize: "12px", lineHeight: "1" }}
-            >
-              ▼
-            </span>
+            <div>
+              <span>{selectedStrategy}</span>
+              <span
+                className="ml-2"
+                style={{ fontSize: "12px", lineHeight: "1" }}
+              >
+                ▼
+              </span>
+            </div>
           </div>
           {dropdownOpen && (
             <ul className="dropdown-menu">
