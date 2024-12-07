@@ -191,7 +191,7 @@ const BotCard = (props) => {
 
               <div className="stat-item">
                 <div className="label">Today's gain</div>
-                <div className="value">0%</div>
+                <div className="value green">0%</div>
               </div>
 
               {/* {userSchema.DeployedData.map((item, index) => (
