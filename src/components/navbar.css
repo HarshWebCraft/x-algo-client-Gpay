@@ -169,7 +169,7 @@ button {
 }
 
 /* --- Mobile Responsiveness --- */
-@media (max-width: 768px) {
+@media (max-width: 876px) {
   .navbar-links {
     position: absolute;
     top: 100%;

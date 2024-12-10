@@ -6,6 +6,7 @@ import Logo_Light from "../images/X-Algo-Light.png";
 import Wallet from "../images/wallet.png";
 import Logout from "../images/logout.png";
 import { Image } from "react-bootstrap";
+import profile from "../images/profile.png";
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,6 +61,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   };
   const gotoWallet = () => {
     navigate("/home/myWallet");
+  };
+  const gotoProfile = () => {
+    navigate("/profile");
   };
 
   return (
@@ -153,7 +157,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </li>
       </div>
       <div className="navbar-icons">
-        <div className="icon-container" title="Logout">
+        <div className="icon-container " title="Logout">
           <Image
             src={Logout}
             height={23}
@@ -161,7 +165,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             onClick={logout}
           />
         </div>
-        <div className="icon-container" title="Wallet">
+
+        <div className="icon-container mr-0" title="Wallet">
           <Image
             src={Wallet}
             height={23}
@@ -169,7 +174,16 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             onClick={gotoWallet}
           />
         </div>
+
         <button onClick={toggleDarkMode}>{darkMode ? "🌙" : "☀️"}</button>
+        <div className="icon-container" title="Profile">
+          <Image
+            src={profile}
+            height={30}
+            className="logout-icon"
+            onClick={gotoProfile}
+          />
+        </div>
         <div className="hamburger" onClick={toggleMenu}>
           ☰
         </div>

@@ -1,133 +1,186 @@
-.abnc{
-    position: relative;
-    margin-top: 7em;
-    margin-left: 21em;
-    margin-bottom: 10em;
-    width: 60em;
-    height: 40em;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 0.5em;
-}
-
-.profilePic{
-    position: relative;
-    height: 10em;
-    width: 10em;
-    margin-left: 25em;
-    margin-top: 5em;
-    margin-block: 2em;
-}
-
-.profilePic2{
-    position: relative;
-    border-radius: 50%;
-    height: 7em;
-    width: 7em;
-    margin-top: 0.2em;
-}
-
-.profilePic33{
-    position: relative;
-    height: 10em;
-    width: 10em;
-    margin-top: 0.2em;
-}
-
-.akju{
-    height: 2em;
-    width: 2em;
-    text-align: center;
-    font-size: 70px;
-    color: #fff;
-    font-weight: 500;
-    line-height: 150px;
-}
-
-.ksljd{
+.profile {
     display: flex;
-    justify-content: center;
+  }
+  
+  .profile-sidebar {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    height: 100vh; /* Make sidebar full height */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+.user-info{
+    width: 100%;
+    text-align: left;
+    display: flex;
+    gap: 2em;
+    flex-direction: column;
+}
+
+.user-info-first , .user-info-second{
+gap: 10em;
+display: flex;
+flex-direction: row;
+}
+
+  .profile-second{
+    width: 100%;
+    
+    padding: 0em 1em 1em 1em;
+  }
+
+  .profile-right-first{
     align-items: center;
-}
-
-.aklc{
-    font-weight: bold;
-    position: relative;
-}
-
-.jhsbdhjsdhjsd{
+    height: 22vh;
     display: flex;
-}
-
-.kjnavrcrefcefj{
-    margin-top: -65px;
-    margin-left: 95px;
-    margin-bottom: 105px;
-}
-
-.sdnjksdnvbshdvbhjsbhdv{
-    position: relative;
-    height: 5em;
-    width: 5em;
-    left: 6em;
-    top: 5em;
-}
-
-.hsdbhbhbsbhfbhfbvhajvnjka{
-    margin-top: 0px;
-}
-
-.ahuhsdddgsdvgdvsgdhv{
-    position: absolute;
-    height: 22px;
-    margin-top: 55px;
-    margin-left: 180px;
-}
-
-.absc{
-    position: relative;
-    height: 15em;
-    width: 15em;
-    border-radius: 50%;
-    margin-block: 2em;
-}
-
-.bgwvgahdvbasasdmnabsd{
-    padding-left: 2em;
-    text-align: center;
-}
-
-.vasgvchjca{
-    display: flex;
+    flex-direction: row;
     padding: 1em;
-}
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-item {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .transaction-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .transaction-item > div {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .transaction-name,
+  .transaction-date,
+  .transaction-invoice-id,
+  .transaction-amount,
+  .transaction-status,
+  .transaction-details {
+    padding: 5px 10px;
+  }
+  
+  .transaction-amount.negative {
+    color: red;
+  }
+  
+  .transaction-amount.positive {
+    color: green;
+  }
+  
+  .transaction-status.receive {
+    color: green;
+  }
+  
+  .transaction-status.transfer {
+    color: orange;
+  }
+  
+  .transaction-status.payment {
+    color: red;
+  }
+  
+  .transaction-status.withdraw {
+    color: blue;
+  }
+  
+  .transaction-status.deposit {
+    color: purple;
+  }
+  
+  .sidebar-item.active {
+    background-color: orange; /* Highlight active item */
+    color: white;
+  }
+  
+  .badge {
+    background-color: orange;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 12px;
+    margin-left: 5px;
+  }
+  
 
-.bhgvghvgghgvbn{
-    justify-content: center;
-}
-
-.dbnjavnnmcmasldasxasxa{
+  .profile-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .sidebar-icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .sidebar-text {
+    font-size: 16px;
+  }
+  
+  .profile-sidebar {
+    width: 275px; /* Default width with text */
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px 10px 10px;
+    cursor: pointer;
+  }
+  
+  .sidebar-icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+  
+  .sidebar-text {
+    font-size: 16px;
     display: inline-block;
-}
-
-/* dark */
-
-.jhvchdfesubgbewhgd{
-    background-color: #101214;
-}
-
-.hjvsgcvajsbcnascasc{
-    background-color: #161A1D;
-    position: relative;
-    margin-top: 7em;
-    margin-left: 21em;
-    margin-bottom: 10em;
-    width: 60em;
-    height: 40em;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 0.5em;
-}
-
-.kbdsfgvbfnhavfyydcdfnm{
-    color: #fff;
-    background-color: #101214;
-}
+  }
+  .user-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ccc; /* Placeholder color if no image */
+    object-fit: cover;
+    margin-right: 20px; /* Space between image and user details */
+  }
+  
+  @media (max-width: 876px) {
+    .profile-sidebar {
+      width: 5.3em; /* Reduced width for mobile */
+    }
+  
+    .sidebar-text {
+      display: none; /* Hide text on mobile */
+    }
+  
+    .sidebar-icon {
+      font-size: 22px;
+    }
+  }
+  
+  

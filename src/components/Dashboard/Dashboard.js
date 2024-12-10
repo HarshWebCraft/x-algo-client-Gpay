@@ -16,9 +16,15 @@ import { Audio, FallingLines, Triangle } from "react-loader-spinner";
 import OrderPlace from "../OrderPlace";
 import BotCard from "../BotCard";
 import Spinner from "../Spinner";
-function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
+import SlidingPanel from "react-sliding-side-panel";
+function Dashboard({
+  darkMode,
+  slide,
+  toggleDarkMode,
+  slideToggle,
+  setLoading,
+}) {
   let a = 0;
-
   const Email = useSelector((state) => state.email.email);
   const clientdata = useSelector((state) => state.account.allClientData);
   const id = useSelector((state) => state.account.angelId);
@@ -128,6 +134,22 @@ function Dashboard({ darkMode, toggleDarkMode, setLoading }) {
 
   return (
     <div className={`container deskbord ${darkMode ? "dark" : "light"}`}>
+      <SlidingPanel
+        type={"right"}
+        isOpen={slide}
+        size={30}
+        panelContainerClassName="custom-panel"
+      >
+        <div className="p-3">
+          <h5>Sliding Panel Content</h5>
+          <button
+            onClick={() => slideToggle(false)}
+            className="btn btn-secondary"
+          >
+            Close Panel
+          </button>
+        </div>
+      </SlidingPanel>
       {/* {loading && (
         <div className="loader2 uytr">
           <div className="loader liop">

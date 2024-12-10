@@ -1,329 +1,167 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import {
+  FaUser,
+  FaExchangeAlt,
+  FaChartLine,
+  FaGift,
+  FaInfoCircle,
+  FaLifeRing,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import Navbar from "./Navbar";
 import "./profile.css";
+import profile from "../images/profile.png";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { Form, Button, Modal, Row, Col } from "react-bootstrap";
-import CIcon from "@coreui/icons-react";
-import * as icon from "@coreui/icons";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import { set } from "mongoose";
-import {
-  loginSuccess,
-  angelId,
-  deleteBroker,
-  addItem,
-  removeItem,
-  brokerLogin,
-  userSchemaRedux,
-  allClientData,
-} from "../actions/actions";
-import { useLocation } from "react-router-dom";
-import { ProductionUrl } from "../URL/url";
+import TransactionList from "./TransactionList.js";
 
-function Profile() {
-  const location = useLocation();
-  const email = useSelector((state) => state.email.email);
-  const userInitial = email.charAt(0).toUpperCase();
+function Profile({ darkMode, toggleDarkMode }) {
+  const [activeSection, setActiveSection] = useState("Profile"); // State for active section
+  const Email = useSelector((state) => state.email.email);
 
-  const clientdata = useSelector((state) => state.account.allClientData);
+  const transactions = [
+    {
+      name: "William Mardoch",
+      date: "21 March 2021",
+      invoiceId: "OP01214784",
+      amount: "$250 USD",
+      status: "Receive",
+    },
+    {
+      name: "Jack Dawson",
+      date: "20 March 2021",
+      invoiceId: "OP01214784",
+      amount: "-$20 USD",
+      status: "Transfer",
+    },
+    {
+      name: "Mailchimp",
+      date: "19 March 2021",
+      invoiceId: "OP87452148",
+      amount: "-$80 USD",
+      status: "Payment",
+    },
+    {
+      name: "Fiverr",
+      date: "18 March 2021",
+      invoiceId: "OP32201425",
+      amount: "$100 USD",
+      status: "Receive",
+    },
+    {
+      name: "BANK OF AMERICA LTD.",
+      date: "19 March 2021",
+      invoiceId: "OP34012458",
+      amount: "$210 USD",
+      status: "Withdraw",
+    },
+    {
+      name: "Peter Jacky",
+      date: "12 March 2021",
+      invoiceId: "OP82145784",
+      amount: "-$80 USD",
+      status: "Payment",
+    },
+    {
+      name: "EBL Credit Card",
+      date: "10 March 2021",
+      invoiceId: "OP21547895",
+      amount: "$160 USD",
+      status: "Deposit",
+    },
+    {
+      name: "Angelina Juli",
+      date: "05 March 2021",
+      invoiceId: "OP21547854",
+      amount: "$100 USD",
+      status: "Receive",
+    },
+    {
+      name: "David William",
+      date: "05 March 2021",
+      invoiceId: "OP21547854",
+      amount: "$100 USD",
+      status: "Receive",
+    },
+  ];
 
-  console.log(clientdata);
-  const url =
-    process.env.NODE_ENV === "production"
-      ? ProductionUrl
-      : "http://localhost:5000";
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [newImg, setnewImg] = useState("");
-  const [file, setFile] = useState("");
-  const [show, setShow] = useState(false);
-  const [broker, setbroker] = useState("");
-
-  const handleClose = () => {
-    setShow(false);
-    window.location.reload();
+  const handleSectionClick = (section) => {
+    setActiveSection(section); // Change active section based on user click
   };
-  const handleShow = () => setShow(true);
-  const haandleclose = () => setShow(false);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await axios.post(`${url}/profile`, { email });
-        if (response.data) {
-          setName(response.data.name);
-          setNumber(response.data.number);
-          setnewImg(response.data.profile_img);
-          setbroker(response.data.broker);
-          console.log(broker);
-        }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
-    };
-    fetchProfile();
-  }, []);
-  console.log(file);
-  console.log(newImg);
-  const iconStyle = {
-    position: "relative",
-    width: "10em",
-    height: "10em",
-    borderRadius: "50%",
-    backgroundColor: "#3498db",
-    color: "#ffffff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: "bold",
-  };
-
-  const iconStyle2 = {
-    width: "5em",
-    height: "5em",
-    borderRadius: "50%",
-    backgroundColor: "#3498db",
-    color: "#ffffff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: "bold",
-  };
-
-  const handleSave = async () => {
-    setFile(newImg);
-    try {
-      const response = await axios.post(`${url}/updateprofile`, {
-        email,
-        number,
-        name,
-        file,
-      });
-      if (response.data) {
-        console.log(response.data);
-        setnewImg(response.data.profile_img);
-        Swal.fire({
-          icon: "success",
-          text: "Profile updated",
-        });
-        setShow(false);
-        window.location.reload();
-      } else {
-        Swal.fire({
-          icon: "error",
-          text: "Not updated",
-        });
-        setShow(false);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    }
-  };
-
-  const handleFileChange = (e) => {
-    e.preventDefault();
-    const MainImg = e.target.files[0];
-    console.log(MainImg);
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      setFile(base64);
-    };
-
-    if (MainImg) {
-      reader.readAsDataURL(MainImg);
-    }
-  };
-
-  const CloseButton = () => {
-    setShow(false);
-  };
-
-  React.useEffect(() => {
-    document.body.className = `${localStorage.getItem("theme")}`;
-  }, []);
 
   return (
-    <div
-      className={
-        localStorage.getItem("theme") == "light-theme"
-          ? "container"
-          : "jhvchdfesubgbewhgd container"
-      }
-    >
-      <Navbar />
-      <div
-        className={
-          localStorage.getItem("theme") == "light-theme"
-            ? "abnc"
-            : "hjvsgcvajsbcnascasc"
-        }
-      >
-        <div className="dbnjavnnmcmasldasxasxa">
-          {newImg == "" ? (
-            <div style={iconStyle} className="profilePic">
-              <div>
-                <span className="akju">{userInitial}</span>
+    <div>
+      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <div className="profile">
+        <div className="profile-sidebar">
+          <ul>
+            <li
+              className={`sidebar-item ${
+                activeSection === "Profile" ? "active" : ""
+              }`}
+              onClick={() => handleSectionClick("Profile")}
+            >
+              <FaUser className="sidebar-icon" />
+              <span className="sidebar-text">Profile</span>
+            </li>
+            <li
+              className={`sidebar-item ${
+                activeSection === "Transaction" ? "active" : ""
+              }`}
+              onClick={() => handleSectionClick("Transaction")}
+            >
+              <FaExchangeAlt className="sidebar-icon" />
+              <span className="sidebar-text">Transaction</span>
+            </li>
+            <li className="sidebar-item">
+              <FaChartLine className="sidebar-icon" />
+              <span className="sidebar-text">Analytics</span>
+            </li>
+            <li className="sidebar-item">
+              <FaGift className="sidebar-icon" />
+              <span className="sidebar-text">Referral</span>
+            </li>
+            <li className="sidebar-item">
+              <FaInfoCircle className="sidebar-icon" />
+              <span className="sidebar-text">Terms & Conditions</span>
+            </li>
+            <li className="sidebar-item">
+              <FaLifeRing className="sidebar-icon" />
+              <span className="sidebar-text">Help & Support</span>
+            </li>
+            <li className="sidebar-item">
+              <FaSignOutAlt className="sidebar-icon" />
+              <span className="sidebar-text">Logout</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Conditional Rendering for Profile and Transaction */}
+        <div className="profile-second">
+          {activeSection === "Profile" && (
+            <div className="profile-right-first">
+              <div className="user-image">
+                {/* Replace with actual image URL */}
+                <img src={profile} height="100px" alt="User" />
+              </div>
+              <div className="user-info">
+                <div className="user-info-first">
+                  <div style={{ width: "50%" }}>Username: </div>
+                  <div style={{ width: "50%" }}>Email: {Email}</div>
+                </div>
+                <div className="user-info-second">
+                  <div style={{ width: "50%" }}>Account Type: Premium</div>
+                  <div style={{ width: "50%" }}>Member Since: January 2022</div>
+                </div>
               </div>
             </div>
-          ) : (
-            <img src={newImg} alt="Profile" className="absc" />
           )}
-        </div>
-        <div className="ksljd">
-          <div>
-            <table>
-              <tr className="vasgvchjca">
-                <td>Name :</td>
-                <td className="bgwvgahdvbasasdmnabsd">{name}</td>
-              </tr>
-              <tr className="vasgvchjca">
-                <td>Email :</td>
-                <td className="bgwvgahdvbasasdmnabsd">{email}</td>
-              </tr>
-              <tr className="vasgvchjca">
-                <td>Mobile No:</td>
-                <td className="bgwvgahdvbasasdmnabsd">{number}</td>
-              </tr>
-              <tr className="vasgvchjca bhgvghvgghgvbn">
-                <td className="bgwvgahdvbasasdmnabsd">
-                  <Button onClick={handleShow} className="btn btn-primary">
-                    Edit
-                  </Button>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div>
-            <table>
-              <tbody>
-                {clientdata.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.userData.data.clientcode}</td>
-                    <td
-                      style={{
-                        maxWidth: "100%",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {item.userData.data.name.toUpperCase()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-            className={"hsdbhbhbsbhfbhfbvhajvnjka"}
-          >
-            <Modal.Header
-              className={
-                localStorage.getItem("theme") == "light-theme"
-                  ? ""
-                  : "kbdsfgvbfnhavfyydcdfnm"
-              }
-            >
-              <Modal.Title>Update Profile</Modal.Title>
-              <Button
-                type="submit"
-                onClick={haandleclose}
-                className="btn-close"
-                aria-label="Close"
-              ></Button>
-            </Modal.Header>
-            <Modal.Body
-              className={
-                localStorage.getItem("theme") == "light-theme"
-                  ? ""
-                  : "kbdsfgvbfnhavfyydcdfnm"
-              }
-            >
-              <Form>
-                <div className="kjnavrcrefcefj">
-                  <div style={iconStyle2} className="sdnjksdnvbshdvbhjsbhdv">
-                    <div>
-                      <label htmlFor="ajsd">
-                        <div>
-                          {newImg ? (
-                            <img
-                              src={newImg}
-                              alt="Profile"
-                              className="profilePic2"
-                            />
-                          ) : (
-                            <div style={iconStyle2} className="profilePic3">
-                              <div>
-                                <span className="akju">{userInitial}</span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </label>
-                      <input
-                        type="file"
-                        id="ajsd"
-                        onChange={handleFileChange}
-                        style={{ display: "none" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <Row className="col-12 p-2 m-2">
-                  <Col xs={2}>
-                    <Form.Label>Name:</Form.Label>
-                  </Col>
-                  <Col xs={10}>
-                    <Form.Control
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </Col>
-                </Row>
-                <Row className="col-12 p-2 m-2">
-                  <Col xs={2}>
-                    <Form.Label>Email:</Form.Label>
-                  </Col>
-                  <Col xs={10}>
-                    <Form.Control type="text" value={email} readOnly />
-                  </Col>
-                </Row>
-                <Row className="col-12 p-2 m-2">
-                  <Col xs={2}>
-                    <Form.Label>Mobile No:</Form.Label>
-                  </Col>
-                  <Col xs={10}>
-                    <Form.Control
-                      type="number"
-                      value={number}
-                      onChange={(e) => setNumber(e.target.value)}
-                    />
-                  </Col>
-                </Row>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer
-              className={
-                localStorage.getItem("theme") == "light-theme"
-                  ? ""
-                  : "kbdsfgvbfnhavfyydcdfnm"
-              }
-            >
-              <Button variant="primary" onClick={handleSave}>
-                Edit
-              </Button>
-            </Modal.Footer>
-          </Modal>
+
+          {activeSection === "Transaction" && (
+            <div className="transaction-info">
+              <h3>Transaction History</h3>
+              <TransactionList transactions={transactions} />
+            </div>
+          )}
         </div>
       </div>
     </div>
