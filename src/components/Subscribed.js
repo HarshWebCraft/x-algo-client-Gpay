@@ -21,9 +21,24 @@ import Loader from "./loader";
 
 function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [open, setOpen] = React.useState(false);
+  const [dropDownIds, setDropDownIds] = useState([]);
 
   const handleOpen = (strategyId) => {
     setSelectedStrategyId(strategyId);
+    const matchingAccounts = userSchema.DeployedData.filter(
+      (deployed) => deployed.Strategy === strategyId
+    ).map((deployed) => deployed.Account);
+
+    console.log("Matching Accounts:", matchingAccounts);
+
+    // Filter brokerId to exclude matching accounts
+    const filteredBrokerIds = userSchema.BrokerIds.filter(
+      (brokerId) => !matchingAccounts.includes(brokerId)
+    );
+
+    console.log("Filtered Broker IDs:", filteredBrokerIds);
+    setDropDownIds(filteredBrokerIds);
+
     setOpen(true);
   };
 
@@ -72,7 +87,6 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
   const [deployedBtnLoader, setDeployedBtnLoader] = useState(false);
   const [brokerId, setBrokerId] = useState([]);
   const [deployedBrokerIds, setDeployedBrokerIds] = useState([]);
-  const [dropDownIds, setDropDownIds] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -118,7 +132,6 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
         (id) => !deployedBrokerIds.includes(id)
       );
       console.log(filteredIds);
-      setDropDownIds(filteredIds);
       setLoader(false);
     };
     fetchData();
@@ -384,7 +397,6 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
                 <option value="" disabled>
                   Choose an account
                 </option>
-                <option>Paper Trade</option>
                 {dropDownIds.map((id, index) => (
                   <option key={index} value={id}>
                     {id}

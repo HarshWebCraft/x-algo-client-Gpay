@@ -38,7 +38,22 @@ function StrategyCard() {
   console.log(deployedBrokerIds);
 
   const handleOpen = (strategyId) => {
+    console.log(strategyId);
     setSelectedStrategyId(strategyId);
+    const matchingAccounts = userSchema.DeployedData.filter(
+      (deployed) => deployed.Strategy === strategyId
+    ).map((deployed) => deployed.Account);
+
+    console.log("Matching Accounts:", matchingAccounts);
+
+    // Filter brokerId to exclude matching accounts
+    const filteredBrokerIds = userSchema.BrokerIds.filter(
+      (brokerId) => !matchingAccounts.includes(brokerId)
+    );
+
+    console.log("Filtered Broker IDs:", filteredBrokerIds);
+    setDropDownIds(filteredBrokerIds);
+
     setOpen(true);
   };
 
@@ -90,7 +105,6 @@ function StrategyCard() {
         console.log(brokerId);
         console.log(deployedBrokerIds);
 
-        setDropDownIds(filteredIds);
         setLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -331,8 +345,7 @@ function StrategyCard() {
                 <option value="" disabled>
                   Choose an account
                 </option>
-                <option value="papertrade">Paper Trade</option>
-                {brokerId.map((id, index) => (
+                {dropDownIds.map((id, index) => (
                   <option key={index} value={id}>
                     {id}
                   </option>
