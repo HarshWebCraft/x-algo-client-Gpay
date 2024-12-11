@@ -9,7 +9,7 @@ import axios from "axios";
 import ResponsiveNavbar from "./ResponsiveNavbar";
 import { ProductionUrl } from "../URL/url";
 
-function Home({ darkMode, toggleDarkMode }) {
+function Home({ darkMode, toggleDarkMode, setLoading }) {
   const location = useLocation();
   const userEmail = location.state?.userEmail || "";
   const [tourShown, setTourShown] = useState(false);
@@ -36,6 +36,7 @@ function Home({ darkMode, toggleDarkMode }) {
         }
 
         const response = await axios.post(`${url}/tour`, { userEmail });
+        console.log(response.data);
         if (response.data.tour && !tourShown) {
           setTourShown(true); // Mark tour as shown to prevent rerun
           initializeDriver();
@@ -50,6 +51,7 @@ function Home({ darkMode, toggleDarkMode }) {
         });
         console.log("Mobile response data:", mobileNoResponse.data);
         if (mobileNoResponse.data.mobileNumber) {
+        } else {
           alert("Enter your mobile number");
         }
       } catch (error) {
@@ -149,6 +151,7 @@ function Home({ darkMode, toggleDarkMode }) {
         userEmail={userEmail}
         darkMode={darkMode}
         toggleDarkMode={toggleDarkMode}
+        setLoading={setLoading}
       />
     </div>
   );

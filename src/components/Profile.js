@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaUser,
   FaExchangeAlt,
@@ -13,10 +13,15 @@ import "./profile.css";
 import profile from "../images/profile.png";
 import { useSelector } from "react-redux";
 import TransactionList from "./TransactionList.js";
+import { useNavigate } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
 
 function Profile({ darkMode, toggleDarkMode }) {
   const [activeSection, setActiveSection] = useState("Profile"); // State for active section
+  const [loading, setLoading] = useState(true);
   const Email = useSelector((state) => state.email.email);
+  const navigate = useNavigate();
+  const userSchema = useSelector((state) => state.account.userSchemaRedux);
 
   const transactions = [
     {
@@ -88,6 +93,17 @@ function Profile({ darkMode, toggleDarkMode }) {
     setActiveSection(section); // Change active section based on user click
   };
 
+  const logout = () => {
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  };
+
+  useEffect = () => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
+
   return (
     <div>
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
@@ -130,7 +146,9 @@ function Profile({ darkMode, toggleDarkMode }) {
             </li>
             <li className="sidebar-item">
               <FaSignOutAlt className="sidebar-icon" />
-              <span className="sidebar-text">Logout</span>
+              <span className="sidebar-text" onClick={logout}>
+                Logout
+              </span>
             </li>
           </ul>
         </div>
@@ -139,18 +157,46 @@ function Profile({ darkMode, toggleDarkMode }) {
         <div className="profile-second">
           {activeSection === "Profile" && (
             <div className="profile-right-first">
+              {/* User image with Skeleton loader */}
               <div className="user-image">
-                {/* Replace with actual image URL */}
-                <img src={profile} height="100px" alt="User" />
+                {loading ? (
+                  <Skeleton variant="circular" width={100} height={100} />
+                ) : (
+                  <img src={profile} height="100px" alt="User" />
+                )}
               </div>
+
               <div className="user-info">
                 <div className="user-info-first">
-                  <div style={{ width: "50%" }}>Username: </div>
-                  <div style={{ width: "50%" }}>Email: {Email}</div>
+                  {/* Username and Email with Skeleton loaders */}
+                  <div style={{ width: "50%" }}>
+                    {loading ? (
+                      <Skeleton width="80%" height="100%" />
+                    ) : (
+                      `Username: ${userSchema.Name}`
+                    )}
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    {loading ? <Skeleton width="80%" /> : `Email: ${Email}`}
+                  </div>
                 </div>
+
                 <div className="user-info-second">
-                  <div style={{ width: "50%" }}>Account Type: Premium</div>
-                  <div style={{ width: "50%" }}>Member Since: January 2022</div>
+                  {/* Account Type and Member Since with Skeleton loaders */}
+                  <div style={{ width: "50%" }}>
+                    {loading ? (
+                      <Skeleton width="80%" />
+                    ) : (
+                      "Account Type: Premium"
+                    )}
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    {loading ? (
+                      <Skeleton width="80%" />
+                    ) : (
+                      "Member Since: January 2022"
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

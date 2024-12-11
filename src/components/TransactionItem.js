@@ -1,26 +1,23 @@
-// TransactionItem.js
 import React from "react";
 
 const TransactionItem = ({ transaction }) => {
   const { name, date, invoiceId, amount, status } = transaction;
 
   return (
-    <div className="transaction-item">
-      <div className="transaction-name">{name}</div>
-      <div className="transaction-date">{date}</div>
-      <div className="transaction-invoice-id">{invoiceId}</div>
-      <div
+    <tr className="transaction-item">
+      <td className="transaction-name">{name}</td>
+      <td className="transaction-date">{date}</td>
+      <td className="transaction-invoice-id">{invoiceId}</td>
+      <td
         className={`transaction-amount ${
           amount.startsWith("-") ? "negative" : "positive"
         }`}
       >
         {amount}
-      </div>
-      <div className={`transaction-status ${status.toLowerCase()}`}>
-        {status}
-      </div>
-      <div className="transaction-details">Details</div>
-    </div>
+      </td>
+      <td className={`transaction-status ${status.toLowerCase()}`}>{status}</td>
+      <td className="transaction-details">Details</td>
+    </tr>
   );
 };
 

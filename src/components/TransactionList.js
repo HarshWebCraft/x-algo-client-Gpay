@@ -4,9 +4,22 @@ import TransactionItem from "./TransactionItem.js";
 const TransactionList = ({ transactions }) => {
   return (
     <div className="transaction-list">
-      {transactions.map((transaction, index) => (
-        <TransactionItem key={index} transaction={transaction} />
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Invoice ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map((transaction, index) => (
+            <TransactionItem key={index} transaction={transaction} />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

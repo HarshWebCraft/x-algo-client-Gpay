@@ -157,14 +157,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </li>
       </div>
       <div className="navbar-icons">
-        <div className="icon-container " title="Logout">
+        {/* <div className="icon-container " title="Logout">
           <Image
             src={Logout}
             height={23}
             className="logout-icon"
             onClick={logout}
           />
-        </div>
+        </div> */}
 
         <div className="icon-container mr-0" title="Wallet">
           <Image

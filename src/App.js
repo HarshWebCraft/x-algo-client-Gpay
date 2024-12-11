@@ -128,7 +128,11 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-              <Home darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+              <Home
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                setLoading={setLoading}
+              />
             </PrivateRoute>
           }
         />

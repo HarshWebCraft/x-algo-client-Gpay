@@ -3,10 +3,10 @@ import "./PaperTradeTable.css";
 import { ProductionUrl } from "../URL/url";
 import axios from "axios";
 import { Scrollbar } from "react-scrollbars-custom";
+import Skeleton from "@mui/material/Skeleton"; // Import Skeleton
 import Switch from "@mui/material/Switch";
 import { useSelector } from "react-redux";
 import delete_broker from "../images/delete_broker.png";
-import Spinner from "./Spinner";
 
 const PaperTradeTable = () => {
   const [ExcelData, setExcelData] = useState([]);
@@ -103,122 +103,115 @@ const PaperTradeTable = () => {
   }, []);
 
   return (
-    <>
-      <div>
-        {loader ? (
-          <div className="m-auto gfhglio">
-            <Spinner />
-          </div>
-        ) : allSheetData.length > 0 ? (
-          allSheetData.map((strategy, index) => {
-            // Extract the P&L (9th column, index 8) from sheetData
-            const pnlValues = strategy.sheetData.map(
-              (row) => parseFloat(row[8]) || 0
-            );
-            // Calculate the total P&L for the current strategy
-            console.log(pnlValues);
-            const totalPnl = pnlValues.reduce((sum, value) => sum + value, 0);
+    <div>
+      {loader ? (
+        <div className="skeleton-container container">
+          {/* Skeleton for the card layout */}
+          {[...Array(3)].map((_, index) => (
+            <div key={index} className="skeleton-card row stats-container">
+              <Skeleton height={40} width="30%" className="mr-1" />
+              <Skeleton height={40} width="20%" className="mr-1" />
+              <Skeleton height={40} width="20%" className="mr-1" />
+              <Skeleton height={40} width="20%" className="mr-1" />
 
-            return (
-              <div className="container" key={strategy.strategyId}>
-                <div className="row stats-container">
-                  {/* Account Info Section */}
-                  <div className="account-info tfghnc pe-3 justify-content-between">
-                    <div className="phjhverthj">
-                      <div className="account-item">
-                        <span className="label">Name:</span>
-                        <span className="value">
-                          {userSchema.DeployedData[index].StrategyName}
-                        </span>
-                      </div>
-                      <div className="account-item">
-                        <span className="label">Deploy Date :</span>
-                        <span className="value">
-                          {strategy.DeploedDate || "N/A"}
-                        </span>
-                      </div>
+              <Skeleton variant="rectangular" width="100%" height={200} />
+            </div>
+          ))}
+        </div>
+      ) : allSheetData.length > 0 ? (
+        allSheetData.map((strategy, index) => {
+          const pnlValues = strategy.sheetData.map(
+            (row) => parseFloat(row[8]) || 0
+          );
+          const totalPnl = pnlValues.reduce((sum, value) => sum + value, 0);
+
+          return (
+            <div className="container" key={strategy.strategyId}>
+              <div className="row stats-container">
+                <div className="account-info tfghnc pe-3 justify-content-between">
+                  <div className="phjhverthj">
+                    <div className="account-item">
+                      <span className="label">Name:</span>
+                      <span className="value">
+                        {userSchema.DeployedData[index].StrategyName}
+                      </span>
                     </div>
-
-                    <div className="phjhverthj2">
-                      <div className="account-item">
-                        <span className="value">P&L : </span>
-                        <span className={totalPnl < 0 ? "red" : "green"}>
-                          {totalPnl.toFixed(2)}$
-                        </span>
-                      </div>
-                      <div className="account-item">
-                        <img
-                          src={delete_broker || "delete_broker_placeholder.png"}
-                          height={20}
-                          className="delete-icon"
-                          onClick={(e) =>
-                            removeDeploy(
-                              strategy.strategyId,
-                              userSchema.DeployedData[index].Broker
-                            )
-                          }
-                          alt="Delete Broker"
-                        />
-                      </div>
+                    <div className="account-item">
+                      <span className="label">Deploy Date :</span>
+                      <span className="value">
+                        {strategy.DeploedDate || "N/A"}
+                      </span>
                     </div>
                   </div>
-
-                  {/* Stats Table Section */}
-                  <div className="stats-toggle-container">
-                    <div className="paper-trade-table-container container">
-                      <div className="paper-trade-balance-container">
-                        {/* Balance can be added here if required */}
-                      </div>
-                      <div className="paper-trade-table-wrapper">
-                        <Scrollbar style={{ height: 200 }}>
-                          <table className="paper-trade-table">
-                            <thead>
-                              <tr>
-                                <th>NO</th>
-                                <th>Symbol</th>
-                                <th>Entry Type</th>
-                                <th>Entry Time</th>
-                                <th>Exit Time</th>
-                                <th>Entry Price</th>
-                                <th>Exit Price</th>
-                                <th>Entry Qty</th>
-                                <th>P&L</th>
-                              </tr>
-                            </thead>
-                            <tbody className="paper-trade-table-body">
-                              {strategy.sheetData.length > 0 ? (
-                                strategy.sheetData.map((row, rowIndex) => (
-                                  <tr key={rowIndex}>
-                                    {row.map((cell, cellIndex) => (
-                                      <td key={cellIndex}>{cell || "N/A"}</td>
-                                    ))}
-                                  </tr>
-                                ))
-                              ) : (
-                                <tr>
-                                  <td
-                                    colSpan="9"
-                                    style={{ textAlign: "center" }}
-                                  >
-                                    No trade executed
-                                  </td>
-                                </tr>
-                              )}
-                            </tbody>
-                          </table>
-                        </Scrollbar>
-                      </div>
+                  <div className="phjhverthj2">
+                    <div className="account-item">
+                      <span className="value">P&L : </span>
+                      <span className={totalPnl < 0 ? "red" : "green"}>
+                        {totalPnl.toFixed(2)}$
+                      </span>
+                    </div>
+                    <div className="account-item">
+                      <img
+                        src={delete_broker || "delete_broker_placeholder.png"}
+                        height={20}
+                        className="delete-icon"
+                        onClick={(e) =>
+                          removeDeploy(
+                            strategy.strategyId,
+                            userSchema.DeployedData[index].Broker
+                          )
+                        }
+                        alt="Delete Broker"
+                      />
                     </div>
                   </div>
                 </div>
+                <div className="stats-toggle-container">
+                  <div className="paper-trade-table-container container">
+                    <Scrollbar style={{ height: 200 }}>
+                      <table className="paper-trade-table">
+                        <thead>
+                          <tr>
+                            <th>NO</th>
+                            <th>Symbol</th>
+                            <th>Entry Type</th>
+                            <th>Entry Time</th>
+                            <th>Exit Time</th>
+                            <th>Entry Price</th>
+                            <th>Exit Price</th>
+                            <th>Entry Qty</th>
+                            <th>P&L</th>
+                          </tr>
+                        </thead>
+                        <tbody className="paper-trade-table-body">
+                          {strategy.sheetData.length > 0 ? (
+                            strategy.sheetData.map((row, rowIndex) => (
+                              <tr key={rowIndex}>
+                                {row.map((cell, cellIndex) => (
+                                  <td key={cellIndex}>{cell || "N/A"}</td>
+                                ))}
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan="9" style={{ textAlign: "center" }}>
+                                No trade executed
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </Scrollbar>
+                  </div>
+                </div>
               </div>
-            );
-          })
-        ) : (
-          "No data available"
-        )}
-      </div>
-    </>
+            </div>
+          );
+        })
+      ) : (
+        "No data available"
+      )}
+    </div>
   );
 };
 

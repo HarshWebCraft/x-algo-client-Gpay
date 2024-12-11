@@ -91,6 +91,16 @@ flex-direction: row;
     color: orange;
   }
   
+  .transaction-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .header-name, .header-date, .header-invoice-id, .header-amount, .header-status {
+    padding: 5px;
+  }
   .transaction-status.payment {
     color: red;
   }

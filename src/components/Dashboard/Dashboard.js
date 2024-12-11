@@ -134,34 +134,6 @@ function Dashboard({
 
   return (
     <div className={`container deskbord ${darkMode ? "dark" : "light"}`}>
-      <SlidingPanel
-        type={"right"}
-        isOpen={slide}
-        size={30}
-        panelContainerClassName="custom-panel"
-      >
-        <div className="p-3">
-          <h5>Sliding Panel Content</h5>
-          <button
-            onClick={() => slideToggle(false)}
-            className="btn btn-secondary"
-          >
-            Close Panel
-          </button>
-        </div>
-      </SlidingPanel>
-      {/* {loading && (
-        <div className="loader2 uytr">
-          <div className="loader liop">
-            <div className="loader__bar"></div>
-            <div className="loader__bar"></div>
-            <div className="loader__bar"></div>
-            <div className="loader__bar"></div>
-            <div className="loader__bar"></div>
-            <div className="loader__ball"></div>
-          </div>
-        </div>
-      )} */}
       <div className={`row yqrgk`}>
         <div
           className={`col py-3 px-4 d-flex justify-content-end align-items-center ${
@@ -188,7 +160,6 @@ function Dashboard({
         </div>
       </div>
 
-      {/* {b?(<OrderPlace load={ert} broker={broker} capital={capital} />):""} */}
       {b ? (
         <BotCard capital={capital} />
       ) : (
