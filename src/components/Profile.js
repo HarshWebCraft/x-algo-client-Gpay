@@ -12,9 +12,9 @@ import Navbar from "./Navbar";
 import "./profile.css";
 import profile from "../images/profile.png";
 import { useSelector } from "react-redux";
-import TransactionList from "./TransactionList.js";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
+import Transaction from "./Transaction.js";
 
 function Profile({ darkMode, toggleDarkMode }) {
   const [activeSection, setActiveSection] = useState("Profile"); // State for active section
@@ -25,65 +25,65 @@ function Profile({ darkMode, toggleDarkMode }) {
 
   const transactions = [
     {
-      name: "William Mardoch",
       date: "21 March 2021",
-      invoiceId: "OP01214784",
+      time: "09:16",
+      transactionId: "OP01214784",
       amount: "$250 USD",
       status: "Receive",
     },
     {
-      name: "Jack Dawson",
       date: "20 March 2021",
-      invoiceId: "OP01214784",
+      transactionId: "OP01214784",
+      time: "09:16",
       amount: "-$20 USD",
       status: "Transfer",
     },
     {
-      name: "Mailchimp",
       date: "19 March 2021",
-      invoiceId: "OP87452148",
+      transactionId: "OP87452148",
+      time: "09:16",
       amount: "-$80 USD",
       status: "Payment",
     },
     {
-      name: "Fiverr",
       date: "18 March 2021",
-      invoiceId: "OP32201425",
+      transactionId: "OP32201425",
+      time: "09:16",
       amount: "$100 USD",
       status: "Receive",
     },
     {
-      name: "BANK OF AMERICA LTD.",
       date: "19 March 2021",
-      invoiceId: "OP34012458",
+      transactionId: "OP34012458",
+      time: "09:16",
       amount: "$210 USD",
       status: "Withdraw",
     },
     {
-      name: "Peter Jacky",
       date: "12 March 2021",
-      invoiceId: "OP82145784",
+      transactionId: "OP82145784",
+      time: "09:16",
       amount: "-$80 USD",
       status: "Payment",
     },
     {
-      name: "EBL Credit Card",
       date: "10 March 2021",
-      invoiceId: "OP21547895",
+      transactionId: "OP21547895",
+      time: "09:16",
       amount: "$160 USD",
       status: "Deposit",
     },
     {
-      name: "Angelina Juli",
       date: "05 March 2021",
-      invoiceId: "OP21547854",
+      transactionId: "OP21547854",
+      time: "09:16",
       amount: "$100 USD",
       status: "Receive",
     },
     {
-      name: "David William",
       date: "05 March 2021",
-      invoiceId: "OP21547854",
+      transactionId: "OP21547854",
+      time: "09:16",
       amount: "$100 USD",
       status: "Receive",
     },
@@ -98,11 +98,11 @@ function Profile({ darkMode, toggleDarkMode }) {
     navigate("/");
   };
 
-  useEffect = () => {
+  useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  };
+  }, []);
 
   return (
     <div>
@@ -173,11 +173,21 @@ function Profile({ darkMode, toggleDarkMode }) {
                     {loading ? (
                       <Skeleton width="80%" height="100%" />
                     ) : (
-                      `Username: ${userSchema.Name}`
+                      <>
+                        <strong>Username: </strong>
+                        {userSchema.Name}
+                      </>
                     )}
                   </div>
-                  <div style={{ width: "50%" }}>
-                    {loading ? <Skeleton width="80%" /> : `Email: ${Email}`}
+                  <div className="wxobt" style={{ width: "50%" }}>
+                    {loading ? (
+                      <Skeleton width="80%" />
+                    ) : (
+                      <>
+                        <strong>Email: </strong>
+                        {Email}
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -187,14 +197,18 @@ function Profile({ darkMode, toggleDarkMode }) {
                     {loading ? (
                       <Skeleton width="80%" />
                     ) : (
-                      "Account Type: Premium"
+                      <>
+                        <strong>Xalgos ID:</strong> {userSchema?.XalgoID}
+                      </>
                     )}
                   </div>
                   <div style={{ width: "50%" }}>
                     {loading ? (
                       <Skeleton width="80%" />
                     ) : (
-                      "Member Since: January 2022"
+                      <>
+                        <strong>Created At: </strong>
+                      </>
                     )}
                   </div>
                 </div>
@@ -204,8 +218,7 @@ function Profile({ darkMode, toggleDarkMode }) {
 
           {activeSection === "Transaction" && (
             <div className="transaction-info">
-              <h3>Transaction History</h3>
-              <TransactionList transactions={transactions} />
+              <Transaction transactionData={transactions} loading={loading} />
             </div>
           )}
         </div>

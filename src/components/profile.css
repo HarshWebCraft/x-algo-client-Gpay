@@ -32,7 +32,6 @@ flex-direction: row;
 
   .profile-right-first{
     align-items: center;
-    height: 22vh;
     display: flex;
     flex-direction: row;
     padding: 1em;
@@ -181,15 +180,34 @@ flex-direction: row;
   
   @media (max-width: 876px) {
     .profile-sidebar {
-      width: 5.3em; /* Reduced width for mobile */
+      width: 5em; /* Reduced width for mobile */
+    }
+
+    
+    .user-info-first, .user-info-second{
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .wxobt{
+      width: 100% !important;
     }
   
+    .user-info{
+      gap: 1em;
+    }
     .sidebar-text {
       display: none; /* Hide text on mobile */
     }
   
     .sidebar-icon {
-      font-size: 22px;
+      font-size: 17px;
+    }
+  }
+
+  @media(max-width:650px){
+    .profile-right-first{
+      flex-direction: column;
     }
   }
   
