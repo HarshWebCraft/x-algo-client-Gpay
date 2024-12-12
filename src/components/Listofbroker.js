@@ -485,73 +485,64 @@ function Listofbroker({ setLoading }) {
                   </tr>
                 </thead>
                 <tbody style={{ textAlign: "center" }}>
-                  {clientdata.length === 0 ? (
-                    // Display Skeleton while loading
-                    <tr>
-                      <td colSpan="5">
-                        <Skeleton variant="rectangular" height={60} />
-                      </td>
-                    </tr>
-                  ) : (
-                    clientdata.map((item, index) => (
-                      <tr key={index}>
-                        {/* Displaying client code */}
-                        <td>
-                          {item.userData
-                            ? item.userData?.data?.clientcode
-                            : item.userDetails?.result?.phishing_code}
-                        </td>
+                  clientdata.map((item, index) => (
+                  <tr key={index}>
+                    {/* Displaying client code */}
+                    <td>
+                      {item.userData
+                        ? item.userData?.data?.clientcode
+                        : item.userDetails?.result?.phishing_code}
+                    </td>
 
-                        {/* Displaying user name */}
-                        <td
-                          style={{
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {item.userData
-                            ? item.userData?.data?.name?.toUpperCase()
-                            : item.userDetails?.result?.first_name?.toUpperCase() +
-                                " " +
-                                item.userDetails?.result?.last_name.toUpperCase() ||
-                              "N/A"}
-                        </td>
+                    {/* Displaying user name */}
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {item.userData
+                        ? item.userData?.data?.name?.toUpperCase()
+                        : item.userDetails?.result?.first_name?.toUpperCase() +
+                            " " +
+                            item.userDetails?.result?.last_name.toUpperCase() ||
+                          "N/A"}
+                    </td>
 
-                        {/* Hardcoded or dynamic date (adjust as needed) */}
-                        <td>12/5/2004</td>
+                    {/* Hardcoded or dynamic date (adjust as needed) */}
+                    <td>12/5/2004</td>
 
-                        {/* Displaying Broker Name with Skeleton if loading */}
-                        <td>
-                          {item.userData ? (
-                            "AngelOne"
-                          ) : item.deltaApiKey ? (
-                            "Delta"
-                          ) : (
-                            <Skeleton width="100%" />
-                          )}
-                        </td>
+                    {/* Displaying Broker Name with Skeleton if loading */}
+                    <td>
+                      {item.userData ? (
+                        "AngelOne"
+                      ) : item.deltaApiKey ? (
+                        "Delta"
+                      ) : (
+                        <Skeleton width="100%" />
+                      )}
+                    </td>
 
-                        {/* Delete action */}
-                        <td>
-                          <img
-                            src={delete_broker}
-                            height={20}
-                            className="delete-icon"
-                            alt="Delete Broker"
-                            onClick={() =>
-                              delete_broker_fun(
-                                index,
-                                item.userData
-                                  ? item.userData?.data?.clientcode
-                                  : item.userDetails?.result?.phishing_code
-                              )
-                            }
-                          />
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                    {/* Delete action */}
+                    <td>
+                      <img
+                        src={delete_broker}
+                        height={20}
+                        className="delete-icon"
+                        alt="Delete Broker"
+                        onClick={() =>
+                          delete_broker_fun(
+                            index,
+                            item.userData
+                              ? item.userData?.data?.clientcode
+                              : item.userDetails?.result?.phishing_code
+                          )
+                        }
+                      />
+                    </td>
+                  </tr>
+                  ))
                 </tbody>
               </table>
             </div>
