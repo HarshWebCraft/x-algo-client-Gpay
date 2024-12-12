@@ -7,6 +7,7 @@ import {
   FaInfoCircle,
   FaLifeRing,
   FaSignOutAlt,
+  FaWallet,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
 import "./profile.css";
@@ -15,6 +16,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import Transaction from "./Transaction.js";
+import AddFundsUI from "./AddFundUI.js";
 
 function Profile({ darkMode, toggleDarkMode }) {
   const [activeSection, setActiveSection] = useState("Profile"); // State for active section
@@ -132,6 +134,15 @@ function Profile({ darkMode, toggleDarkMode }) {
               <FaChartLine className="sidebar-icon" />
               <span className="sidebar-text">Analytics</span>
             </li>
+            <li
+              className={`sidebar-item ${
+                activeSection === "Wallet" ? "active" : ""
+              }`}
+              onClick={() => handleSectionClick("Wallet")}
+            >
+              <FaWallet className="sidebar-icon" />
+              <span className="sidebar-text">Wallet</span>
+            </li>
             <li className="sidebar-item">
               <FaGift className="sidebar-icon" />
               <span className="sidebar-text">Referral</span>
@@ -221,6 +232,8 @@ function Profile({ darkMode, toggleDarkMode }) {
               <Transaction transactionData={transactions} loading={loading} />
             </div>
           )}
+
+          {activeSection === "Wallet" && <AddFundsUI />}
         </div>
       </div>
     </div>
