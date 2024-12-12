@@ -543,7 +543,7 @@ function Listofbroker({ setLoading }) {
                               delete_broker_fun(
                                 index,
                                 item.userData
-                                  ? item.userData.data.clientcode
+                                  ? item.userData?.data?.clientcode
                                   : item.userDetails?.result?.phishing_code
                               )
                             }
