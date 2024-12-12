@@ -511,7 +511,7 @@ function Listofbroker({ setLoading }) {
                           }}
                         >
                           {item.userData
-                            ? item.userData.data.name.toUpperCase()
+                            ? item.userData?.data?.name?.toUpperCase()
                             : item.userDetails?.result?.first_name?.toUpperCase() +
                                 " " +
                                 item.userDetails?.result?.last_name.toUpperCase() ||
