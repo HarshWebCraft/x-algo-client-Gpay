@@ -595,20 +595,28 @@ const PaperTradeTable = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="charts-section">
+                    <div className="charts-section nnnnmm">
                       <CircularChart
                         percentage={79.66}
                         color="#007bff"
                         strokeWidth={14}
                       />
                     </div>
-                    <div className="charts-section">
+                    <div className="charts-section nnnnmm">
                       <CircularChart
                         percentage={57.76}
                         color="#fbc02d"
                         strokeWidth={14}
                       />
                     </div>
+                  </div>
+                  <div className="stat-item wwwwsssssdddd">
+                    <div className="label">Monthly gain</div>
+                    <div className="value green">79.66%</div>
+                  </div>
+                  <div className="stat-item wwwwsssssdddd">
+                    <div className="label">Today's gain</div>
+                    <div className="value green">57.76%</div>
                   </div>
                 </div>
               </div>

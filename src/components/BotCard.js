@@ -319,15 +319,15 @@ const BotCard = (props) => {
                 </div>
                 <hr className="horizontal-line" />
                 <div className="Strategy-details d-flex flex-column">
-                  <div className="d-flex  gap-5">
-                    <div className="stat-item">
+                  <div className="d-flex eeerrtt  gap-5">
+                    <div className="stat-item edcvon">
                       <div className="label">
-                        Strategy name :{" "}
+                        Strategy name :
                         <span className="qwmz">Breakout Breeze</span>
                       </div>
                       <div className="value"></div>
                     </div>
-                    <div className="stat-item">
+                    <div className="stat-item edcvon">
                       <div className="dropdown-container">
                         <select
                           className="month-dropdown ps-3 pe-3"
@@ -397,20 +397,28 @@ const BotCard = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="charts-section">
+                    <div className="charts-section nnnnmm">
                       <CircularChart
                         percentage={79.66}
                         color="#007bff"
                         strokeWidth={14}
                       />
                     </div>
-                    <div className="charts-section">
+                    <div className="charts-section nnnnmm">
                       <CircularChart
                         percentage={57.76}
                         color="#fbc02d"
                         strokeWidth={14}
                       />
                     </div>
+                  </div>
+                  <div className="stat-item wwwwsssssdddd">
+                    <div className="label">Monthly gain</div>
+                    <div className="value green">0%</div>
+                  </div>
+                  <div className="stat-item wwwwsssssdddd">
+                    <div className="label">Today's gain</div>
+                    <div className="value green">0%</div>
                   </div>
                 </div>
               </div>
