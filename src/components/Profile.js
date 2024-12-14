@@ -8,9 +8,14 @@ import {
   FaLifeRing,
   FaSignOutAlt,
   FaWallet,
+  FaSun,
+  FaMoon,
+  FaLightbulb,
+  FaStar,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
 import "./profile.css";
+import Switch from "react-switch";
 import profile from "../images/profile.png";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -121,6 +126,45 @@ function Profile({ darkMode, toggleDarkMode }) {
               <FaUser className="sidebar-icon" />
               <span className="sidebar-text">Profile</span>
             </li>
+            <li className="sidebar-item">
+              <div
+                onClick={toggleDarkMode} // Toggle theme when clicked on icon or text
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                {darkMode ? (
+                  <FaMoon className="sidebar-icon" />
+                ) : (
+                  <FaSun className="sidebar-icon" />
+                )}
+                <span className="sidebar-text">Dark Mode</span>
+              </div>
+
+              <div
+                className="theme-toggle-switch"
+                style={{
+                  marginLeft: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Switch
+                  checked={darkMode} // Bind to current theme state
+                  onChange={toggleDarkMode} // Trigger theme change on toggle
+                  checkedIcon={false} // No icon inside the switch
+                  uncheckedIcon={false}
+                  onColor="#4F4F4F"
+                  offColor="#C4C4C4"
+                  height={22} // Adjust the height of the switch
+                  width={40} // Adjust the width of the switch
+                  handleDiameter={15} // Adjust the size of the toggle button (circle)
+                />
+              </div>
+            </li>
+
             <li
               className={`sidebar-item ${
                 activeSection === "Transaction" ? "active" : ""
@@ -155,11 +199,9 @@ function Profile({ darkMode, toggleDarkMode }) {
               <FaLifeRing className="sidebar-icon" />
               <span className="sidebar-text">Help & Support</span>
             </li>
-            <li className="sidebar-item">
+            <li className="sidebar-item" onClick={logout}>
               <FaSignOutAlt className="sidebar-icon" />
-              <span className="sidebar-text" onClick={logout}>
-                Logout
-              </span>
+              <span className="sidebar-text">Logout</span>
             </li>
           </ul>
         </div>

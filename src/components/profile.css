@@ -10,6 +10,14 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
 
+  .react-switch-bg {
+    border-radius: 5px !important;
+  }
+
+  .react-switch-handle{
+    border-radius: 20% !important;
+
+  }
 .user-info{
     width: 100%;
     text-align: left;
@@ -183,7 +191,9 @@ flex-direction: row;
       width: 5em; /* Reduced width for mobile */
     }
 
-    
+    .theme-toggle-switch{
+      display: none !important;
+    }
     .user-info-first, .user-info-second{
       flex-direction: column;
       gap: 1em;

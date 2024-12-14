@@ -157,25 +157,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </li>
       </div>
       <div className="navbar-icons">
-        {/* <div className="icon-container " title="Logout">
-          <Image
-            src={Logout}
-            height={23}
-            className="logout-icon"
-            onClick={logout}
-          />
-        </div> */}
-
-        <div className="icon-container mr-0" title="Wallet">
-          <Image
-            src={Wallet}
-            height={23}
-            className="logout-icon"
-            onClick={gotoWallet}
-          />
-        </div>
-
-        <button onClick={toggleDarkMode}>{darkMode ? "🌙" : "☀️"}</button>
         <div className="icon-container" title="Profile">
           <Image
             src={profile}

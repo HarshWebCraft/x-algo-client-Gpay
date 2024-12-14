@@ -2,29 +2,95 @@
 .stats-card {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Ensures even spacing between columns */
-  padding: 1.25em; /* 20px becomes approximately 1.25em */
+  justify-content: space-between;
+  /* Ensures even spacing between columns */
+  padding: 1.25em;
+  /* 20px becomes approximately 1.25em */
   background-color: var(--bg-color);
-  border-radius: 0.5em; /* 8px becomes approximately 0.5em */
-  box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.3); /* 2px becomes 0.125em and 10px becomes 0.625em */
+  border-radius: 0.5em;
+  /* 8px becomes approximately 0.5em */
+  box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.3);
+  /* 2px becomes 0.125em and 10px becomes 0.625em */
+}
+
+.qwmz{
+  color: var(--text-color);
+}
+
+/* Container for Calendar and Charts */
+.calendar-stats-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center; /* Center vertically */
+  gap: 20px; /* Add spacing between items */
+}
+
+.horizontal-line {
+  border: none;           /* Remove default border */
+  border-top: 1px solid var(--text-color); /* Thin solid line with light gray color */
+  margin: 10px 0;         /* Add spacing above and below the line */
+  width: 100%;            /* Full width */
+}
+
+.month-dropdown{
+  background-color: transparent;
+  color: var(--text-color);
+  border-radius: 0.3em;
+}
+
+/* Calendar Section (Left Side) */
+.calendar-section {
+}
+
+/* Charts Section (Right Side) */
+.charts-section {
+  display: flex;
+  gap: 15px; /* Space between charts */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.stats-toggle-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.qzptd {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.Strategy-details {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 
 
 /* Individual stat item */
 .stat-item {
-  width: 22%; /* Stat items arranged in 4 columns by default */
-  margin-bottom: 1.25em; /* 20px becomes approximately 1.25em */
-  min-width: 7.5em; /* 120px becomes approximately 7.5em */
+  width: 22%;
+  /* Stat items arranged in 4 columns by default */
+  margin-bottom: 1.25em;
+  /* 20px becomes approximately 1.25em */
+  min-width: 7.5em;
+  /* 120px becomes approximately 7.5em */
   text-align: left;
 }
 
 /* Label and value styling for stats */
 .label {
   font-weight: bold;
-  font-size: 1em; /* Default font size */
+  font-size: 1em;
+  /* Default font size */
   color: #777;
-  margin-bottom: 0.3125em; /* 5px becomes approximately 0.3125em */
+  margin-bottom: 0.3125em;
+  /* 5px becomes approximately 0.3125em */
 }
 
 .value {
@@ -51,24 +117,27 @@
   padding: 1.25em;
   border-radius: 0.5em;
   box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
-  margin-top: 0.625em; /* 10px becomes approximately 0.625em */
+  margin-top: 0.625em;
+  /* 10px becomes approximately 0.625em */
 }
 
 /* Account information styling */
 .account-info {
   margin-right: 0.5em;
-      align-items: center;
-gap: 5em;
+  align-items: center;
+  gap: 5em;
   margin-left: 0.5em;
   display: flex;
   flex-direction: row;
-  margin-bottom: 0.5em; /* 8px becomes approximately 0.5em */
+  margin-bottom: 0.5em;
+  /* 8px becomes approximately 0.5em */
 }
 
 .account-item .label {
   font-size: 1em;
   color: #777;
-  margin-right: 0.5em; /* 8px becomes approximately 0.5em */
+  margin-right: 0.5em;
+  /* 8px becomes approximately 0.5em */
 }
 
 .account-item .value {
@@ -80,10 +149,13 @@ gap: 5em;
 .toggle-switch {
   display: inline-flex;
   align-items: center;
-  width: 3.75em; /* 60px becomes approximately 3.75em */
-  height: 1.875em; /* 30px becomes approximately 1.875em */
+  width: 3.75em;
+  /* 60px becomes approximately 3.75em */
+  height: 1.875em;
+  /* 30px becomes approximately 1.875em */
   background-color: #ddd;
-  border-radius: 3.125em; /* 50px becomes approximately 3.125em */
+  border-radius: 3.125em;
+  /* 50px becomes approximately 3.125em */
   cursor: pointer;
   position: relative;
   transition: background-color 0.3s ease;
@@ -99,61 +171,228 @@ gap: 5em;
 
 /* Circle inside the toggle switch */
 .toggle-circle {
-  width: 1.75em; /* 28px becomes approximately 1.75em */
+  width: 1.75em;
+  /* 28px becomes approximately 1.75em */
   height: 1.75em;
   background-color: white;
   border-radius: 50%;
   position: absolute;
-  top: 0.0625em; /* 1px becomes approximately 0.0625em */
+  top: 0.0625em;
+  /* 1px becomes approximately 0.0625em */
   left: 0.0625em;
   transition: left 0.3s ease;
 }
 
 .toggle-switch.on .toggle-circle {
-  left: 1.9375em; /* 31px becomes approximately 1.9375em */
+  left: 1.9375em;
+  /* 31px becomes approximately 1.9375em */
 }
 
 /* Toggle label, optional */
 .toggle-label {
-  margin-left: 2.5em; /* 40px becomes approximately 2.5em */
-  font-size: 0.875em; /* 14px becomes approximately 0.875em */
+  margin-left: 2.5em;
+  /* 40px becomes approximately 2.5em */
+  font-size: 0.875em;
+  /* 14px becomes approximately 0.875em */
   color: white;
 }
+
+/* Toggle Switch Styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  border-radius: 50px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.5); /* Transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.confirm-modal {
+  background: var(--bg-color);
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  color: var(--text-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.month-dropdown option {
+  background-color: var(--bg-color); /* Background color for options */
+  color: var(--text-color); /* Text color for options */
+  padding: 10px;
+}
+
+.pnl-details {
+  font-size: 16px;
+  text-align: start;
+}
+
+.date {
+  font-size: 15px;
+  color: var(--text-color); /* Blue color for the date */
+  margin-bottom: 5px;
+}
+
+.pnl-value {
+  font-size: 15px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  font-size: 15px;
+}
+
+.value.negative {
+  color: #f44336; /* Red color for negative P&L */
+}
+.value.positive {
+  color: #40ff3d; /* Red color for negative P&L */
+}
+
+/* Hover effect for options */
+.month-dropdown option:hover {
+  background-color: #ddd; /* Background color on hover */
+}
+
+.modal-content h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  color: var(--text-color);
+
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cancel-btn,
+.delete-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-btn:hover,
+.delete-btn:hover {
+  opacity: 0.8;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 48em) {
   /* 768px becomes 48em */
 
-  .udfhdjbnns{
+  .udfhdjbnns {
     flex-direction: column;
     gap: 1em;
   }
 
   .stat-item {
-    width: 48%; /* Two columns on medium screens */
+    width: 48%;
+    /* Two columns on medium screens */
   }
 
   .toggle-switch {
-    width: 3.125em; /* 50px becomes approximately 3.125em */
-    height: 1.5625em; /* 25px becomes approximately 1.5625em */
+    width: 3.125em;
+    /* 50px becomes approximately 3.125em */
+    height: 1.5625em;
+    /* 25px becomes approximately 1.5625em */
   }
 
   .toggle-circle {
-    width: 1.5em; /* 24px becomes approximately 1.5em */
+    width: 1.5em;
+    /* 24px becomes approximately 1.5em */
     height: 1.5em;
   }
 
   .toggle-switch.on .toggle-circle {
-    left: 1.5625em; /* 25px becomes approximately 1.5625em */
+    left: 1.5625em;
+    /* 25px becomes approximately 1.5625em */
   }
 }
 
 @media (max-width: 30em) {
+
   /* 480px becomes 30em */
   .stat-item {
     display: flex;
     justify-content: space-between;
-    width: 100%; /* Full width on small screens */
+    width: 100%;
+    /* Full width on small screens */
     margin-bottom: 0.5em;
     border-bottom: 0.05em solid grey;
   }
@@ -162,22 +401,29 @@ gap: 5em;
     margin: 0.625em 0em;
     padding: 1.25em 0em;
   }
+
   .toggle-switch {
-    width: 2.5em; /* 40px becomes approximately 2.5em */
-    height: 1.25em; /* 20px becomes approximately 1.25em */
+    width: 2.5em;
+    /* 40px becomes approximately 2.5em */
+    height: 1.25em;
+    /* 20px becomes approximately 1.25em */
   }
 
   .toggle-circle {
-    width: 1.125em; /* 18px becomes approximately 1.125em */
+    width: 1.125em;
+    /* 18px becomes approximately 1.125em */
     height: 1.125em;
   }
 
   .toggle-switch.on .toggle-circle {
-    left: 1.25em; /* 20px becomes approximately 1.25em */
+    left: 1.25em;
+    /* 20px becomes approximately 1.25em */
   }
 
   .toggle-label {
-    font-size: 0.75em; /* 12px becomes approximately 0.75em */
-    margin-left: 1.875em; /* 30px becomes approximately 1.875em */
+    font-size: 0.75em;
+    /* 12px becomes approximately 0.75em */
+    margin-left: 1.875em;
+    /* 30px becomes approximately 1.875em */
   }
 }

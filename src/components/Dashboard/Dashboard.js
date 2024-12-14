@@ -17,6 +17,7 @@ import OrderPlace from "../OrderPlace";
 import BotCard from "../BotCard";
 import Spinner from "../Spinner";
 import SlidingPanel from "react-sliding-side-panel";
+
 function Dashboard({
   darkMode,
   slide,
@@ -167,6 +168,7 @@ function Dashboard({
           <Spinner />
         </div>
       )}
+
     </div>
   );
 }

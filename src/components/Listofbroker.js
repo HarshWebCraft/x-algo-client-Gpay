@@ -491,7 +491,7 @@ function Listofbroker({ setLoading }) {
                       <td>
                         {item.userData
                           ? item.userData?.data?.clientcode
-                          : item.userDetails?.result?.phishing_code}
+                          : item.balances?.result[0]?.user_id}
                       </td>
 
                       {/* Displaying user name */}
