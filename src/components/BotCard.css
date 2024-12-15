@@ -13,6 +13,67 @@
   /* 2px becomes 0.125em and 10px becomes 0.625em */
 }
 
+.mobile-account-item{
+  display: none
+}
+
+/* From Uiverse.io by vinodjangid07 */ 
+.Btn {
+  width: 45px !important;
+  height: 45px;
+  border: 2px solid rgb(214, 214, 214);
+  border-radius: 15px;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+}
+
+.svgIcon {
+  fill: var(--text-color);
+}
+
+.icon2 {
+  width: 18px;
+  height: 5px;
+  border-bottom: 2px solid var(--text-color);
+  border-left: 2px solid var(--text-color);
+  border-right: 2px solid var(--text-color);
+}
+
+.Btn:hover {
+  background-color: var(--bg-color);
+  transition-duration: 0.3s;
+}
+
+.Btn:hover .icon2 {
+  border-bottom: 2px solid var(--text-color);
+  border-left: 2px solid var(--text-color);
+  border-right: 2px solid var(--text-color);
+}
+
+.Btn:hover .svgIcon {
+  fill: var(--text-color);
+  animation: slide-in-top 1s linear infinite;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 
 
 .qwmz{
@@ -35,15 +96,28 @@
   width: 100%;            /* Full width */
 }
 
+
+
+.calendar-cell.selected {
+  outline: 2px solid var(--text-color);
+}
 .month-dropdown{
   background-color: transparent;
   color: var(--text-color);
   border-radius: 0.3em;
+  padding: 0px 0.5em;
+  border-radius: 0.4em;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
-/* Calendar Section (Left Side) */
-.calendar-section {
+.dropdown-container{
+  gap: 0.5em;
+  display: flex
 }
+
+
+/* Calendar Section (Left Side) */
 
 /* Charts Section (Right Side) */
 .charts-section {
@@ -357,11 +431,83 @@ input:checked + .slider:before {
   display: none;
 }
 
+/* From Uiverse.io by santhoshsj-dev */ 
+.bg {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--base-color);
+  --base-color: #212121;
+ /*use your base color*/
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.process {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  display: inline-block;
+  background-color: var(--base-color);
+}
+
+.process::before {
+  content: '';
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #FFF;
+  background-image: radial-gradient(circle 8px at 18px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 18px 0px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 0px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 36px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 18px 36px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 30px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 5px 30px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 5px 5px, var(--base-color) 100%, transparent 0);
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 3s linear infinite;
+}
+
+.process::after {
+  content: '';
+  left: 35px;
+  top: 15px;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #FFF;
+  background-image: radial-gradient(circle 5px at 12px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 12px 0px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 0px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 24px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 12px 24px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 20px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 3px 20px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 3px 3px, var(--base-color) 100%, transparent 0);
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 4s linear infinite reverse;
+}
+
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}  
 
 /* Responsive adjustments */
 @media (max-width: 48em) {
   /* 768px becomes 48em */
+ 
+  .account-item-none{
+    display: none;
+  }
 
+  .mobile-account-item{
+    display: flex;
+    margin-top: 1em;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
   .wwwwsssssdddd{
     display: block;
   }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import Skeleton from "react-loading-skeleton";
 import Skeleton from "@mui/material/Skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./BotCard.css";
@@ -16,153 +15,79 @@ import {
   format,
   getDay,
 } from "date-fns";
+import samplePLData from "../month-year-pnl.json";
 
 const BotCard = (props) => {
-  const samplePLData = {
-    "2023-01-30": -4740,
-    "2023-01-31": 3940,
-    "2023-02-01": 3970,
-    "2023-02-02": 7400,
-    "2023-02-03": -2690,
-    "2023-02-06": -1300,
-    "2023-02-07": 4080,
-    "2023-02-08": -3480,
-    "2023-02-09": -3090,
-    "2023-02-10": -1670,
-    "2023-02-13": 2470,
-    "2023-02-14": 2380,
-    "2023-02-15": 1980,
-    "2023-02-16": -6020,
-    "2023-02-17": -634.64,
-    "2023-02-21": -6520,
-    "2023-02-22": 291.76,
-    "2023-02-23": 1380,
-    "2023-02-24": -4380,
-    "2023-02-27": 1940,
-    "2023-02-28": -462.84,
-    "2023-02-04": -462.84,
-    "2023-03-01": 5500,
-    "2023-03-02": -1800,
-    "2023-03-03": 2200,
-    "2023-03-06": -550,
-    "2023-03-07": 3500,
-    "2023-03-08": 1200,
-    "2023-03-09": -4300,
-    "2023-03-10": -2800,
-    "2023-03-13": 9100,
-    "2023-03-14": -1700,
-    "2023-03-15": 2250,
-    "2023-03-16": 3300,
-    "2023-03-17": -5800,
-    "2023-03-20": -3100,
-    "2023-03-21": 400,
-    "2023-03-22": 6500,
-    "2023-03-23": 2700,
-    "2023-03-24": -4900,
-    "2023-03-27": 1000,
-    "2023-03-28": -2100,
-    "2023-03-29": 3900,
-    "2023-03-30": -200,
-    "2023-03-31": 4600,
-    "2023-04-03": -1800,
-    "2023-04-04": 3400,
-    "2023-04-05": -2500,
-    "2023-04-06": 1000,
-    "2023-04-07": 1500,
-    "2023-04-10": 5200,
-    "2023-04-11": -3400,
-    "2023-04-12": 6700,
-    "2023-04-13": -2900,
-    "2023-04-14": 3200,
-    "2023-04-17": 400,
-    "2023-04-18": 4200,
-    "2023-04-19": 1800,
-    "2023-04-20": -800,
-    "2023-04-21": -1400,
-    "2023-04-24": 1500,
-    "2023-04-25": -2100,
-    "2023-04-26": 5600,
-    "2023-04-27": -3100,
-    "2023-04-28": 3400,
-  };
+  // State Variables
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [clientDataWithActiveStatus, setClientDataWithActiveStatus] = useState(
     []
   );
-  const [loading, setLoading] = useState(true); // Loading state
-  const [selectedMonth, setSelectedMonth] = useState("2023-02");
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: "",
+  });
+  const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(null);
   const [pnlValue, setPnlValue] = useState(null);
-  const currentDate = new Date();
-  const start = startOfMonth(currentDate); // start of the current month
-  const date = format(currentDate, "yyyy-MM-dd");
-  const monthsWithYears = [
-    { label: "2023-01", value: "2023-01" },
-    { label: "2023-02", value: "2023-02" },
-    { label: "2023-03", value: "2023-03" },
-    { label: "2023-04", value: "2023-04" },
-    { label: "2023-05", value: "2023-05" },
-    { label: "2023-06", value: "2023-06" },
-    { label: "2023-07", value: "2023-07" },
-  ];
-
-  const renderEmptyCells = (startDay) => {
-    const emptyCells = [];
-    for (let i = 0; i < startDay; i++) {
-      emptyCells.push(
-        <div key={`empty-${i}`} className="calendar-cell empty"></div>
-      );
-    }
-    return emptyCells;
-  };
-
-  useEffect(() => {
-    const start = startOfMonth(new Date(selectedMonth));
-    const end = endOfMonth(new Date(selectedMonth));
-    const days = eachDayOfInterval({ start, end });
-    const emptyCells = renderEmptyCells(getDay(start));
-    setDays(days);
-  }, [selectedMonth]);
-
-  const setCalendarData = (days, emptyCells) => {
-    console.log("Calendar Data Updated", days, emptyCells);
-  };
-
+  const [selectedYear, setSelectedYear] = useState("2023");
+  const [selectedMonth, setSelectedMonth] = useState("01");
   const [days, setDays] = useState([]);
   const [allSheetData, setAllSheetData] = useState([]);
 
+  const currentDate = new Date();
+  const start = startOfMonth(currentDate);
+  const date = format(currentDate, "yyyy-MM-dd");
+
+  // Options for Months and Years
+  const monthsWithYears = Array.from({ length: 7 }, (_, i) => ({
+    label: `2023-0${i + 1}`,
+    value: `2023-0${i + 1}`,
+  }));
+
+  const yearOptions = [
+    { label: "2023", value: "2023" },
+    { label: "2024", value: "2024" },
+  ];
+
+  const monthOptions = [
+    { label: "January", value: "01" },
+    { label: "February", value: "02" },
+    { label: "March", value: "03" },
+    { label: "April", value: "04" },
+    { label: "May", value: "05" },
+    { label: "June", value: "06" },
+    { label: "July", value: "07" },
+    { label: "August", value: "08" },
+    { label: "September", value: "09" },
+    { label: "October", value: "10" },
+    { label: "November", value: "11" },
+    { label: "December", value: "12" },
+  ];
+
+  // Redux
   const dispatch = useDispatch();
   const clientdata = useSelector((state) => state.account.allClientData);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
 
   const capital = props.capital;
-  const userId = "H54303926"; // Example userId, this can be dynamically fetched from state if required
 
-  useEffect(() => {
-    // Simulate data fetching delay
-    setTimeout(() => {
-      const initializedData = clientdata.map((item) => ({
-        ...item,
-        isActive: true, // Default status is Active
-      }));
-      setClientDataWithActiveStatus(initializedData);
-      setLoading(false); // Data is loaded
-      console.log(clientDataWithActiveStatus);
-    }, 2000); // Simulate a 2-second delay
-  }, [clientdata]);
+  // Helper Functions
+  const renderEmptyCells = (startDay) =>
+    Array.from({ length: startDay }).map((_, i) => (
+      <div key={`empty-${i}`} className="calendar-cell empty"></div>
+    ));
+
+  const setCalendarData = (days, emptyCells) => {
+    console.log("Calendar Data Updated", days, emptyCells);
+  };
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 768);
   };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -171,11 +96,56 @@ const BotCard = (props) => {
   const handleToggleChange = (index) => {
     setClientDataWithActiveStatus((prevData) => {
       const newData = [...prevData];
-      newData[index].isActive = !newData[index].isActive; // Toggle active status
-
+      newData[index].isActive = !newData[index].isActive;
       return newData;
     });
   };
+
+  const handleMouseEnter = (event, date, plValue) => {
+    const { clientX, clientY } = event;
+    setTooltip({
+      visible: true,
+      x: clientX,
+      y: clientY,
+      content: `${date}: Net realised P&L: ${plValue}`,
+    });
+  };
+
+  const handleMouseMove = (event) => {
+    setTooltip((prev) => ({ ...prev, x: event.clientX, y: event.clientY }));
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip((prev) => ({ ...prev, visible: false }));
+  };
+
+  // Effects
+  useEffect(() => {
+    const start = startOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
+    const end = endOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
+    const days = eachDayOfInterval({ start, end });
+    const emptyCells = renderEmptyCells(getDay(start));
+    setDays(days);
+  }, [selectedYear, selectedMonth]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const initializedData = clientdata.map((item) => ({
+        ...item,
+        isActive: true,
+      }));
+      setClientDataWithActiveStatus(initializedData);
+      setLoading(false);
+    }, 2000);
+  }, [clientdata]);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -330,11 +300,23 @@ const BotCard = (props) => {
                     <div className="stat-item edcvon">
                       <div className="dropdown-container">
                         <select
-                          className="month-dropdown ps-3 pe-3"
+                          value={selectedYear}
+                          onChange={(e) => setSelectedYear(e.target.value)}
+                          className="month-dropdown"
+                        >
+                          {yearOptions.map((year) => (
+                            <option key={year.value} value={year.value}>
+                              {year.label}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select
                           value={selectedMonth}
+                          className="month-dropdown"
                           onChange={(e) => setSelectedMonth(e.target.value)}
                         >
-                          {monthsWithYears.map((month) => (
+                          {monthOptions.map((month) => (
                             <option key={month.value} value={month.value}>
                               {month.label}
                             </option>
@@ -356,17 +338,49 @@ const BotCard = (props) => {
                               <div
                                 key={date}
                                 className={`calendar-cell ${
-                                  plValue >= 0 ? "positive" : "negative"
-                                }`}
+                                  samplePLData[format(day, "yyyy-MM-dd")] >= 0
+                                    ? "positive"
+                                    : "negative"
+                                } ${selectedDate === date ? "selected" : ""}`}
                                 onClick={() => {
-                                  setSelectedDate(date);
-                                  setPnlValue(plValue);
+                                  setSelectedDate(date); // Set the clicked date
+                                  setPnlValue(
+                                    samplePLData[format(day, "yyyy-MM-dd")] || 0
+                                  );
                                 }}
+                                onMouseEnter={(e) =>
+                                  handleMouseEnter(
+                                    e,
+                                    format(day, "yyyy-MM-dd"),
+                                    samplePLData[format(day, "yyyy-MM-dd")] ||
+                                      "No Data"
+                                  )
+                                }
+                                onMouseMove={handleMouseMove}
+                                onMouseLeave={handleMouseLeave}
                               >
                                 <div>{format(day, "d")}</div>
                               </div>
                             );
                           })}
+                          {tooltip.visible && (
+                            <div
+                              style={{
+                                position: "fixed",
+                                top: tooltip.y + 10,
+                                left: tooltip.x + 10,
+                                backgroundColor: "var(--text-color)",
+                                color: "var(--bg-color)",
+                                padding: "5px 10px",
+                                borderRadius: "4px",
+                                fontSize: "12px",
+                                pointerEvents: "none", // Prevent blocking other interactions
+                                zIndex: 1000,
+                              }}
+                            >
+                              {tooltip.content}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -384,7 +398,7 @@ const BotCard = (props) => {
                           </span>
                         </div>
                         <div className="pnl-value">
-                          <span className="label">F&O:</span>
+                          <span className="label">P&L:</span>
                           <span
                             className={`value ${
                               pnlValue < 0 ? "negative" : "positive"

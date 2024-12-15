@@ -36,7 +36,7 @@ function Menubar() {
             </Link>
           </li>
           <li className="link">
-            <Link style={{ color: "white" }} to="/login">
+            <Link style={{ color: "white" }} to="login">
               Sign in
             </Link>
           </li>

@@ -22,7 +22,7 @@ const DeployedCard = (props) => {
   const email = useSelector((state) => state.email.email);
   const clientdata = useSelector((state) => state.account.allClientData);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleRemoveStrategy = (strategyId, broker, index) => {
     setSelectedStrategy({ strategyId, broker });
     setSelectedIndex(index);
@@ -73,6 +73,22 @@ const DeployedCard = (props) => {
     setIsModalOpen(false); // Close the modal if the user cancels
   };
 
+  const handleDownloadCSV = async (strategyId) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.post(`${url}/downloadCSV`, { email });
+      console.log(response.data);
+      const blob = new Blob([response.data], { type: "text/csv" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `strategy_${strategyId}_data.csv`;
+      link.click();
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error downloading CSV:", error);
+    }
+  };
+
   return (
     <>
       {userSchema.DeployedData && userSchema.DeployedData.length > 0 ? (
@@ -93,7 +109,7 @@ const DeployedCard = (props) => {
                 <span className="label">User Id:</span>
                 <span className="value">{item?.Account || "N/A"}</span>
               </div>
-              <div className="account-item">
+              <div className="account-item account-item-none">
                 {/* Toggle Switch for activating/deactivating strategy */}
                 <label className="switch">
                   <input
@@ -104,7 +120,46 @@ const DeployedCard = (props) => {
                   <span className="slider"></span>
                 </label>
               </div>
-              <div>
+              <div className="account-item-none">
+                {/* Download CSV Button */}
+
+                <button
+                  className="Btn"
+                  onClick={() => handleDownloadCSV(item.Strategy)}
+                  disabled={isLoading}
+                  title="Download CSV"
+                >
+                  {isLoading ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="0.7em"
+                      viewBox="0 0 50 50"
+                      className="svgIcon"
+                      style={{ animation: "spin 1s linear infinite" }}
+                    >
+                      <circle
+                        cx="25"
+                        cy="25"
+                        r="20"
+                        stroke="white"
+                        strokeWidth="5"
+                        fill="none"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="0.7em"
+                      viewBox="0 0 384 512"
+                      className="svgIcon"
+                    >
+                      <path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path>
+                    </svg>
+                  )}
+                  {isLoading ? "" : <span className="icon2"></span>}
+                </button>
+              </div>
+              <div className="account-item-none">
                 {/* Delete icon */}
                 <img
                   src={delete_broker || "delete_broker_placeholder.png"}
@@ -115,6 +170,52 @@ const DeployedCard = (props) => {
                   }
                   alt="Delete Broker"
                 />
+              </div>
+              <div className="mobile-account-item">
+                <div className="account-item">
+                  {/* Toggle Switch for activating/deactivating strategy */}
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={isActive}
+                      onChange={() =>
+                        handleToggleStrategy(item.Strategy, index)
+                      }
+                    />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+                <div>
+                  {/* Download CSV Button */}
+
+                  <button
+                    class="Btn"
+                    onClick={() => handleDownloadCSV(item.Strategy)}
+                    title="Download CSV"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="0.7em"
+                      viewBox="0 0 384 512"
+                      class="svgIcon"
+                    >
+                      <path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path>
+                    </svg>
+                    <span class="icon2"></span>
+                  </button>
+                </div>
+                <div>
+                  {/* Delete icon */}
+                  <img
+                    src={delete_broker || "delete_broker_placeholder.png"}
+                    height={20}
+                    className="delete-icon"
+                    onClick={() =>
+                      handleRemoveStrategy(item.Strategy, item.Broker, index)
+                    }
+                    alt="Delete Broker"
+                  />
+                </div>
               </div>
             </div>
           </div>
