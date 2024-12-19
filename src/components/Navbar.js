@@ -20,7 +20,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   useEffect(() => {
     if (location.pathname.startsWith("/Strategies/")) {
       const strategy = location.pathname.split("/")[2];
-      setSelectedStrategy(strategy.charAt(0).toUpperCase() + strategy.slice(1));
+      // setSelectedStrategy(strategy.charAt(0).toUpperCase() + strategy.slice(1));
     }
   }, [location]);
 
@@ -50,7 +50,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   };
 
   const handleStrategySelect = (strategy) => {
-    setSelectedStrategy(strategy);
+    // setSelectedStrategy(strategy);
     setDropdownOpen(false); // Close dropdown
     navigate(`/Strategies/${strategy.replace(" ", "")}`);
   };

@@ -241,6 +241,7 @@
 // };
 
 // export default PaperTradeTable;
+
 import React, { useEffect, useState } from "react";
 import "./PaperTradeTable.css";
 import { ProductionUrl } from "../URL/url";
@@ -339,16 +340,66 @@ const PaperTradeTable = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [pnlValue, setPnlValue] = useState(null);
   const [days, setDays] = useState([]);
-
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    x: 0,
+    y: 0,
+    content: "",
+  });
   const monthsWithYears = [
-    { label: "2023-01", value: "2023-01" },
-    { label: "2023-02", value: "2023-02" },
-    { label: "2023-03", value: "2023-03" },
-    { label: "2023-04", value: "2023-04" },
-    { label: "2023-05", value: "2023-05" },
-    { label: "2023-06", value: "2023-06" },
-    { label: "2023-07", value: "2023-07" },
+    { label: "2024-01", value: "2024-01" },
+    { label: "2024-02", value: "2024-02" },
+    { label: "2024-03", value: "2024-03" },
+    { label: "2024-04", value: "2024-04" },
+    { label: "2024-05", value: "2024-05" },
+    { label: "2024-06", value: "2024-06" },
+    { label: "2024-07", value: "2024-07" },
+    { label: "2024-08", value: "2024-08" },
+    { label: "2024-09", value: "2024-09" },
+    { label: "2024-10", value: "2024-10" },
+    { label: "2024-11", value: "2024-11" },
+    { label: "2024-12", value: "2024-12" },
   ];
+
+  const [dailyPnL, setDailyPnL] = useState({});
+  const handleMouseEnter = (event, date, plValue) => {
+    const { clientX, clientY } = event;
+    console.log(plValue);
+    setTooltip({
+      visible: true,
+      x: clientX,
+      y: clientY,
+      content: `${date}: Net realised P&L: ${plValue}`,
+    });
+  };
+
+  const handleMouseMove = (event) => {
+    setTooltip((prev) => ({ ...prev, x: event.clientX, y: event.clientY }));
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip((prev) => ({ ...prev, visible: false }));
+  };
+  useEffect(() => {
+    if (allSheetData.length > 0) {
+      const sheetData = allSheetData[0].sheetData;
+
+      // Process sheetData to calculate daily P&L
+      const pnlByDate = sheetData.reduce((acc, trade) => {
+        const date = trade[3]; // Extract the start date from the trade
+        const pnl = parseFloat(trade[10]); // Parse the Profit/Loss value
+
+        if (!acc[date]) {
+          acc[date] = 0; // Initialize if the date is not already in the accumulator
+        }
+
+        acc[date] += pnl; // Add the P&L for this trade to the date's total
+        return acc;
+      }, {});
+
+      setDailyPnL(pnlByDate);
+    }
+  }, [allSheetData]);
 
   const email = useSelector((state) => state.email.email);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -420,6 +471,7 @@ const PaperTradeTable = () => {
 
         const response3 = await axios.post(`${url}/fetchSheetData`, { email });
         setAllSheetData(response3.data.allSheetData);
+        console.log(allSheetData);
         setLoader(false);
       } catch (error) {
         console.error("Error fetching sheet data:", error);
@@ -439,6 +491,7 @@ const PaperTradeTable = () => {
     const emptyCells = renderEmptyCells(getDay(start)); // empty cells for the first few days of the month
     setDays(days); // Update the state with days
     setCalendarData(days, emptyCells); // Update the calendar with new data
+    console.dir(allSheetData, { depth: null });
   }, [selectedMonth]);
 
   const renderEmptyCells = (startDay) => {
@@ -461,6 +514,67 @@ const PaperTradeTable = () => {
     ]);
   };
 
+  const [tradeStats, setTradeStats] = useState([]);
+
+  useEffect(() => {
+    const calculateStats = () => {
+      const allStats = allSheetData.map((entry) => {
+        const sheetData = entry.sheetData;
+
+        // Filter trades for the selected month
+        console.log(selectedMonth);
+        const filteredTrades = sheetData.filter(
+          (trade) => trade[3].startsWith(selectedMonth) // Trade date matches the selected month
+        );
+
+        // Variables to calculate stats
+        let profitableTrades = 0;
+        let totalTrades = filteredTrades.length;
+        let totalPnL = 0;
+        let totalInvestment = 0;
+
+        // Iterate through each filtered trade
+        filteredTrades.forEach((trade) => {
+          const pnl = parseFloat(trade[10]); // P&L value
+          const investment = parseFloat(trade[9]); // Investment amount (absolute)
+
+          if (pnl > 0) {
+            profitableTrades++; // Count profitable trades
+          }
+
+          totalPnL += pnl;
+          totalInvestment += Math.abs(investment); // Sum up the absolute investment values
+        });
+
+        // Calculate Trade Accuracy
+        const tradeAccuracy =
+          totalTrades > 0
+            ? ((profitableTrades / totalTrades) * 100).toFixed(2)
+            : 0;
+
+        // Calculate ROI
+        const roi =
+          totalInvestment > 0
+            ? ((totalPnL / totalInvestment) * 100).toFixed(2)
+            : 0;
+
+        // Return stats for this entry
+        return {
+          strategyName: entry.strategyName,
+          tradeAccuracy: parseFloat(tradeAccuracy),
+          roi: parseFloat(roi),
+        };
+      });
+
+      setTradeStats(allStats);
+    };
+
+    calculateStats();
+  }, [dailyPnL, selectedMonth]);
+
+  useEffect(() => {
+    console.log(dailyPnL);
+  }, [allSheetData, dailyPnL, tradeStats]);
   return (
     <div>
       {loader ? (
@@ -480,7 +594,7 @@ const PaperTradeTable = () => {
       ) : allSheetData.length > 0 ? (
         allSheetData.map((strategy, index) => {
           const pnlValues = strategy.sheetData.map(
-            (row) => parseFloat(row[8]) || 0
+            (row) => parseFloat(row[10]) || 0
           );
           const totalPnl = pnlValues.reduce((sum, value) => sum + value, 0);
 
@@ -548,23 +662,59 @@ const PaperTradeTable = () => {
                           {renderEmptyCells(getDay(start) - 1)}
                           {days.map((day) => {
                             const date = format(day, "yyyy-MM-dd");
-                            const plValue = samplePLData[date];
-
+                            const plValue = dailyPnL[date];
+                            console.log(plValue);
                             return (
                               <div
                                 key={date}
+                                // className={`calendar-cell ${
+                                //   plValue >= 0 ? "positive" : "negative"
+                                // }`}
+
                                 className={`calendar-cell ${
-                                  plValue >= 0 ? "positive" : "negative"
+                                  plValue == undefined
+                                    ? "grey"
+                                    : plValue >= 0
+                                    ? "positive"
+                                    : "negative"
                                 }`}
                                 onClick={() => {
                                   setSelectedDate(date);
                                   setPnlValue(plValue);
                                 }}
+                                onMouseEnter={(e) =>
+                                  handleMouseEnter(
+                                    e,
+                                    format(day, "yyyy-MM-dd"),
+                                    dailyPnL[format(day, "yyyy-MM-dd")] ||
+                                      "No Data"
+                                  )
+                                }
+                                onMouseMove={handleMouseMove}
+                                onMouseLeave={handleMouseLeave}
                               >
                                 <div>{format(day, "d")}</div>
                               </div>
                             );
                           })}
+                          {tooltip.visible && (
+                            <div
+                              style={{
+                                position: "fixed",
+                                top: tooltip.y + 10,
+                                left: tooltip.x + 10,
+                                backgroundColor: "var(--text-color)",
+                                color: "var(--bg-color)",
+                                padding: "5px 10px",
+                                borderRadius: "4px",
+                                fontSize: "12px",
+                                pointerEvents: "none", // Prevent blocking other interactions
+                                zIndex: 1000,
+                              }}
+                            >
+                              {tooltip.content}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -597,14 +747,16 @@ const PaperTradeTable = () => {
                     </div>
                     <div className="charts-section nnnnmm">
                       <CircularChart
-                        percentage={79.66}
+                        percentage={
+                          tradeStats[index]?.tradeAccuracy || "No Data"
+                        }
                         color="#007bff"
                         strokeWidth={14}
                       />
                     </div>
                     <div className="charts-section nnnnmm">
                       <CircularChart
-                        percentage={57.76}
+                        percentage={tradeStats[index]?.roi || "No Data"}
                         color="#fbc02d"
                         strokeWidth={14}
                       />

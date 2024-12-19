@@ -168,7 +168,6 @@ function Dashboard({
           <Spinner />
         </div>
       )}
-
     </div>
   );
 }

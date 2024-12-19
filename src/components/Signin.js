@@ -52,7 +52,7 @@ function Signin() {
             if (modalBackdrop) {
               modalBackdrop.classList.remove("modal-backdrop");
             }
-
+            console.log(a.data.userSchema);
             dispatch(userSchemaRedux(a.data.userSchema));
             navigate("/home", { state: { userEmail: email } });
           } else {

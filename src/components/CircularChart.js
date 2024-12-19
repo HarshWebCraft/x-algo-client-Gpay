@@ -25,7 +25,7 @@ const CircularChart = ({ percentage, color, strokeWidth = 8 }) => {
         stroke={color}
         strokeWidth={strokeWidth} // Customize stroke width here
         strokeDasharray={circumference}
-        strokeDashoffset={offset}
+        strokeDashoffset={percentage == "No Data" ? 0 : offset}
         strokeLinecap="round"
         transform="rotate(-90 60 60)" // Rotates to start progress at the top
       />

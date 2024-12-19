@@ -28,6 +28,9 @@
 .calendar-cell.positive {
     background-color: #00FF88;
 }
+.calendar-cell.grey {
+    background-color: #aaaaaa;
+}
 
 .calendar-cell.negative {
     background-color: #FF5A5A;
