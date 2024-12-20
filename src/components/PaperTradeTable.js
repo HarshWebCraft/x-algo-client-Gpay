@@ -329,23 +329,47 @@ const PaperTradeTable = () => {
     "2023-04-27": -3100,
     "2023-04-28": 3400,
   };
-
+  const currentYear = new Date().getFullYear().toString(); // Get the current year as a string
+  const currentMonth = new Date().toISOString().slice(5, 7);
   const [ExcelData, setExcelData] = useState([]);
   const [pnl, setpnl] = useState();
   const [allStrategies, setAllStrategies] = useState([]); // Store the strategies
   const [allSheetData, setAllSheetData] = useState([]); // Store the sheet data
   const [filteredData, setFilteredData] = useState([]);
   const [loader, setLoader] = useState(true);
-  const [selectedMonth, setSelectedMonth] = useState("2023-02");
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [pnlValue, setPnlValue] = useState(null);
   const [days, setDays] = useState([]);
+
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
     y: 0,
     content: "",
   });
+
+  const yearOptions = [
+    { label: "2023", value: "2023" },
+    { label: "2024", value: "2024" },
+    { label: "2025", value: "2025" },
+  ];
+
+  const monthOptions = [
+    { label: "January", value: "01" },
+    { label: "February", value: "02" },
+    { label: "March", value: "03" },
+    { label: "April", value: "04" },
+    { label: "May", value: "05" },
+    { label: "June", value: "06" },
+    { label: "July", value: "07" },
+    { label: "August", value: "08" },
+    { label: "September", value: "09" },
+    { label: "October", value: "10" },
+    { label: "November", value: "11" },
+    { label: "December", value: "12" },
+  ];
   const monthsWithYears = [
     { label: "2024-01", value: "2024-01" },
     { label: "2024-02", value: "2024-02" },
@@ -485,14 +509,12 @@ const PaperTradeTable = () => {
   const start = startOfMonth(currentDate); // start of the current month
   const date = format(currentDate, "yyyy-MM-dd"); // current date in "yyyy-MM-dd" format
   useEffect(() => {
-    const start = startOfMonth(new Date(selectedMonth)); // starting date of the selected month
-    const end = endOfMonth(new Date(selectedMonth)); // ending date of the selected month
-    const days = eachDayOfInterval({ start, end }); // all days within the selected month
-    const emptyCells = renderEmptyCells(getDay(start)); // empty cells for the first few days of the month
-    setDays(days); // Update the state with days
-    setCalendarData(days, emptyCells); // Update the calendar with new data
-    console.dir(allSheetData, { depth: null });
-  }, [selectedMonth]);
+    const start = startOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
+    const end = endOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
+    const days = eachDayOfInterval({ start, end });
+    const emptyCells = renderEmptyCells(getDay(start));
+    setDays(days);
+  }, [selectedYear, selectedMonth]);
 
   const renderEmptyCells = (startDay) => {
     const emptyCells = [];
@@ -516,16 +538,80 @@ const PaperTradeTable = () => {
 
   const [tradeStats, setTradeStats] = useState([]);
 
+  // useEffect(() => {
+  //   const calculateStats = () => {
+  //     const allStats = allSheetData.map((entry) => {
+  //       const sheetData = entry.sheetData;
+
+  //       // Filter trades for the selected month
+  //       console.log(selectedMonth);
+  //       const filteredTrades = sheetData.filter(
+  //         (trade) => trade[3].startsWith(selectedMonth) // Trade date matches the selected month
+  //       );
+
+  //       // Variables to calculate stats
+  //       let profitableTrades = 0;
+  //       let totalTrades = filteredTrades.length;
+  //       let totalPnL = 0;
+  //       let totalInvestment = 0;
+
+  //       // Iterate through each filtered trade
+  //       filteredTrades.forEach((trade) => {
+  //         const pnl = parseFloat(trade[10]); // P&L value
+  //         const investment = parseFloat(trade[9]); // Investment amount (absolute)
+
+  //         if (pnl > 0) {
+  //           profitableTrades++; // Count profitable trades
+  //         }
+
+  //         totalPnL += pnl;
+  //         totalInvestment += Math.abs(investment); // Sum up the absolute investment values
+  //       });
+
+  //       // Calculate Trade Accuracy
+  //       const tradeAccuracy =
+  //         totalTrades > 0
+  //           ? ((profitableTrades / totalTrades) * 100).toFixed(2)
+  //           : 0;
+
+  //       // Calculate ROI
+  //       const roi =
+  //         totalInvestment > 0
+  //           ? ((totalPnL / totalInvestment) * 100).toFixed(2)
+  //           : 0;
+
+  //       // Return stats for this entry
+  //       return {
+  //         strategyName: entry.strategyName,
+  //         tradeAccuracy: parseFloat(tradeAccuracy),
+  //         roi: parseFloat(roi),
+  //       };
+  //     });
+
+  //     setTradeStats(allStats);
+  //   };
+
+  //   calculateStats();
+  // }, [dailyPnL, selectedMonth]);
+
   useEffect(() => {
     const calculateStats = () => {
       const allStats = allSheetData.map((entry) => {
         const sheetData = entry.sheetData;
 
         // Filter trades for the selected month
-        console.log(selectedMonth);
-        const filteredTrades = sheetData.filter(
-          (trade) => trade[3].startsWith(selectedMonth) // Trade date matches the selected month
-        );
+        console.log(selectedYear + "-" + selectedMonth);
+
+        const filteredTrades = sheetData.filter((trade) => {
+          // Check if trade[3] exists and is a string before calling startsWith
+          const tradeDate = trade[3];
+          if (tradeDate && typeof tradeDate === "string") {
+            return tradeDate.startsWith(selectedYear + "-" + selectedMonth); // Trade date matches the selected month
+          }
+          return false; // Skip trades with an invalid date
+        });
+
+        console.log(filteredTrades);
 
         // Variables to calculate stats
         let profitableTrades = 0;
@@ -565,12 +651,12 @@ const PaperTradeTable = () => {
           roi: parseFloat(roi),
         };
       });
-
+      console.log(allStats);
       setTradeStats(allStats);
     };
 
     calculateStats();
-  }, [dailyPnL, selectedMonth]);
+  }, [dailyPnL, selectedMonth, selectedYear]);
 
   useEffect(() => {
     console.log(dailyPnL);
@@ -581,7 +667,11 @@ const PaperTradeTable = () => {
         <div className="skeleton-container container">
           {/* Skeleton for the card layout */}
           {[...Array(3)].map((_, index) => (
-            <div key={index} className="skeleton-card row stats-container">
+            <div
+              key={index}
+              className="skeleton-card row stats-container"
+              style={{ marginTop: "5em" }}
+            >
               <Skeleton height={40} width="30%" className="mr-1" />
               <Skeleton height={40} width="20%" className="mr-1" />
               <Skeleton height={40} width="20%" className="mr-1" />
@@ -600,7 +690,7 @@ const PaperTradeTable = () => {
 
           return (
             <div className="container" key={strategy.strategyId}>
-              <div className="row stats-container">
+              <div className="row stats-container" style={{ marginTop: "5em" }}>
                 <div className="account-info tfghnc pe-3 justify-content-between">
                   <div className="phjhverthj">
                     <div className="account-item">
@@ -618,11 +708,23 @@ const PaperTradeTable = () => {
                     <div className="account-item">
                       <div className="dropdown-container">
                         <select
-                          className="month-dropdown ps-3 pe-3"
+                          value={selectedYear}
+                          onChange={(e) => setSelectedYear(e.target.value)}
+                          className="month-dropdown"
+                        >
+                          {yearOptions.map((year) => (
+                            <option key={year.value} value={year.value}>
+                              {year.label}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select
                           value={selectedMonth}
+                          className="month-dropdown"
                           onChange={(e) => setSelectedMonth(e.target.value)}
                         >
-                          {monthsWithYears.map((month) => (
+                          {monthOptions.map((month) => (
                             <option key={month.value} value={month.value}>
                               {month.label}
                             </option>
@@ -656,96 +758,95 @@ const PaperTradeTable = () => {
                 </div>
                 <div className="stats-toggle-container">
                   <div className="calendar-stats-container">
-                    <div className="calendar-section">
-                      <div className="calendar">
-                        <div className="calendar-body">
-                          {renderEmptyCells(getDay(start) - 1)}
-                          {days.map((day) => {
-                            const date = format(day, "yyyy-MM-dd");
-                            const plValue = dailyPnL[date];
-                            console.log(plValue);
-                            return (
+                    <div className="d-flex flex-column align-items-center">
+                      <div className="calendar-section">
+                        <div className="calendar">
+                          <div className="calendar-body">
+                            {renderEmptyCells(getDay(start) - 1)}
+                            {days.map((day) => {
+                              const date = format(day, "yyyy-MM-dd");
+                              const plValue = dailyPnL[date];
+                              console.log(plValue);
+                              return (
+                                <div
+                                  key={date}
+                                  // className={`calendar-cell ${
+                                  //   plValue >= 0 ? "positive" : "negative"
+                                  // }`}
+
+                                  className={`calendar-cell ${
+                                    plValue == undefined
+                                      ? "grey"
+                                      : plValue >= 0
+                                      ? "positive"
+                                      : "negative"
+                                  }`}
+                                  onClick={() => {
+                                    setSelectedDate(date);
+                                    setPnlValue(plValue);
+                                  }}
+                                  onMouseEnter={(e) =>
+                                    handleMouseEnter(
+                                      e,
+                                      format(day, "yyyy-MM-dd"),
+                                      dailyPnL[format(day, "yyyy-MM-dd")] ||
+                                        "No Data"
+                                    )
+                                  }
+                                  onMouseMove={handleMouseMove}
+                                  onMouseLeave={handleMouseLeave}
+                                >
+                                  <div>{format(day, "d")}</div>
+                                </div>
+                              );
+                            })}
+                            {tooltip.visible && (
                               <div
-                                key={date}
-                                // className={`calendar-cell ${
-                                //   plValue >= 0 ? "positive" : "negative"
-                                // }`}
-
-                                className={`calendar-cell ${
-                                  plValue == undefined
-                                    ? "grey"
-                                    : plValue >= 0
-                                    ? "positive"
-                                    : "negative"
-                                }`}
-                                onClick={() => {
-                                  setSelectedDate(date);
-                                  setPnlValue(plValue);
+                                style={{
+                                  position: "fixed",
+                                  top: tooltip.y + 10,
+                                  left: tooltip.x + 10,
+                                  backgroundColor: "var(--text-color)",
+                                  color: "var(--bg-color)",
+                                  padding: "5px 10px",
+                                  borderRadius: "4px",
+                                  fontSize: "12px",
+                                  pointerEvents: "none", // Prevent blocking other interactions
+                                  zIndex: 1000,
                                 }}
-                                onMouseEnter={(e) =>
-                                  handleMouseEnter(
-                                    e,
-                                    format(day, "yyyy-MM-dd"),
-                                    dailyPnL[format(day, "yyyy-MM-dd")] ||
-                                      "No Data"
-                                  )
-                                }
-                                onMouseMove={handleMouseMove}
-                                onMouseLeave={handleMouseLeave}
                               >
-                                <div>{format(day, "d")}</div>
+                                {tooltip.content}
                               </div>
-                            );
-                          })}
-                          {tooltip.visible && (
-                            <div
-                              style={{
-                                position: "fixed",
-                                top: tooltip.y + 10,
-                                left: tooltip.x + 10,
-                                backgroundColor: "var(--text-color)",
-                                color: "var(--bg-color)",
-                                padding: "5px 10px",
-                                borderRadius: "4px",
-                                fontSize: "12px",
-                                pointerEvents: "none", // Prevent blocking other interactions
-                                zIndex: 1000,
-                              }}
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="calendar-section">
+                        <div className="pnl-details">
+                          <div className="date">
+                            <span>
+                              {selectedDate
+                                ? format(new Date(selectedDate), "MMM dd, yyyy")
+                                : "Select a date"}
+                            </span>
+                          </div>
+                          <div className="pnl-value">
+                            <span className="label">F&O:</span>
+                            <span
+                              className={`value ${
+                                pnlValue < 0 ? "negative" : "positive"
+                              }`}
                             >
-                              {tooltip.content}
-                            </div>
-                          )}
+                              {pnlValue !== null && pnlValue !== undefined
+                                ? pnlValue.toFixed(2)
+                                : "0.00"}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="calendar-section">
-                      <div className="pnl-details">
-                        <div className="pnl-text">
-                          <span>Net realised P&L</span>
-                        </div>
-
-                        <div className="date">
-                          <span>
-                            {selectedDate
-                              ? format(new Date(selectedDate), "MMM dd, yyyy")
-                              : "Select a date"}
-                          </span>
-                        </div>
-                        <div className="pnl-value">
-                          <span className="label">F&O:</span>
-                          <span
-                            className={`value ${
-                              pnlValue < 0 ? "negative" : "positive"
-                            }`}
-                          >
-                            {pnlValue !== null && pnlValue !== undefined
-                              ? pnlValue.toFixed(2)
-                              : "0.00"}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="charts-section nnnnmm">
+                    <div className="calendar-section"> </div>
+                    <div className="charts-section nnnnmm d-flex- flex-column ">
                       <CircularChart
                         percentage={
                           tradeStats[index]?.tradeAccuracy || "No Data"
@@ -753,22 +854,32 @@ const PaperTradeTable = () => {
                         color="#007bff"
                         strokeWidth={14}
                       />
+                      <div>
+                        <p>Accuracy</p>
+                      </div>
                     </div>
-                    <div className="charts-section nnnnmm">
+                    <div className="charts-section nnnnmm d-flex- flex-column ">
                       <CircularChart
                         percentage={tradeStats[index]?.roi || "No Data"}
                         color="#fbc02d"
                         strokeWidth={14}
                       />
+                      <div>
+                        <p>ROI</p>
+                      </div>
                     </div>
                   </div>
                   <div className="stat-item wwwwsssssdddd">
-                    <div className="label">Monthly gain</div>
-                    <div className="value green">79.66%</div>
+                    <div className="label">Accuracy</div>
+                    <div className="value green">
+                      {tradeStats[index]?.tradeAccuracy || "No Data"}
+                    </div>
                   </div>
                   <div className="stat-item wwwwsssssdddd">
-                    <div className="label">Today's gain</div>
-                    <div className="value green">57.76%</div>
+                    <div className="label">ROI</div>
+                    <div className="value green">
+                      {tradeStats[index]?.roi || "No Data"}
+                    </div>
                   </div>
                 </div>
               </div>

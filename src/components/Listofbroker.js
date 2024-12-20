@@ -286,11 +286,7 @@ function Listofbroker({ setLoading }) {
     navigate("/home");
   };
   return (
-    <div
-      className={`container ${
-        localStorage.getItem("theme") === "light-theme" ? "" : "jkcdsbhchasd"
-      }`}
-    >
+    <div className={`container`}>
       <div className={`${showAlert ? "alert alert-danger show mt-4" : ""}`}>
         {alertMessage}
       </div>

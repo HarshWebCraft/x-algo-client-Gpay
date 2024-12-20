@@ -75,14 +75,16 @@ function Deployed({ darkMode, toggleDarkMode, setLoading }) {
         toggleDarkMode={toggleDarkMode}
         setLoading={setLoading}
       />
-      <div className="container">
-        {loader ? (
-          <div className="hjg gfhglio">
-            <Spinner />
-          </div>
-        ) : (
-          <DeployedCard capital={capital} />
-        )}
+      <div className="Deployed">
+        <div className="container" style={{ marginTop: "5em" }}>
+          {loader ? (
+            <div className="hjg gfhglio">
+              <Spinner />
+            </div>
+          ) : (
+            <DeployedCard capital={capital} />
+          )}
+        </div>
       </div>
     </div>
   );

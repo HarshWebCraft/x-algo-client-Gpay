@@ -13,6 +13,15 @@
   /* 2px becomes 0.125em and 10px becomes 0.625em */
 }
 
+.deployed-margin{
+  margin-top: 0em !important;
+}
+
+.Deployed{
+  width: 100%;
+  position: absolute;
+}
+
 .mobile-account-item{
   display: none
 }
@@ -199,7 +208,7 @@
   padding: 1.25em;
   border-radius: 0.5em;
   box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.2);
-  margin-top: 0.625em;
+  margin-top: 1em;
   /* 10px becomes approximately 0.625em */
 }
 

@@ -176,112 +176,116 @@ function StrategyCard() {
   };
 
   return (
-    <div className="card-container">
-      {loader ? (
-        <div className="hjg gfhglio">
-          <Spinner />
-        </div>
-      ) : (
-        strategyData.map((strategy) => (
-          <div key={strategy._id} className="card">
-            <div className="card-header">
-              <div className="header-left">
-                <img src={image} alt="Icon" className="strategy-icon" />
-                <div className="strategy-details">
-                  <h2>{strategy.title}</h2>
-                  <p className="strategy-type">
-                    Strategy: {strategy.strategyType}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="capital-info">
-              <strong>Capital requirement : </strong>
-              <p>{strategy.capitalRequirement}</p>
-            </div>
-
-            <div className="strategy-info">
-              <p>{strategy.description}</p>
-            </div>
-
-            <div className="execution-info">
-              <div className="created-by-info">
-                <i className="created-by-icon">✍️</i>
-                Created By: {strategy.createdBy}
-              </div>
-              <div className="creation-date-info">
-                <i className="date-icon">📅</i>
-                Created on:{" "}
-                {new Date(strategy.dateOfCreation).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}
-              </div>
-
-              <div className="d-flex gap-2">
-                <div className="subscriber-info">
-                  <i className="subscriber-icon">👥</i>
-                  Subscriber : {strategy.subscribeCount}
-                </div>
-                <div className="deployed-info">
-                  <i className="deployed-icon">🚀</i>
-                  Deployed : {strategy.deployedCount}
-                </div>
-              </div>
-              <div className="time-info">
-                <i className="clock-icon">🕒</i>
-                {strategy.days} at {strategy.time}
-              </div>
-            </div>
-
-            <div className="card-footer">
-              <button
-                className="subscribe-btn"
-                onClick={() => handleSubscribe(strategy._id)}
-                disabled={subscribedStrategies.includes(strategy._id)} // Disable if already subscribed
-              >
-                {subscribedStrategies.includes(strategy._id)
-                  ? "Subscribed"
-                  : "Subscribe"}
-              </button>
-              <button
-                className="deploy-btn"
-                onClick={() => handleOpen(strategy._id)}
-                disabled={!subscribedStrategies.includes(strategy._id)} // Disable if not subscribed
-              >
-                Deploy
-              </button>
-            </div>
+    <div className="marketPlace">
+      <div className="card-container">
+        {loader ? (
+          <div className="hjg gfhglio">
+            <Spinner />
           </div>
-        ))
-      )}
+        ) : (
+          strategyData.map((strategy) => (
+            <div key={strategy._id} className="card">
+              <div className="card-header">
+                <div className="header-left">
+                  <img src={image} alt="Icon" className="strategy-icon" />
+                  <div className="strategy-details">
+                    <h2>{strategy.title}</h2>
+                    <p className="strategy-type">
+                      Strategy: {strategy.strategyType}
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box className="sub-model" style={{ padding: "1.5rem" }}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Deployment Configuration
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-            Please configure the details below before <br /> deploying the
-            strategy:
-          </Typography>
-          <form style={{ marginTop: "2rem" }}>
-            {/* Quantity Field */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              {/* <label
+              <div className="capital-info">
+                <strong>Capital requirement : </strong>
+                <p>{strategy.capitalRequirement}</p>
+              </div>
+
+              <div className="strategy-info">
+                <p>{strategy.description}</p>
+              </div>
+
+              <div className="execution-info">
+                <div className="created-by-info">
+                  <i className="created-by-icon">✍️</i>
+                  Created By: {strategy.createdBy}
+                </div>
+                <div className="creation-date-info">
+                  <i className="date-icon">📅</i>
+                  Created on:{" "}
+                  {new Date(strategy.dateOfCreation).toLocaleDateString(
+                    "en-GB",
+                    {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    }
+                  )}
+                </div>
+
+                <div className="d-flex gap-2">
+                  <div className="subscriber-info">
+                    <i className="subscriber-icon">👥</i>
+                    Subscriber : {strategy.subscribeCount}
+                  </div>
+                  <div className="deployed-info">
+                    <i className="deployed-icon">🚀</i>
+                    Deployed : {strategy.deployedCount}
+                  </div>
+                </div>
+                <div className="time-info">
+                  <i className="clock-icon">🕒</i>
+                  {strategy.days} at {strategy.time}
+                </div>
+              </div>
+
+              <div className="card-footer">
+                <button
+                  className="subscribe-btn"
+                  onClick={() => handleSubscribe(strategy._id)}
+                  disabled={subscribedStrategies.includes(strategy._id)} // Disable if already subscribed
+                >
+                  {subscribedStrategies.includes(strategy._id)
+                    ? "Subscribed"
+                    : "Subscribe"}
+                </button>
+                <button
+                  className="deploy-btn"
+                  onClick={() => handleOpen(strategy._id)}
+                  disabled={!subscribedStrategies.includes(strategy._id)} // Disable if not subscribed
+                >
+                  Deploy
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="sub-model" style={{ padding: "1.5rem" }}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Deployment Configuration
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
+              Please configure the details below before <br /> deploying the
+              strategy:
+            </Typography>
+            <form style={{ marginTop: "2rem" }}>
+              {/* Quantity Field */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                {/* <label
                 htmlFor="quantity"
                 style={{
                   width: "100%",
@@ -292,7 +296,7 @@ function StrategyCard() {
               >
                 Quantity:
               </label> */}
-              {/* <input
+                {/* <input
                 id="quantity"
                 type="number"
                 min="1"
@@ -308,53 +312,53 @@ function StrategyCard() {
                 }}
                 required
               /> */}
-            </div>
+              </div>
 
-            {/* Account Dropdown */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              <label
-                htmlFor="account"
+              {/* Account Dropdown */}
+              <div
                 style={{
-                  width: "100%",
-                  fontWeight: "bold",
-                  marginRight: "1rem",
-                  textAlign: "left",
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "1rem",
                 }}
               >
-                Select Account:
-              </label>
-              <select
-                id="account"
-                value={Account}
-                onChange={(e) => handleInputChange(e, "Account")}
-                style={{
-                  width: "100%",
-                  padding: "0.3rem",
-                  fontSize: "0.9rem",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-                required
-              >
-                <option value="" disabled>
-                  Choose an account
-                </option>
-                {dropDownIds.map((id, index) => (
-                  <option key={index} value={id}>
-                    {id}
+                <label
+                  htmlFor="account"
+                  style={{
+                    width: "100%",
+                    fontWeight: "bold",
+                    marginRight: "1rem",
+                    textAlign: "left",
+                  }}
+                >
+                  Select Account:
+                </label>
+                <select
+                  id="account"
+                  value={Account}
+                  onChange={(e) => handleInputChange(e, "Account")}
+                  style={{
+                    width: "100%",
+                    padding: "0.3rem",
+                    fontSize: "0.9rem",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                  }}
+                  required
+                >
+                  <option value="" disabled>
+                    Choose an account
                   </option>
-                ))}
-              </select>
-            </div>
+                  {dropDownIds.map((id, index) => (
+                    <option key={index} value={id}>
+                      {id}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {/* Index Dropdown */}
-            {/* <div
+              {/* Index Dropdown */}
+              {/* <div
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -393,51 +397,52 @@ function StrategyCard() {
                 <option value="Index3">Index 3</option>
               </select>
             </div> */}
-          </form>
-          <div
-            style={{
-              marginTop: "1rem",
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "1rem",
-            }}
-          >
-            <Button
-              style={{ width: "100%" }}
-              variant="outlined"
-              color="secondary"
-              onClick={handleClose}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              style={{ width: "100%" }}
-              color="primary"
-              onClick={() => {
-                // addDeployed(strategy.id);
-                handleDeploy();
+            </form>
+            <div
+              style={{
+                marginTop: "1rem",
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "1rem",
               }}
-              disabled={deployedBtnLoader}
             >
-              {deployedBtnLoader ? (
-                <div
-                  style={{
-                    marginLeft: 10,
-                    marginRight: 10,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Loader />
-                </div>
-              ) : (
-                "Deploy"
-              )}
-            </Button>
-          </div>
-        </Box>
-      </Modal>
+              <Button
+                style={{ width: "100%" }}
+                variant="outlined"
+                color="secondary"
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                style={{ width: "100%" }}
+                color="primary"
+                onClick={() => {
+                  // addDeployed(strategy.id);
+                  handleDeploy();
+                }}
+                disabled={deployedBtnLoader}
+              >
+                {deployedBtnLoader ? (
+                  <div
+                    style={{
+                      marginLeft: 10,
+                      marginRight: 10,
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Loader />
+                  </div>
+                ) : (
+                  "Deploy"
+                )}
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+      </div>
     </div>
   );
 }

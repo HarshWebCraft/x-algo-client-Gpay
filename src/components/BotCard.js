@@ -46,11 +46,12 @@ const BotCard = (props) => {
   const ids = userSchema.DeployedData.filter(
     (data) => data.Broker === "paperTrade"
   ).map((data) => data.Strategy);
-
+  const currentYear = new Date().getFullYear().toString(); // Get the current year as a string
+  const currentMonth = new Date().toISOString().slice(5, 7);
   const [selectedDate, setSelectedDate] = useState(null);
   const [pnlValue, setPnlValue] = useState(null);
-  const [selectedYear, setSelectedYear] = useState("2023");
-  const [selectedMonth, setSelectedMonth] = useState("01");
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [days, setDays] = useState([]);
   const [allSheetData, setAllSheetData] = useState([]);
   const [dailyPnL, setDailyPnL] = useState({});
@@ -72,6 +73,7 @@ const BotCard = (props) => {
   const yearOptions = [
     { label: "2023", value: "2023" },
     { label: "2024", value: "2024" },
+    { label: "2025", value: "2025" },
   ];
 
   const monthOptions = [
@@ -298,7 +300,7 @@ const BotCard = (props) => {
   }, [allSheetData]);
 
   useEffect(() => {
-    console.log(dailyPnL);
+    console.log(clientdata);
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -345,7 +347,8 @@ const BotCard = (props) => {
                           <span className="value">
                             {item.userData
                               ? item.userData.data.name
-                              : item.userDetails?.result?.name || "N/A"}
+                              : item.userDetails?.result?.first_name +
+                                  item.userDetails?.result?.last_name || "N/A"}
                           </span>
                         </div>
                         <div className="account-item">
@@ -363,8 +366,10 @@ const BotCard = (props) => {
                           </span>
                         </div>
                         <div className="account-item">
-                          <span className="label">Strategies:</span>
-                          <span className="value">5</span>
+                          <span className="label">Active Strategy:</span>
+                          <span className="value">
+                            {userSchema.ActiveStrategys}
+                          </span>
                         </div>
                       </div>
                     )}
@@ -495,99 +500,99 @@ const BotCard = (props) => {
                           </div>
                         </div>
                         <div className="calendar-stats-container">
-                          <div className="calendar-section">
-                            <div className="calendar">
-                              <div className="calendar-body">
-                                {renderEmptyCells(getDay(start) - 1)}
-                                {days.map((day) => {
-                                  const date = format(day, "yyyy-MM-dd");
-                                  const plValue = dailyPnL[date];
+                          <div className="d-flex flex-column align-items-center">
+                            <div className="calendar-section">
+                              <div className="calendar">
+                                <div className="calendar-body">
+                                  {renderEmptyCells(getDay(start) - 1)}
+                                  {days.map((day) => {
+                                    const date = format(day, "yyyy-MM-dd");
+                                    const plValue = dailyPnL[date];
 
-                                  return (
+                                    return (
+                                      <div
+                                        key={date}
+                                        // className={`calendar-cell ${
+                                        //   plValue >= 0 ? "positive" : "negative"
+                                        // }`}
+
+                                        className={`calendar-cell ${
+                                          plValue == undefined
+                                            ? "grey"
+                                            : plValue >= 0
+                                            ? "positive"
+                                            : "negative"
+                                        }`}
+                                        onClick={() => {
+                                          setSelectedDate(date);
+                                          setPnlValue(plValue);
+                                        }}
+                                        onMouseEnter={(e) =>
+                                          handleMouseEnter(
+                                            e,
+                                            format(day, "yyyy-MM-dd"),
+                                            dailyPnL[
+                                              format(day, "yyyy-MM-dd")
+                                            ] || "No Data"
+                                          )
+                                        }
+                                        onMouseMove={handleMouseMove}
+                                        onMouseLeave={handleMouseLeave}
+                                      >
+                                        <div>{format(day, "d")}</div>
+                                      </div>
+                                    );
+                                  })}
+                                  {tooltip.visible && (
                                     <div
-                                      key={date}
-                                      // className={`calendar-cell ${
-                                      //   plValue >= 0 ? "positive" : "negative"
-                                      // }`}
-
-                                      className={`calendar-cell ${
-                                        plValue == undefined
-                                          ? "grey"
-                                          : plValue >= 0
-                                          ? "positive"
-                                          : "negative"
-                                      }`}
-                                      onClick={() => {
-                                        setSelectedDate(date);
-                                        setPnlValue(plValue);
+                                      style={{
+                                        position: "fixed",
+                                        top: tooltip.y + 10,
+                                        left: tooltip.x + 10,
+                                        backgroundColor: "var(--text-color)",
+                                        color: "var(--bg-color)",
+                                        padding: "5px 10px",
+                                        borderRadius: "4px",
+                                        fontSize: "12px",
+                                        pointerEvents: "none", // Prevent blocking other interactions
+                                        zIndex: 1000,
                                       }}
-                                      onMouseEnter={(e) =>
-                                        handleMouseEnter(
-                                          e,
-                                          format(day, "yyyy-MM-dd"),
-                                          dailyPnL[format(day, "yyyy-MM-dd")] ||
-                                            "No Data"
-                                        )
-                                      }
-                                      onMouseMove={handleMouseMove}
-                                      onMouseLeave={handleMouseLeave}
                                     >
-                                      <div>{format(day, "d")}</div>
+                                      {tooltip.content}
                                     </div>
-                                  );
-                                })}
-                                {tooltip.visible && (
-                                  <div
-                                    style={{
-                                      position: "fixed",
-                                      top: tooltip.y + 10,
-                                      left: tooltip.x + 10,
-                                      backgroundColor: "var(--text-color)",
-                                      color: "var(--bg-color)",
-                                      padding: "5px 10px",
-                                      borderRadius: "4px",
-                                      fontSize: "12px",
-                                      pointerEvents: "none", // Prevent blocking other interactions
-                                      zIndex: 1000,
-                                    }}
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="calendar-section">
+                              <div className="pnl-details">
+                                <div className="date">
+                                  <span>
+                                    {selectedDate
+                                      ? format(
+                                          new Date(selectedDate),
+                                          "MMM dd, yyyy"
+                                        )
+                                      : "Select a date"}
+                                  </span>
+                                </div>
+                                <div className="pnl-value">
+                                  <span className="label">P&L:</span>
+                                  <span
+                                    className={`value ${
+                                      pnlValue < 0 ? "negative" : "positive"
+                                    }`}
                                   >
-                                    {tooltip.content}
-                                  </div>
-                                )}
+                                    {pnlValue !== null && pnlValue !== undefined
+                                      ? pnlValue.toFixed(2)
+                                      : "0.00"}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <div className="calendar-section">
-                            <div className="pnl-details">
-                              <div className="pnl-text">
-                                <span>Net realised P&L</span>
-                              </div>
-
-                              <div className="date">
-                                <span>
-                                  {selectedDate
-                                    ? format(
-                                        new Date(selectedDate),
-                                        "MMM dd, yyyy"
-                                      )
-                                    : "Select a date"}
-                                </span>
-                              </div>
-                              <div className="pnl-value">
-                                <span className="label">P&L:</span>
-                                <span
-                                  className={`value ${
-                                    pnlValue < 0 ? "negative" : "positive"
-                                  }`}
-                                >
-                                  {pnlValue !== null && pnlValue !== undefined
-                                    ? pnlValue.toFixed(2)
-                                    : "0.00"}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="charts-section nnnnmm">
+                          <div className="calendar-section"> </div>
+                          <div className="charts-section nnnnmm flex-column">
                             <CircularChart
                               percentage={
                                 tradeStats[index]?.tradeAccuracy || "No Data"
@@ -595,13 +600,19 @@ const BotCard = (props) => {
                               color="#007bff"
                               strokeWidth={14}
                             />
+                            <div>
+                              <p>Accuracy</p>
+                            </div>
                           </div>
-                          <div className="charts-section nnnnmm">
+                          <div className="charts-section nnnnmm flex-column">
                             <CircularChart
                               percentage={tradeStats[index]?.roi || "No Data"}
                               color="#fbc02d"
                               strokeWidth={14}
                             />
+                            <div>
+                              <p>ROI</p>
+                            </div>
                           </div>
                         </div>
                         <div className="stat-item wwwwsssssdddd">

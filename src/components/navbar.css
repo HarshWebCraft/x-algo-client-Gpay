@@ -5,6 +5,12 @@
   padding: 0.5em 1em 1em 1em;
   background-color: var(--bg-color);
   color: var(--text-color);
+  position: fixed;
+  box-shadow: 0 0.125em 0.625em rgba(0, 0, 0, 0.1);
+    display: flex
+;
+  width: 100%;
+  z-index: 1;
 }
 
 /* Active dropdown item */

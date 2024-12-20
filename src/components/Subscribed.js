@@ -221,94 +221,95 @@ function MyStartegies({ darkMode, toggleDarkMode, setLoading }) {
       >
         {alertMessage2}
       </div>
-
-      <div className="card-container">
-        {loader ? (
-          <div className="hjg gfhglio">
-            <Spinner />
-          </div>
-        ) : filteredData.length > 0 ? (
-          filteredData.map((strategy) => (
-            <div key={strategy._id} className="card">
-              <div className="card-header">
-                <div className="header-left">
-                  <img src={image} alt="Icon" className="strategy-icon" />
-                  <div className="strategy-details">
-                    <h2>{strategy.title}</h2>
-                    <p className="strategy-type">
-                      Strategy: {strategy.strategyType}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="capital-info">
-                <strong>Capital requirement : </strong>
-                <p>{strategy.capitalRequirement}</p>
-              </div>
-
-              <div className="strategy-info">
-                <p>{strategy.description}</p>
-              </div>
-
-              <div className="execution-info">
-                <div className="created-by-info">
-                  <i className="created-by-icon">✍️</i>
-                  Created By: {strategy.createdBy}
-                </div>
-                <div className="creation-date-info">
-                  <i className="date-icon">📅</i>
-                  Created on:{" "}
-                  {new Date(strategy.dateOfCreation).toLocaleDateString(
-                    "en-GB",
-                    {
-                      day: "2-digit",
-                      month: "2-digit",
-                      year: "numeric",
-                    }
-                  )}
-                </div>
-
-                <div className="d-flex gap-2">
-                  <div className="subscriber-info">
-                    <i className="subscriber-icon">👥</i>
-                    Subscriber: {strategy.subscribeCount}
-                  </div>
-                  <div className="deployed-info">
-                    <i className="deployed-icon">🚀</i>
-                    Deployed: {strategy.deployedCount}
-                  </div>
-                </div>
-                <div className="time-info">
-                  <i className="clock-icon">🕒</i>
-                  {strategy.days} at {strategy.time}
-                </div>
-              </div>
-
-              <div className="card-footer">
-                <button
-                  className="subscribe-btn"
-                  onClick={() => handleUnsubscribe(strategy._id)}
-                >
-                  Unsubscribe
-                </button>
-                <button
-                  className="deploy-btn"
-                  onClick={() => handleOpen(strategy._id)}
-                  disabled={deployedStrategies.includes(strategy._id)} // Disable if already deployed
-                >
-                  {deployedStrategies.includes(strategy._id)
-                    ? "Deployed"
-                    : "Deploy"}
-                </button>
-              </div>
+      <div className="marketPlace">
+        <div className="card-container">
+          {loader ? (
+            <div className="hjg gfhglio">
+              <Spinner />
             </div>
-          ))
-        ) : (
-          <div className="no-strategy-message container ">
-            No strategy subscribed
-          </div>
-        )}
+          ) : filteredData.length > 0 ? (
+            filteredData.map((strategy) => (
+              <div key={strategy._id} className="card">
+                <div className="card-header">
+                  <div className="header-left">
+                    <img src={image} alt="Icon" className="strategy-icon" />
+                    <div className="strategy-details">
+                      <h2>{strategy.title}</h2>
+                      <p className="strategy-type">
+                        Strategy: {strategy.strategyType}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="capital-info">
+                  <strong>Capital requirement : </strong>
+                  <p>{strategy.capitalRequirement}</p>
+                </div>
+
+                <div className="strategy-info">
+                  <p>{strategy.description}</p>
+                </div>
+
+                <div className="execution-info">
+                  <div className="created-by-info">
+                    <i className="created-by-icon">✍️</i>
+                    Created By: {strategy.createdBy}
+                  </div>
+                  <div className="creation-date-info">
+                    <i className="date-icon">📅</i>
+                    Created on:{" "}
+                    {new Date(strategy.dateOfCreation).toLocaleDateString(
+                      "en-GB",
+                      {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      }
+                    )}
+                  </div>
+
+                  <div className="d-flex gap-2">
+                    <div className="subscriber-info">
+                      <i className="subscriber-icon">👥</i>
+                      Subscriber: {strategy.subscribeCount}
+                    </div>
+                    <div className="deployed-info">
+                      <i className="deployed-icon">🚀</i>
+                      Deployed: {strategy.deployedCount}
+                    </div>
+                  </div>
+                  <div className="time-info">
+                    <i className="clock-icon">🕒</i>
+                    {strategy.days} at {strategy.time}
+                  </div>
+                </div>
+
+                <div className="card-footer">
+                  <button
+                    className="subscribe-btn"
+                    onClick={() => handleUnsubscribe(strategy._id)}
+                  >
+                    Unsubscribe
+                  </button>
+                  <button
+                    className="deploy-btn"
+                    onClick={() => handleOpen(strategy._id)}
+                    disabled={deployedStrategies.includes(strategy._id)} // Disable if already deployed
+                  >
+                    {deployedStrategies.includes(strategy._id)
+                      ? "Deployed"
+                      : "Deploy"}
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="no-strategy-message container ">
+              No strategy subscribed
+            </div>
+          )}
+        </div>
       </div>
       <Modal
         open={open}
