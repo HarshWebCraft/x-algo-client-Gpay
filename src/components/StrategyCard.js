@@ -40,6 +40,8 @@ function StrategyCard() {
   const handleOpen = (strategyId) => {
     console.log(strategyId);
     setSelectedStrategyId(strategyId);
+    console.log(userSchema.DeployedData);
+
     const matchingAccounts = userSchema.DeployedData.filter(
       (deployed) => deployed.Strategy === strategyId
     ).map((deployed) => deployed.Account);

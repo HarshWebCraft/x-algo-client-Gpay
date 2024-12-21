@@ -32,9 +32,6 @@ const BotCard = (props) => {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [clientDataWithActiveStatus, setClientDataWithActiveStatus] = useState(
-    []
-  );
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
@@ -42,10 +39,11 @@ const BotCard = (props) => {
     content: "",
   });
   const [loading, setLoading] = useState(true);
-  const [loader, setLoader] = useState(true);
+
   const ids = userSchema.DeployedData.filter(
     (data) => data.Broker === "paperTrade"
   ).map((data) => data.Strategy);
+
   const currentYear = new Date().getFullYear().toString(); // Get the current year as a string
   const currentMonth = new Date().toISOString().slice(5, 7);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -57,11 +55,13 @@ const BotCard = (props) => {
   const [dailyPnL, setDailyPnL] = useState({});
   const [tradeStats, setTradeStats] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
+  const [start, setStart] = useState(new Date(selectedYear, selectedMonth, 1));
   const [DropDownDate, setDropDownDate] = useState("2023-02");
 
   const currentDate = new Date();
-  const start = startOfMonth(currentDate);
+  // const start = startOfMonth(currentDate);
+  // const start = new Date(selectedYear, selectedMonth, 1); // First day of the selected month
+  // renderEmptyCells(getDay(start));
   const date = format(currentDate, "yyyy-MM-dd");
 
   // Options for Months and Years
@@ -75,20 +75,19 @@ const BotCard = (props) => {
     { label: "2024", value: "2024" },
     { label: "2025", value: "2025" },
   ];
-
   const monthOptions = [
-    { label: "January", value: "01" },
-    { label: "February", value: "02" },
-    { label: "March", value: "03" },
-    { label: "April", value: "04" },
-    { label: "May", value: "05" },
-    { label: "June", value: "06" },
-    { label: "July", value: "07" },
-    { label: "August", value: "08" },
-    { label: "September", value: "09" },
-    { label: "October", value: "10" },
-    { label: "November", value: "11" },
-    { label: "December", value: "12" },
+    { label: "January", value: 1 }, // January is 0 in JavaScript
+    { label: "February", value: 2 },
+    { label: "March", value: 3 },
+    { label: "April", value: 4 },
+    { label: "May", value: 5 },
+    { label: "June", value: 6 },
+    { label: "July", value: 7 },
+    { label: "August", value: 8 },
+    { label: "September", value: 9 },
+    { label: "October", value: 10 },
+    { label: "November", value: 11 },
+    { label: "December", value: 12 },
   ];
 
   // Redux
@@ -97,14 +96,70 @@ const BotCard = (props) => {
   const capital = props.capital;
 
   // Helper Functions
-  const renderEmptyCells = (startDay) =>
-    Array.from({ length: startDay }).map((_, i) => (
-      <div key={`empty-${i}`} className="calendar-cell empty"></div>
-    ));
+  // const renderEmptyCells = (startDay) =>
+  //   Array.from({ length: startDay }).map((_, i) => (
+  //     <div key={`empty-${i}`} className="calendar-cell empty"></div>
+  //   ));
 
-  const setCalendarData = (days, emptyCells) => {
-    console.log("Calendar Data Updated", days, emptyCells);
-  };
+  function renderEmptyCells(startDayIndex) {
+    // This will show the same value as startDayIndex, but it's redundant here
+
+    const start = startOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
+    const end = endOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
+    const days = eachDayOfInterval({ start, end });
+    let finalStart = 0;
+    const dayString = days[0]?.toString(); // Convert Date object to string
+    const firstThreeCharacters = dayString?.substring(0, 3); // Get the first 3 characters
+
+    console.log(firstThreeCharacters);
+
+    // Switch case to handle different days of the week
+    switch (firstThreeCharacters) {
+      case "Sun":
+        finalStart = 0;
+        // Handle Sunday case
+        break;
+      case "Mon":
+        finalStart = 1;
+
+        // Handle Monday case
+        break;
+      case "Tue":
+        finalStart = 2;
+
+        // Handle Tuesday case
+        break;
+      case "Wed":
+        finalStart = 3;
+
+        // Handle Wednesday case
+        break;
+      case "Thu":
+        finalStart = 4;
+
+        // Handle Thursday case
+        break;
+      case "Fri":
+        finalStart = 5;
+
+        // Handle Friday case
+        break;
+      case "Sat":
+        finalStart = 6;
+
+        // Handle Saturday case
+        break;
+      default:
+        console.log("Unknown day");
+    }
+    // Using startDayIndex directly to render the empty cells
+    return Array.from({ length: finalStart }, (_, index) => (
+      <div
+        key={`empty-${index}`}
+        className="calendar-cell bg-transparent"
+      ></div>
+    ));
+  }
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 768);
@@ -150,7 +205,7 @@ const BotCard = (props) => {
     const fetchData = async () => {
       try {
         console.log(allSheetData);
-        setLoader(true);
+        // setLoader(true);
         const response = await axios.post(`${url}/getMarketPlaceData `, {
           email,
         });
@@ -180,8 +235,8 @@ const BotCard = (props) => {
           email,
         });
         setAllSheetData(response3.data.allSheetData);
-        console.log(allSheetData);
-        setLoader(false);
+        console.log(response3.data.allSheetData);
+        // setLoader(false);
       } catch (error) {
         console.error("Error fetching sheet data:", error);
       }
@@ -194,6 +249,55 @@ const BotCard = (props) => {
     const start = startOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
     const end = endOfMonth(new Date(`${selectedYear}-${selectedMonth}-01`));
     const days = eachDayOfInterval({ start, end });
+
+    const dayString = days[0]?.toString(); // Convert Date object to string
+    const firstThreeCharacters = dayString?.substring(0, 3); // Get the first 3 characters
+
+    console.log(firstThreeCharacters);
+
+    // Switch case to handle different days of the week
+    switch (firstThreeCharacters) {
+      case "Sun":
+        renderEmptyCells(0);
+        // Handle Sunday case
+        break;
+      case "Mon":
+        renderEmptyCells(1);
+
+        // Handle Monday case
+        break;
+      case "Tue":
+        renderEmptyCells(2);
+
+        // Handle Tuesday case
+        break;
+      case "Wed":
+        renderEmptyCells(3);
+
+        // Handle Wednesday case
+        break;
+      case "Thu":
+        renderEmptyCells(4);
+
+        // Handle Thursday case
+        break;
+      case "Fri":
+        renderEmptyCells(5);
+
+        // Handle Friday case
+        break;
+      case "Sat":
+        renderEmptyCells(6);
+
+        // Handle Saturday case
+        break;
+      default:
+        console.log("Unknown day");
+    }
+
+    const adjustedMonth = selectedMonth - 1;
+    setStart(new Date(selectedYear, adjustedMonth, 1));
+    console.log(getDay(new Date(selectedYear, adjustedMonth, 1)));
     const emptyCells = renderEmptyCells(getDay(start));
     setDays(days);
   }, [selectedYear, selectedMonth]);
@@ -214,7 +318,7 @@ const BotCard = (props) => {
         // Filter trades for the selected month
         console.log(selectedYear + "-" + selectedMonth);
 
-        const filteredTrades = sheetData.filter((trade) => {
+        const filteredTrades = sheetData?.filter((trade) => {
           // Check if trade[3] exists and is a string before calling startsWith
           const tradeDate = trade[3];
           if (tradeDate && typeof tradeDate === "string") {
@@ -223,16 +327,16 @@ const BotCard = (props) => {
           return false; // Skip trades with an invalid date
         });
 
-        console.log(filteredTrades);
+        // console.log(filteredTrades);
 
         // Variables to calculate stats
         let profitableTrades = 0;
-        let totalTrades = filteredTrades.length;
+        let totalTrades = filteredTrades?.length;
         let totalPnL = 0;
         let totalInvestment = 0;
 
         // Iterate through each filtered trade
-        filteredTrades.forEach((trade) => {
+        filteredTrades?.forEach((trade) => {
           const pnl = parseFloat(trade[10]); // P&L value
           const investment = parseFloat(trade[9]); // Investment amount (absolute)
 
@@ -280,7 +384,7 @@ const BotCard = (props) => {
         const sheetData = sheet.sheetData;
 
         // Process sheetData to calculate daily P&L
-        sheetData.forEach((trade) => {
+        sheetData?.forEach((trade) => {
           const date = trade[3]; // Extract the start date from the trade
           const pnl = parseFloat(trade[10]); // Parse the Profit/Loss value
 
@@ -305,6 +409,11 @@ const BotCard = (props) => {
       setLoading(false);
     }, 2000);
   }, [clientdata, dailyPnL]);
+
+  useEffect(() => {
+    const newStartDate = new Date(selectedYear, selectedMonth, 1); // First day of selected month and year
+    setStart(newStartDate); // Update the start state
+  }, [selectedMonth, selectedYear]);
 
   return (
     <>
@@ -463,7 +572,9 @@ const BotCard = (props) => {
                           <div className="stat-item edcvon">
                             <div className="label">
                               Strategy name :
-                              <span className="qwmz">Breakout Breeze</span>
+                              <span className="qwmz">
+                                {dataByUserId[clientCode].strategyName}
+                              </span>
                             </div>
                             <div className="value"></div>
                           </div>
@@ -504,7 +615,35 @@ const BotCard = (props) => {
                             <div className="calendar-section">
                               <div className="calendar">
                                 <div className="calendar-body">
-                                  {renderEmptyCells(getDay(start) - 1)}
+                                  {/* Render the day of the week header */}
+                                  <div className="calendar-cell grey">
+                                    <div>S</div>
+                                  </div>
+                                  <div className="calendar-cell grey">
+                                    <div>M</div>
+                                  </div>
+                                  <div className="calendar-cell grey">
+                                    <div>T</div>
+                                  </div>
+                                  <div className="calendar-cell grey">
+                                    <div>W</div>
+                                  </div>
+                                  <div className="calendar-cell grey">
+                                    <div>T</div>
+                                  </div>
+                                  <div className="calendar-cell grey">
+                                    <div>F</div>
+                                  </div>
+                                  <div className="calendar-cell grey">
+                                    <div>S</div>
+                                  </div>
+                                </div>
+
+                                <div className="calendar-body">
+                                  {/* Render empty cells until the first day of the month */}
+                                  {renderEmptyCells(getDay(start))}
+
+                                  {/* Render the days of the month */}
                                   {days.map((day) => {
                                     const date = format(day, "yyyy-MM-dd");
                                     const plValue = dailyPnL[date];
@@ -512,10 +651,6 @@ const BotCard = (props) => {
                                     return (
                                       <div
                                         key={date}
-                                        // className={`calendar-cell ${
-                                        //   plValue >= 0 ? "positive" : "negative"
-                                        // }`}
-
                                         className={`calendar-cell ${
                                           plValue == undefined
                                             ? "grey"
@@ -564,6 +699,7 @@ const BotCard = (props) => {
                                 </div>
                               </div>
                             </div>
+
                             <div className="calendar-section">
                               <div className="pnl-details">
                                 <div className="date">

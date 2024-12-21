@@ -17,6 +17,7 @@ import { ProductionUrl } from "../URL/url";
 
 function New_Signup() {
   const [email, emailInput] = useState("");
+  const [referralCode, setReferralCode] = useState(""); // State for referral code
   const [loading, setLoading] = useState(false);
   const verified = false;
   const dispatch = useDispatch();
@@ -26,39 +27,45 @@ function New_Signup() {
       : "http://localhost:5000";
 
   const handleSubmit = async (e) => {
-    console.log("hello harsh");
     setLoading(true);
     e.preventDefault();
 
     try {
-      console.log("try");
-      const a = await axios.post(`${url}/signup`, { email, verified });
+      // Sending email and referral code in the request
+      const response = await axios.post(`${url}/signup`, {
+        email,
+        referralCode,
+        verified,
+      });
+      console.log(response);
 
-      console.log("after try");
-
-      if (a.data.signup) {
-        console.log(a.data.userSchema);
-        dispatch(userSchemaRedux(a.data.userSchema));
-        dispatch(setEmail(email));
-        Swal.fire({
-          title: "Email is sent",
-          text:
-            "Please check\n\n" +
-            `${email}` +
-            "\n\nand click on the link to verify",
-          icon: "success",
-        });
+      if (response.data.signup) {
+        if (response.data.referalCode) {
+          dispatch(userSchemaRedux(response.data.userSchema));
+          dispatch(setEmail(email));
+          Swal.fire({
+            title: "Email is sent",
+            text: `Please check\n\n${email}\n\nand click on the link to verify`,
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "",
+            text: "Invalid referral code",
+            icon: "error",
+          });
+        }
       } else {
         Swal.fire({
           title: "",
-          text: "Email already exist",
+          text: "Email already exists",
           icon: "error",
         });
-        console.log("error");
       }
+
       setLoading(false);
     } catch (e) {
-      console.log("error " + e);
+      console.error("Error during signup", e);
       setLoading(false);
     }
   };
@@ -98,10 +105,17 @@ function New_Signup() {
             type="text"
             placeholder="Enter email"
             value={email}
-            onChange={(e) => {
-              emailInput(e.target.value);
-            }}
+            onChange={(e) => emailInput(e.target.value)}
             required
+          />
+
+          <label className="signup-label">Referral Code (Optional)</label>
+          <input
+            className="signup-input"
+            type="text"
+            placeholder="Enter referral code"
+            value={referralCode}
+            onChange={(e) => setReferralCode(e.target.value)} // Update referral code
           />
 
           <div className="options">

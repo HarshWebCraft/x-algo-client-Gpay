@@ -49,7 +49,13 @@ function New_Signin() {
         : "http://localhost:5000";
 
     try {
-      const a = await axios.post(`${url}/signin`, { email, pass });
+      const userAgent = navigator.userAgent;
+
+      const a = await axios.post(`${url}/signin`, {
+        email,
+        pass,
+        deviceInfo: userAgent,
+      });
 
       if (a.data.email) {
         if (a.data.verification) {
