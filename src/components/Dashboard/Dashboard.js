@@ -17,6 +17,7 @@ import OrderPlace from "../OrderPlace";
 import BotCard from "../BotCard";
 import Spinner from "../Spinner";
 import SlidingPanel from "react-sliding-side-panel";
+import DashboardAngel from "../DashboardAngel";
 
 function Dashboard({
   darkMode,
@@ -162,7 +163,8 @@ function Dashboard({
       </div>
 
       {b ? (
-        <BotCard capital={capital} />
+        // <BotCard capital={capital} />
+        <DashboardAngel capital={capital} />
       ) : (
         <div className="hjg gfhglio">
           <Spinner />

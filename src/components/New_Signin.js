@@ -18,6 +18,8 @@ import "sweetalert2/src/sweetalert2.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { ProductionUrl } from "../URL/url";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import GoogleSignInButton from "./GoogleSignInButton.js";
 
 function New_Signin() {
   const [aniLoading, setAniLoading] = useState(true); // State to manage loading
@@ -114,7 +116,7 @@ function New_Signin() {
       <ToastContainer />
       <div
         className={`signin-lottie-animation ${
-          aniLoading ? "animate__animated animate__fadeIn" : ""
+          aniLoading ? "animate_animated animate_fadeIn" : ""
         }`}
       >
         <Lottie options={defaultOptions} height={450} width={450} />
@@ -122,7 +124,7 @@ function New_Signin() {
 
       <div
         className={`signin-login-box ${
-          aniLoading ? "animate__animated animate__fadeIn" : ""
+          aniLoading ? "animate_animated animate_fadeIn" : ""
         }`}
       >
         <h2>Welcome to X-Algos! 👋</h2>
@@ -194,13 +196,14 @@ function New_Signin() {
             <span>or</span>
           </div>
 
-          <div className="signin-google-button">
-            <img
-              src="https://w7.pngwing.com/pngs/989/129/png-transparent-google-logo-google-search-meng-meng-company-text-logo-thumbnail.png"
-              alt="Google logo"
-            />
-            <span>Sign in with Google</span>
-          </div>
+          <GoogleOAuthProvider
+            className="signin-google-button"
+            clientId="997423304740-81v6ha1te3qovdik27fdgqf7vucqb8t5.apps.googleusercontent.com"
+          >
+            <div>
+              <GoogleSignInButton />
+            </div>
+          </GoogleOAuthProvider>
         </form>
       </div>
     </div>

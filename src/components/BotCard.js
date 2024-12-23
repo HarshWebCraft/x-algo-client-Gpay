@@ -376,30 +376,49 @@ const BotCard = (props) => {
 
   useEffect(() => {
     if (allSheetData.length > 0) {
-      // Initialize an empty object to store P&L by date for all sheets
-      const allPnlByDate = {};
+      // Initialize an array to store P&L by date for each sheet
+      const pnlBySheet = [];
 
       // Loop through each sheetData in allSheetData
-      allSheetData.forEach((sheet) => {
-        const sheetData = sheet.sheetData;
+      allSheetData.forEach((sheet, index) => {
+        // Check if `sheet.sheetData` exists and is a non-empty array
+        if (
+          sheet.sheetData &&
+          Array.isArray(sheet.sheetData) &&
+          sheet.sheetData.length > 0
+        ) {
+          const sheetData = sheet.sheetData;
 
-        // Process sheetData to calculate daily P&L
-        sheetData?.forEach((trade) => {
-          const date = trade[3]; // Extract the start date from the trade
-          const pnl = parseFloat(trade[10]); // Parse the Profit/Loss value
+          // Initialize an empty object to store P&L by date for the current sheet
+          const sheetPnlByDate = {};
 
-          // Initialize the accumulator for the date if not already present
-          if (!allPnlByDate[date]) {
-            allPnlByDate[date] = 0;
-          }
+          sheetData.forEach((trade) => {
+            // Extract the date and P&L values
+            const date = trade[3]; // Extract the start date (assumes it's in column 3)
+            const pnl = parseFloat(trade[10]); // Parse the Profit/Loss value (assumes it's in column 10)
 
-          // Add the P&L for this trade to the date's total
-          allPnlByDate[date] += pnl;
-        });
+            // Ensure date is valid and pnl is a number
+            if (date && !isNaN(pnl)) {
+              // Initialize the accumulator for the date if not already present
+              if (!sheetPnlByDate[date]) {
+                sheetPnlByDate[date] = 0;
+              }
+
+              // Add the P&L for this trade to the date's total
+              sheetPnlByDate[date] += pnl;
+            }
+          });
+
+          // Store the P&L by date for this sheet in the array
+          pnlBySheet[index] = sheetPnlByDate;
+        } else {
+          // If sheetData is missing or empty, store an empty object
+          pnlBySheet[index] = {};
+        }
       });
 
-      console.log(allPnlByDate);
-      setDailyPnL(allPnlByDate);
+      console.log(pnlBySheet);
+      setDailyPnL(pnlBySheet);
     }
   }, [allSheetData]);
 

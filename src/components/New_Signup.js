@@ -14,6 +14,8 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import Loader from "./loader";
 import { ProductionUrl } from "../URL/url";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import GoogleSignUpButton from "./GoogleSignUpButton.js";
 
 function New_Signup() {
   const [email, emailInput] = useState("");
@@ -36,6 +38,7 @@ function New_Signup() {
         email,
         referralCode,
         verified,
+        signupMethod: "IdPasword",
       });
       console.log(response);
 
@@ -153,13 +156,15 @@ function New_Signup() {
             <span>or</span>
           </div>
 
-          <div className="google-button">
-            <img
-              src="https://w7.pngwing.com/pngs/989/129/png-transparent-google-logo-google-search-meng-meng-company-text-logo-thumbnail.png"
-              alt="Google logo"
-            />
-            <span>Sign up with Google</span>
-          </div>
+          <GoogleOAuthProvider
+            data-text="signup_with"
+            className="google-button"
+            clientId="997423304740-81v6ha1te3qovdik27fdgqf7vucqb8t5.apps.googleusercontent.com"
+          >
+            <div>
+              <GoogleSignUpButton />
+            </div>
+          </GoogleOAuthProvider>
         </form>
       </div>
       <div

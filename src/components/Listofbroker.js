@@ -287,7 +287,10 @@ function Listofbroker({ setLoading }) {
   };
   return (
     <div className={`container`}>
-      <div className={`${showAlert ? "alert alert-danger show mt-4" : ""}`}>
+      <div
+        className={`${showAlert ? "alert alert-danger show " : ""}`}
+        style={{ zIndex: 5 }}
+      >
         {alertMessage}
       </div>
       <div className={`${showAlert2 ? "alert alert-success show mt-4" : ""}`}>
@@ -308,7 +311,7 @@ function Listofbroker({ setLoading }) {
       )} */}
 
       <div
-        className={`broker-list mt-5 p-2 ${
+        className={`broker-list  p-2 ${
           localStorage.getItem("theme") === "light-theme"
             ? ""
             : "dark-theme-class"
