@@ -52,7 +52,7 @@ const GoogleSignUpButton = () => {
     <>
       {loading && <Loader />}
       <GoogleLogin
-        width="400px"
+        width="350"
         shape="pill"
         onSuccess={handleSuccess}
         text="signup_with"
