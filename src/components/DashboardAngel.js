@@ -5,6 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import axios from "axios";
 import MultiCalendar from "./MultiCalendar";
+import CircularChart from "./CircularChart";
 const DashboardAngel = (props) => {
   const brokerInfo = useSelector((state) => state.account.allClientData);
   const userSchema = useSelector((state) => state.account.userSchemaRedux);
@@ -65,6 +66,119 @@ const DashboardAngel = (props) => {
         });
         setAllSheetData(response3.data.allSheetData);
         console.log(response3.data.allSheetData);
+
+        if (response3.data.allSheetData.length > 0) {
+          // Map over allSheetData and add P&L, Trade Accuracy, and RIO to each sheet object
+          const updatedSheetData = response3.data.allSheetData.map((sheet) => {
+            // Initialize the `pnlByDate` and `monthlyMetrics` object for this sheet
+            const pnlByDate = {};
+            const monthlyMetrics = {}; // Store metrics for each month
+            let totalTrades = 0; // Total number of trades
+            let successfulTrades = 0; // Number of profitable trades
+            let totalInvestment = 0; // Sum of investments
+            let totalProfit = 0; // Sum of profits
+
+            // Check if `sheet.sheetData` exists and is a non-empty array
+            if (
+              sheet.sheetData &&
+              Array.isArray(sheet.sheetData) &&
+              sheet.sheetData.length > 0
+            ) {
+              sheet.sheetData.forEach((trade) => {
+                // Extract the date, P&L values, and investment
+                const date = trade[3]; // Extract the start date (assumes it's in column 3)
+                const pnl = parseFloat(trade[10]); // Parse the Profit/Loss value (assumes it's in column 10)
+                const investment = parseFloat(trade[5]); // Extract investment value (assumes it's in column 5)
+
+                // Ensure date is valid and pnl is a number
+                if (date && !isNaN(pnl)) {
+                  const tradeDate = new Date(date);
+                  const month = `${tradeDate.getFullYear()}-${
+                    tradeDate.getMonth() + 1
+                  }`; // Format as "YYYY-MM"
+
+                  // Initialize the accumulator for the date if not already present
+                  if (!pnlByDate[date]) {
+                    pnlByDate[date] = 0;
+                  }
+
+                  // Add the P&L for this trade to the date's total
+                  pnlByDate[date] += pnl;
+
+                  // Group metrics by month
+                  if (!monthlyMetrics[month]) {
+                    monthlyMetrics[month] = {
+                      totalTrades: 0,
+                      successfulTrades: 0,
+                      totalInvestment: 0,
+                      totalProfit: 0,
+                    };
+                  }
+
+                  // Accumulate monthly metrics
+                  monthlyMetrics[month].totalTrades++;
+                  if (pnl > 0) {
+                    monthlyMetrics[month].successfulTrades++;
+                  }
+
+                  if (!isNaN(investment) && investment > 0) {
+                    monthlyMetrics[month].totalInvestment += investment;
+                    monthlyMetrics[month].totalProfit += pnl;
+                  }
+
+                  // Accumulate totals for accuracy and RIO
+                  totalTrades++;
+                  if (pnl > 0) {
+                    successfulTrades++;
+                  }
+
+                  if (!isNaN(investment) && investment > 0) {
+                    totalInvestment += investment;
+                    totalProfit += pnl;
+                  }
+                }
+              });
+            }
+
+            // Calculate Trade Accuracy and RIO
+            const tradeAccuracy =
+              totalTrades > 0 ? (successfulTrades / totalTrades) * 100 : 0;
+            const rio =
+              totalInvestment > 0 ? (totalProfit / totalInvestment) * 100 : 0;
+
+            // Calculate Monthly Accuracy and RIO
+            const monthlyAccuracy = {};
+            const monthlyRoi = {};
+
+            Object.keys(monthlyMetrics).forEach((month) => {
+              const metrics = monthlyMetrics[month];
+              const accuracy =
+                metrics.totalTrades > 0
+                  ? (metrics.successfulTrades / metrics.totalTrades) * 100
+                  : 0;
+              const roi =
+                metrics.totalInvestment > 0
+                  ? (metrics.totalProfit / metrics.totalInvestment) * 100
+                  : 0;
+              monthlyAccuracy[month] = accuracy.toFixed(2);
+              monthlyRoi[month] = roi.toFixed(2);
+            });
+
+            // Return the updated sheet object with the added metrics
+            return {
+              ...sheet,
+              pnlByDate, // Add the P&L by date to this sheet
+              tradeAccuracy: tradeAccuracy.toFixed(2), // Add Trade Accuracy as a percentage
+              rio: rio.toFixed(2), // Add RIO as a percentage
+              monthlyAccuracy, // Add monthly accuracy
+              monthlyRoi, // Add monthly ROI
+            };
+          });
+
+          console.log(updatedSheetData);
+          setUpdatedAllSheetData(updatedSheetData); // Set the updated sheet data
+        }
+
         // setLoader(false);
       } catch (error) {
         console.error("Error fetching sheet data:", error);
@@ -77,49 +191,6 @@ const DashboardAngel = (props) => {
   // -------------------------------------------------------> fetch Excel sheet data <--------------------------------------------- //
 
   //   -------------------------------------------------------> calculate p&l  day wise <-------------------------------------------- //
-
-  useEffect(() => {
-    if (allSheetData.length > 0) {
-      // Map over allSheetData and add the P&L by date to each sheet object
-      const updatedSheetData = allSheetData.map((sheet) => {
-        // Initialize the `pnlByDate` object for this sheet
-        const pnlByDate = {};
-
-        // Check if `sheet.sheetData` exists and is a non-empty array
-        if (
-          sheet.sheetData &&
-          Array.isArray(sheet.sheetData) &&
-          sheet.sheetData.length > 0
-        ) {
-          sheet.sheetData.forEach((trade) => {
-            // Extract the date and P&L values
-            const date = trade[3]; // Extract the start date (assumes it's in column 3)
-            const pnl = parseFloat(trade[10]); // Parse the Profit/Loss value (assumes it's in column 10)
-
-            // Ensure date is valid and pnl is a number
-            if (date && !isNaN(pnl)) {
-              // Initialize the accumulator for the date if not already present
-              if (!pnlByDate[date]) {
-                pnlByDate[date] = 0;
-              }
-
-              // Add the P&L for this trade to the date's total
-              pnlByDate[date] += pnl;
-            }
-          });
-        }
-
-        // Return the updated sheet object with the added `pnlByDate`
-        return {
-          ...sheet,
-          pnlByDate, // Add the P&L by date to this sheet
-        };
-      });
-
-      console.log(updatedSheetData);
-      setUpdatedAllSheetData(updatedSheetData); // Set the updated sheet data
-    }
-  }, [allSheetData]);
 
   //   -------------------------------------------------------> calculate p&l  day wise <-------------------------------------------- //
 
@@ -256,21 +327,17 @@ const DashboardAngel = (props) => {
                 </div>
                 <hr className="horizontal-line" />
 
-                <div>
+                <div className="w-100">
                   <div>
                     {allSheetData
                       .filter((sheet) => sheet.UserId === clientId) // Filter sheets by UserId
                       .map((filteredSheet, index2) => (
-                        <div key={index2} className="sheet-item">
-                          <div className="sheet-info">
-                            <span className="label">Strategy Name:</span>
-                            <span className="value">
-                              {filteredSheet.strategyName || "N/A"}
-                            </span>
-                          </div>
+                        <div key={index2} className="sheet-item w-100">
                           <MultiCalendar
+                            index2={index2}
                             allSheetData={allSheetData}
                             clientId={filteredSheet.UserId}
+                            updatedAllSheetData={updatedAllSheetData}
                           />
                         </div>
                       ))}
