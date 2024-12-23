@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,24 @@ import "sweetalert2/src/sweetalert2.scss";
 import Loader from "./loader";
 
 const GoogleSignUpButton = () => {
+  const [width, setWidth] = useState(300); // Default width for mobile
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (window.innerWidth > 768) {
+        setWidth(400); // Laptop width
+      } else {
+        setWidth(300); // Mobile width
+      }
+    };
+
+    updateWidth(); // Set initial width
+    window.addEventListener("resize", updateWidth); // Listen for window resize
+
+    return () => {
+      window.removeEventListener("resize", updateWidth); // Cleanup on component unmount
+    };
+  }, []);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,7 +70,7 @@ const GoogleSignUpButton = () => {
     <>
       {loading && <Loader />}
       <GoogleLogin
-        width="350"
+        width={width.toString()}
         shape="pill"
         onSuccess={handleSuccess}
         text="signup_with"
