@@ -298,7 +298,7 @@ const MultiCalendar = ({
                     </div>
                   )}
                 </div>
-                <div className="charts-section flex-row">
+                <div className="charts-section nnnnmm flex-row">
                   {/* Accuracy Chart */}
                   <div className="flex-column">
                     <CircularChart
@@ -310,7 +310,7 @@ const MultiCalendar = ({
                   </div>
                 </div>
 
-                <div className="charts-section flex-row">
+                <div className="charts-section nnnnmm flex-row">
                   {/* ROI Chart */}
                   <div className="flex-column">
                     <CircularChart
@@ -320,6 +320,15 @@ const MultiCalendar = ({
                     />
                     <p className="mb-0">ROI</p>
                   </div>
+                </div>
+
+                <div className="stat-item wwwwsssssdddd">
+                  <div className="label">Monthly gain</div>
+                  <div className="value green">0%</div>
+                </div>
+                <div className="stat-item wwwwsssssdddd">
+                  <div className="label">Today's gain</div>
+                  <div className="value green">0%</div>
                 </div>
               </div>
             </div>
