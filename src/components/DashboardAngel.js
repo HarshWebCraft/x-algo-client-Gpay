@@ -17,6 +17,13 @@ const DashboardAngel = (props) => {
   const [allSheetData, setAllSheetData] = useState([]);
   const [dailyPnL, setDailyPnL] = useState({});
   const [updatedAllSheetData, setUpdatedAllSheetData] = useState();
+  const [selectedStrategy, setSelectedStrategy] = useState("Select strategy"); // To store selected strategy
+  const [strategyOptions, setStrategyOptions] = useState([]);
+  const [clientId, setClientId] = useState(""); // Selected clientId
+  const [clientStrategyMap, setClientStrategyMap] = useState({
+    // Example of default structure
+    userId: ["Select Strategy", "Strategy1", "Strategy2"],
+  });
 
   const ids = userSchema.DeployedData.filter(
     (data) => data.Broker === "paperTrade"
@@ -176,7 +183,26 @@ const DashboardAngel = (props) => {
           });
 
           console.log(updatedSheetData);
+          console.log(allSheetData);
           setUpdatedAllSheetData(updatedSheetData); // Set the updated sheet data
+
+          const strategyMap = {};
+          updatedSheetData.forEach((item) => {
+            if (!strategyMap[item.UserId]) {
+              strategyMap[item.UserId] = new Set();
+            }
+            strategyMap[item.UserId].add(item.strategyName);
+          });
+
+          // Convert Sets to Arrays
+          const strategyMapWithArrays = {};
+          for (const key in strategyMap) {
+            const strategies = Array.from(strategyMap[key]);
+            // Add "Select Strategy" as the first element
+            strategyMapWithArrays[key] = [...strategies];
+          }
+          console.log(strategyMapWithArrays);
+          setClientStrategyMap(strategyMapWithArrays);
         }
 
         // setLoader(false);
@@ -194,12 +220,15 @@ const DashboardAngel = (props) => {
 
   //   -------------------------------------------------------> calculate p&l  day wise <-------------------------------------------- //
 
+  const filteredData = updatedAllSheetData?.filter(
+    (data) => data.strategyName === selectedStrategy
+  );
   return (
     <div className="DashboardAngel">
       {brokerInfo.map((item, index) => {
-        const clientId = item.userData
-          ? item.userData.data.clientcode
-          : (item.balances?.result[0]?.user_id).toString();
+        const clientId = item?.userData
+          ? item?.userData?.data?.clientcode
+          : item?.balances?.result[0]?.user_id?.toString();
         console.log(clientId);
 
         return (
@@ -328,14 +357,40 @@ const DashboardAngel = (props) => {
                 <hr className="horizontal-line" />
 
                 <div className="w-100">
+                  <div className="strategy-selector d-flex align-start">
+                    {/* <span className="label">Strategy Name:</span> */}
+                    <select
+                      style={{
+                        borderRadius: "5px",
+                        zIndex: "1",
+                        width: "14em",
+                      }}
+                      value={selectedStrategy}
+                      onChange={(e) => setSelectedStrategy(e.target.value)}
+                    >
+                      <option>Select Strategy</option>
+                      {(clientStrategyMap[clientId] || []).map(
+                        (strategy, index) => (
+                          <option key={index} value={strategy}>
+                            {strategy}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
                   <div>
                     {allSheetData
-                      .filter((sheet) => sheet.UserId === clientId) // Filter sheets by UserId
+                      .filter(
+                        (sheet) =>
+                          sheet.UserId === clientId &&
+                          sheet.strategyName === selectedStrategy
+                      ) // Filter sheets by UserId
                       .map((filteredSheet, index2) => (
                         <div key={index2} className="sheet-item w-100">
                           <MultiCalendar
                             index2={index2}
                             allSheetData={allSheetData}
+                            selectedStrategy={selectedStrategy}
                             clientId={filteredSheet.UserId}
                             updatedAllSheetData={updatedAllSheetData}
                           />
